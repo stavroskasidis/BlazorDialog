@@ -1,0 +1,24 @@
+﻿@inherits BlazorLayoutComponent
+@inject BlazorDialogService dialogService
+
+<div class="main">
+    <div class="content px-4">
+        <BlazorDialog Id="bootstrap-dialog" ContextType="string" Context="message">
+                <div id="bootstrap-dialog" class="modal" tabindex="-1" role="dialog">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-body">
+                                <p>@message</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="@(()=> dialogService.HideDialog("bootstrap-dialog", "yes"))">Yes</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="@(()=> dialogService.HideDialog("bootstrap-dialog", "no"))">No</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </BlazorDialog>
+
+        @Body
+    </div>
+</div>

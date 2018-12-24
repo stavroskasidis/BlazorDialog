@@ -1,0 +1,22 @@
+﻿@page "/"
+@inject BlazorDialogService dialogService
+<h2>Hello, Blazor Dialog!</h2>
+
+<p>Click the buttons to show the corresponding dialog</p>
+
+<button onclick="@OnClick">Bootstrap Dialog</button>
+@if (dialogResult != null)
+{
+    <div>DialogResult: @dialogResult</div>
+}
+
+@functions{
+    string dialogResult = null;
+
+    async Task OnClick()
+    {
+        var resultTask = dialogService.ShowDialog<string>("bootstrap-dialog", "Are you sure?");
+        await JSRuntime.Current.InvokeAsync<object>("ShowBootstrapModal", "bootstrap-dialog"); //Trigger bootstrap's modal
+        dialogResult = await resultTask;
+    }
+}

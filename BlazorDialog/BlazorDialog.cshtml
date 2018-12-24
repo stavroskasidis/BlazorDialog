@@ -3,22 +3,12 @@
 
 @if (Id != null && states.IsShowing.ContainsKey(Id) && states.IsShowing[Id])
 {
-    if (!UseCustomCss)
-    {
-        <div class="whatever">
-            @ChildContent((ContextType)states.Inputs[Id])
-        </div>
-    }
-    else
-    {
-        @ChildContent((ContextType)states.Inputs[Id])
-    }
+    @ChildContent((ContextType)states.Inputs[Id])
 }
 
 @functions{
     [Parameter] protected string Id { get; set; }
     [Parameter] protected RenderFragment<ContextType> ChildContent { get; set; }
-    [Parameter] protected bool UseCustomCss { get; set; } = false;
 
     protected override void OnInit()
     {

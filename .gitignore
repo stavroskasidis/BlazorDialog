@@ -261,3 +261,6 @@ __pycache__/
 *.pyc
 *.min.css
 *.min.js
+
+
+/Artifacts/
