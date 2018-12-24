@@ -4,6 +4,7 @@
 
 <p>Click the buttons to show the corresponding dialog</p>
 
+<button onclick="@SimpleDialogOnClick">Simple Dialog</button>
 <button onclick="@OnClick">Bootstrap Dialog</button>
 @if (dialogResult != null)
 {
@@ -13,9 +14,14 @@
 @functions{
     string dialogResult = null;
 
+    async Task SimpleDialogOnClick()
+    {
+        dialogResult = await dialogService.ShowDialog<string>("simple-dialog", "(Simple Dialog) Are you sure?"); 
+    }
+
     async Task OnClick()
     {
-        var resultTask = dialogService.ShowDialog<string>("bootstrap-dialog", "Are you sure?");
+        var resultTask = dialogService.ShowDialog<string>("bootstrap-dialog", "(Bootstrap Dialog) Are you sure?");
         await Task.Delay(50); //allow UI to be rendered, hack for bootstrap
         await JSRuntime.Current.InvokeAsync<object>("ShowBootstrapModal", "bootstrap-dialog"); //Trigger bootstrap's modal
         dialogResult = await resultTask;
