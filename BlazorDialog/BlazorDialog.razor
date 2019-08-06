@@ -1,5 +1,6 @@
-﻿@typeparam ContextType
+﻿@typeparam TInput
 @inject DialogStates states
+@inject BlazorDialogService dialogService
 
 @if (Id != null && states.IsShowing.ContainsKey(Id) && states.IsShowing[Id])
 {
@@ -7,19 +8,19 @@
     {
         <div class="blazor-dialog-container">
             <div class="blazor-dialog-content">
-                @ChildContent((ContextType)states.Inputs[Id])
+                @ChildContent(new DialogContext<TInput>(this.Id, dialogService, (TInput)states.Inputs[Id]))
             </div>
         </div>
     }
     else
     {
-        @ChildContent((ContextType)states.Inputs[Id])
+        @ChildContent(new DialogContext<TInput>(this.Id, dialogService, (TInput)states.Inputs[Id]))
     }
 }
 
-@functions{
+@code{
     [Parameter] protected string Id { get; set; }
-    [Parameter] protected RenderFragment<ContextType> ChildContent { get; set; }
+    [Parameter] protected RenderFragment<DialogContext<TInput>> ChildContent { get; set; }
     [Parameter] protected bool IsCustom { get; set; }
 
     protected override void OnInit()

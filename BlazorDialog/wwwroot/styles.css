@@ -31,7 +31,9 @@
     animation-duration: 0.4s
 }
 
-@media (min-width: 576px) .blazor-dialog-content {
-    max-width: 500px;
-    margin: 1.75rem auto;
+@media (min-width: 576px) {
+    .blazor-dialog-content {
+        max-width: 500px;
+        margin: 1.75rem auto;
+    }
 }
