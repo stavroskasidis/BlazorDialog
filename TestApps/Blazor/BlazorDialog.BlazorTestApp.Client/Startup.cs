@@ -1,5 +1,10 @@
-using Microsoft.AspNetCore.Blazor.Builder;
+using Microsoft.AspNetCore.Components.Builder;
 using Microsoft.Extensions.DependencyInjection;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
 
 namespace BlazorDialog.BlazorTestApp.Client
 {
@@ -10,7 +15,7 @@ namespace BlazorDialog.BlazorTestApp.Client
             services.AddBlazorDialog();
         }
 
-        public void Configure(IBlazorApplicationBuilder app)
+        public void Configure(IComponentsApplicationBuilder app)
         {
             app.AddComponent<App>("app");
         }

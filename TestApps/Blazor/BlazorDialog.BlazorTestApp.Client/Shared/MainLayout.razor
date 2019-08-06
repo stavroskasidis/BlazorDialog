@@ -1,0 +1,14 @@
+﻿@inherits LayoutComponentBase
+@inject BlazorDialogService dialogService
+
+<div class="main">
+    <div class="content px-4">
+        <BlazorDialog Id="simple-dialog" ContextType="string" Context="message">
+            <h4>@message</h4>
+            <button type="button" class="btn btn-primary" @onclick="@(()=> dialogService.HideDialog("simple-dialog", "yes"))">Yes</button>
+            <button type="button" class="btn btn-secondary" @onclick="@(()=> dialogService.HideDialog("simple-dialog", "no"))">No</button>
+        </BlazorDialog>
+
+        @Body
+    </div>
+</div>

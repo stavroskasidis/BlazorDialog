@@ -1,0 +1,20 @@
+﻿@page "/"
+@inject BlazorDialogService dialogService
+<h2>Hello, Blazor Dialog!</h2>
+
+<p>Click the buttons to show the corresponding dialog</p>
+
+<button @onclick="SimpleDialogOnClick">Simple Dialog</button>
+@if (dialogResult != null)
+{
+    <div>DialogResult: @dialogResult</div>
+}
+
+@functions{
+    string dialogResult = null;
+
+    async Task SimpleDialogOnClick()
+    {
+        dialogResult = await dialogService.ShowDialog<string>("simple-dialog", "(Simple Dialog) Are you sure?"); 
+    }
+}
