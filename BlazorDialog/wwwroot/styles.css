@@ -16,8 +16,12 @@
     background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 }
 
+.blazor-dialog-centered {
+    min-height: calc(100% - (1.75rem * 2));
+}
 
-.blazor-dialog-content {
+
+.blazor-dialog-content-wrapper {
     position: relative;
     background-color: #fefefe;
     margin: auto;
@@ -31,9 +35,25 @@
     animation-duration: 0.4s
 }
 
+.blazor-dialog-content {
+    margin: 10px;
+}
+
 @media (min-width: 576px) {
-    .blazor-dialog-content {
+    .blazor-dialog-content-wrapper {
         max-width: 500px;
         margin: 1.75rem auto;
+    }
+}
+
+@media (min-width: 992px) {
+    .blazor-dialog-content-wrapper-large {
+        max-width: 800px;
+    }
+}
+
+@media (min-width: 576px) {
+    .blazor-dialog-content-wrapper-small {
+        max-width: 300px;
     }
 }
