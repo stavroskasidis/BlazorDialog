@@ -5,7 +5,7 @@
 
 .blazor-dialog-container {
     position: fixed;
-    z-index: 1050; 
+    z-index: 1050;
     padding-top: 100px; /* Location of the box */
     left: 0;
     top: 0;
@@ -16,10 +16,21 @@
     background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 }
 
-.blazor-dialog-centered {
-    min-height: calc(100% - (1.75rem * 2));
+@media (min-width: 576px) {
+    .blazor-dialog-centered {
+        min-height: calc(100% - (1.75rem * 2));
+    }
 }
 
+.blazor-dialog-centered {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    min-height: calc(100% - (.5rem * 2));
+}
 
 .blazor-dialog-content-wrapper {
     position: relative;

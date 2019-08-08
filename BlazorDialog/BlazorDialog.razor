@@ -33,6 +33,11 @@
         states.OnDialogStateChange += StateHasChanged;
     }
 
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+    }
+
     private string ContentWrapperCssClass
     {
         get

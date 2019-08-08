@@ -14,6 +14,11 @@
     <option value="@DialogSizes.Small">@DialogSizes.Small</option>
 </select>
 
+<BlazorDialog Id="simple-dialog" TInput="string" Size="size" Centered="isCentered">
+    <h4>@context.Input</h4>
+    <button type="button" class="btn btn-primary" @onclick="@(()=> context.Hide("yes"))">Yes</button>
+    <button type="button" class="btn btn-secondary" @onclick="@(()=> context.Hide("no"))">No</button>
+</BlazorDialog>
 
 <BlazorDialog Id="simple-large-dialog" TInput="string" Size="size" Centered="isCentered">
     <h4>@context.Input</h4>
@@ -34,10 +39,7 @@
     <button type="button" class="btn btn-secondary" @onclick="@(()=> context.Hide("no"))">No</button>
 </BlazorDialog>
 
-
-
 <button @onclick="SimpleDialogOnClick">Simple Dialog</button>
-
 <button @onclick="SimpleDialogBigOnClick">Simple Dialog Big</button>
 @if (dialogResult != null)
 {

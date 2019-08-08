@@ -2,11 +2,6 @@
 
 <div class="main">
     <div class="content px-4">
-        <BlazorDialog Id="simple-dialog" TInput="string">
-            <h4>@context.Input</h4>
-            <button type="button" class="btn btn-primary" @onclick="@(()=> context.Hide("yes"))">Yes</button>
-            <button type="button" class="btn btn-secondary" @onclick="@(()=> context.Hide("no"))">No</button>
-        </BlazorDialog>
         @Body
     </div>
 </div>
