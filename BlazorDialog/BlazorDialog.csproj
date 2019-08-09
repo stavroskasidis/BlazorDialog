@@ -14,7 +14,7 @@
     <Authors>Stavros Kasidis (AkiraGTX)</Authors>
     <PackageLicenseUrl>https://github.com/stavroskasidis/BlazorDialog/blob/master/LICENSE</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/stavroskasidis/BlazorDialog</PackageProjectUrl>
-    <Description>A "show and wait for result" dialog component for Blazor</Description>
+    <Description>Dialog component as a service for Blazor</Description>
     <PackageReleaseNotes>https://github.com/stavroskasidis/BlazorDialog/blob/master/README.md</PackageReleaseNotes>
     <Copyright />
     <PackageTags>blazor blazor-component blazor-dialog dialog modal blazor-modal blazordialog blazormodaldialog blazormodal razor razor-components razorcomponents</PackageTags>
