@@ -10,7 +10,7 @@
 
 
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
-    <PackageId>Blazor.Dialog</PackageId>
+    <PackageId>BlazorDialog</PackageId>
     <Authors>Stavros Kasidis (AkiraGTX)</Authors>
     <PackageLicenseUrl>https://github.com/stavroskasidis/BlazorDialog/blob/master/LICENSE</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/stavroskasidis/BlazorDialog</PackageProjectUrl>
@@ -21,7 +21,7 @@
     <VersionSuffix>$(VersionSuffix)</VersionSuffix>
     <Version>0.1.0</Version>
     <Version Condition=" '$(VersionSuffix)' != '' ">$(Version)-$(VersionSuffix)</Version>
-    <Product>Blazor.Dialog</Product>
+    <Product>BlazorDialog</Product>
   </PropertyGroup>
   
   <ItemGroup>

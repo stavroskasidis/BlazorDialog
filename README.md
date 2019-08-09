@@ -4,7 +4,7 @@
 
 TODO: Add build status/nuget shields
 
-A "show and wait for result" dialog component for [Blazor](https://blazor.net)!
+Dialog component as a service for [Blazor](https://blazor.net)!
 
 TODO: Add gif
 
@@ -47,7 +47,7 @@ Add the following static file reference in your `_Host.cshtml` (server-side blaz
 Make sure that there is a call to `app.UseStaticFiles();` in your server project's `Startup.cs`.
 
 ```html
-<link href="_content/Blazor.Dialog/styles.min.css" rel="stylesheet" />
+<link href="_content/BlazorDialog/styles.min.css" rel="stylesheet" />
 ```
 
 ## Basic usage
