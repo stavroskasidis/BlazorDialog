@@ -8,7 +8,7 @@ TODO: Add gif
 
 > ⚠️ Warning
 
-> This project is build on top of an experimental framework. There are many limitations and there is a high propability that there will be breaking changes each version.
+> WORK IN PROGRESS: Do not use yet is production
 
 ## Features
 * Call a dialog as a service and `await` for the result !
