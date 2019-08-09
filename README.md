@@ -7,7 +7,6 @@ Dialog component as a service for [Blazor](https://blazor.net)!
 TODO: Add gif
 
 > ⚠️ Warning
-
 > WORK IN PROGRESS: Do not use is production yet
 
 ## Features
