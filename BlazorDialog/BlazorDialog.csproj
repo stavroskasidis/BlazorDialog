@@ -7,6 +7,21 @@
     <LangVersion>7.3</LangVersion>
     <AddRazorSupportForMvc>true</AddRazorSupportForMvc>
     <RazorLangVersion>3.0</RazorLangVersion>
+
+
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <PackageId>Blazor.Dialog</PackageId>
+    <Authors>Stavros Kasidis (AkiraGTX)</Authors>
+    <PackageLicenseUrl>https://github.com/stavroskasidis/BlazorDialog/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/stavroskasidis/BlazorDialog</PackageProjectUrl>
+    <Description>A "show and wait for result" dialog component for Blazor</Description>
+    <PackageReleaseNotes>https://github.com/stavroskasidis/BlazorDialog/blob/master/README.md</PackageReleaseNotes>
+    <Copyright />
+    <PackageTags>blazor blazor-component blazor-dialog dialog modal blazor-modal blazordialog blazormodaldialog blazormodal razor razor-components razorcomponents</PackageTags>
+    <VersionSuffix>$(VersionSuffix)</VersionSuffix>
+    <Version>0.1.0</Version>
+    <Version Condition=" '$(VersionSuffix)' != '' ">$(Version)-$(VersionSuffix)</Version>
+    <Product>Blazor.Dialog</Product>
   </PropertyGroup>
   
   <ItemGroup>

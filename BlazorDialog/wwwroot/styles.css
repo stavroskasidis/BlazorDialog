@@ -1,12 +1,6 @@
-﻿/*
-    This file is to show how CSS and other static resources (such as images) can be
-    used from a library project/package.
-*/
-
-.blazor-dialog-container {
+﻿.blazor-dialog-container {
     position: fixed;
     z-index: 1050;
-    padding-top: 100px; /* Location of the box */
     left: 0;
     top: 0;
     width: 100%; /* Full width */
@@ -53,7 +47,7 @@
 @media (min-width: 576px) {
     .blazor-dialog-content-wrapper {
         max-width: 500px;
-        margin: 1.75rem auto;
+        margin: 2.75rem auto;
     }
 }
 

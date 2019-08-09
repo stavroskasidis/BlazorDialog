@@ -11,7 +11,7 @@ namespace Microsoft.Extensions.DependencyInjection
         public static IServiceCollection AddBlazorDialog(this IServiceCollection services)
         {
             services.AddScoped<DialogStates>();
-            services.AddScoped<BlazorDialogService>();
+            services.AddScoped<IBlazorDialogService, BlazorDialogService>();
             return services;
         }
     }

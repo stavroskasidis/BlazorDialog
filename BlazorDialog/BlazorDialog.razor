@@ -1,6 +1,7 @@
 ﻿@typeparam TInput
 @inject DialogStates states
-@inject BlazorDialogService dialogService
+@inject IBlazorDialogService dialogService
+@implements IDisposable
 
 @if (Id != null && states.IsShowing.ContainsKey(Id) && states.IsShowing[Id])
 {
@@ -24,7 +25,7 @@
     [Parameter] protected string Id { get; set; }
     [Parameter] protected RenderFragment<DialogContext<TInput>> ChildContent { get; set; }
     [Parameter] protected DialogSizes Size { get; set; } = DialogSizes.Normal;
-    [Parameter] protected bool Centered { get; set; } = false;
+    [Parameter] protected bool Centered { get; set; }
     [Parameter] protected bool IsCustom { get; set; }
 
     protected override void OnInit()
@@ -33,9 +34,12 @@
         states.OnDialogStateChange += StateHasChanged;
     }
 
-    protected override void OnParametersSet()
+    public void Dispose()
     {
-        base.OnParametersSet();
+        if (states != null)
+        {
+            states.OnDialogStateChange -= StateHasChanged;
+        }
     }
 
     private string ContentWrapperCssClass
@@ -54,5 +58,25 @@
                     throw new Exception("Unknown dialog size");
             }
         }
+    }
+
+    public Task Show()
+    {
+        return dialogService.ShowDialog(this.Id);
+    }
+
+    public Task Show(TInput input)
+    {
+        return dialogService.ShowDialog<TInput>(this.Id, input);
+    }
+
+    public void Hide<TResult>(TResult result)
+    {
+        dialogService.HideDialog(this.Id, result);
+    }
+
+    public void Hide()
+    {
+        dialogService.HideDialog(this.Id, null);
     }
 }

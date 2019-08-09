@@ -1,12 +1,16 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26124.0
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29123.89
 MinimumVisualStudioVersion = 15.0.26124.0
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorDialog", "BlazorDialog\BlazorDialog.csproj", "{D6A05A5B-2A9D-43A8-B949-272147D62E52}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{4B0AEE66-03C7-46A3-AC4C-A18CCE52376C}"
 	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		.gitattributes = .gitattributes
+		.gitignore = .gitignore
+		build.ps1 = build.ps1
 		README.md = README.md
 	EndProjectSection
 EndProject
@@ -19,6 +23,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorDialog.BlazorTestApp.Client", "TestApps\Blazor\BlazorDialog.BlazorTestApp.Client\BlazorDialog.BlazorTestApp.Client.csproj", "{1A4C24B7-8B7D-4C3A-8D1D-71CC23669721}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorDialog.BlazorTestApp.Server", "TestApps\Blazor\BlazorDialog.BlazorTestApp.Server\BlazorDialog.BlazorTestApp.Server.csproj", "{D5494F0E-1D2B-4FA3-BAC4-96A2695DC8A8}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorDialog.TestAppsCommon", "TestApps\BlazorDialog.TestAppsCommon\BlazorDialog.TestAppsCommon.csproj", "{9BFF377B-EA6D-4161-B9FE-4463764E79E1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -66,6 +72,18 @@ Global
 		{D5494F0E-1D2B-4FA3-BAC4-96A2695DC8A8}.Release|x64.Build.0 = Release|Any CPU
 		{D5494F0E-1D2B-4FA3-BAC4-96A2695DC8A8}.Release|x86.ActiveCfg = Release|Any CPU
 		{D5494F0E-1D2B-4FA3-BAC4-96A2695DC8A8}.Release|x86.Build.0 = Release|Any CPU
+		{9BFF377B-EA6D-4161-B9FE-4463764E79E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9BFF377B-EA6D-4161-B9FE-4463764E79E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9BFF377B-EA6D-4161-B9FE-4463764E79E1}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{9BFF377B-EA6D-4161-B9FE-4463764E79E1}.Debug|x64.Build.0 = Debug|Any CPU
+		{9BFF377B-EA6D-4161-B9FE-4463764E79E1}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{9BFF377B-EA6D-4161-B9FE-4463764E79E1}.Debug|x86.Build.0 = Debug|Any CPU
+		{9BFF377B-EA6D-4161-B9FE-4463764E79E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9BFF377B-EA6D-4161-B9FE-4463764E79E1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9BFF377B-EA6D-4161-B9FE-4463764E79E1}.Release|x64.ActiveCfg = Release|Any CPU
+		{9BFF377B-EA6D-4161-B9FE-4463764E79E1}.Release|x64.Build.0 = Release|Any CPU
+		{9BFF377B-EA6D-4161-B9FE-4463764E79E1}.Release|x86.ActiveCfg = Release|Any CPU
+		{9BFF377B-EA6D-4161-B9FE-4463764E79E1}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -74,6 +92,7 @@ Global
 		{7E1980A3-6F6D-4073-8AA8-88860C0F8B57} = {99A35E68-10F9-4BDB-AB82-DEEEBAFA5581}
 		{1A4C24B7-8B7D-4C3A-8D1D-71CC23669721} = {7E1980A3-6F6D-4073-8AA8-88860C0F8B57}
 		{D5494F0E-1D2B-4FA3-BAC4-96A2695DC8A8} = {7E1980A3-6F6D-4073-8AA8-88860C0F8B57}
+		{9BFF377B-EA6D-4161-B9FE-4463764E79E1} = {99A35E68-10F9-4BDB-AB82-DEEEBAFA5581}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F6D16D50-B899-4FB4-BB9C-1ECDD5D38570}

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace BlazorDialog
 {
-    public class BlazorDialogService
+    public class BlazorDialogService : IBlazorDialogService
     {
         private readonly DialogStates _dialogStates;
         private Dictionary<string, TaskCompletionSource<object>> taskCompletionSources = new Dictionary<string, TaskCompletionSource<object>>();
@@ -47,7 +47,7 @@ namespace BlazorDialog
                 taskCompletionSources[dialogId].SetCanceled();
             }
             taskCompletionSources[dialogId] = new TaskCompletionSource<object>();
-            _dialogStates.ShowDialog(dialogId,input);
+            _dialogStates.ShowDialog(dialogId, input);
             return (TResult)await taskCompletionSources[dialogId].Task;
         }
     }

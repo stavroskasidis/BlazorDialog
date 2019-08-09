@@ -8,11 +8,11 @@ namespace BlazorDialog
     public class DialogContext<TInput>
     {
         private readonly string _dialogId;
-        private readonly BlazorDialogService _dialogService;
+        private readonly IBlazorDialogService _dialogService;
 
         public TInput Input { get; protected set; }
 
-        public DialogContext(string dialogId, BlazorDialogService dialogService, TInput input)
+        public DialogContext(string dialogId, IBlazorDialogService dialogService, TInput input)
         {
             _dialogId = dialogId;
             _dialogService = dialogService;
