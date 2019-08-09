@@ -63,4 +63,7 @@ None so far
 
 ## Release Notes
 
-TODO: Write
+<details><summary>0.1</summary>
+    
+>- Initial release.
+</details>
