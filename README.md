@@ -1,7 +1,5 @@
 ﻿# Blazor Dialog
-
-# Blazor Context Menu
-
+ 
 TODO: Add build status/nuget shields
 
 A "show and wait for result" dialog component for [Blazor](https://blazor.net)!
