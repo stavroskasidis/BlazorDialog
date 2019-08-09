@@ -1,7 +1,5 @@
 ﻿# Blazor Dialog
 
-# Blazor Context Menu
-
 [![Build status](https://dev.azure.com/stavros-kasidis/Blazor%20Dialog/_apis/build/status/Blazor%20Dialog-CI)](https://dev.azure.com/stavros-kasidis/Blazor%20Dialog/_build/latest?definitionId=16) [![Nuget (with prereleases)](https://img.shields.io/nuget/vpre/BlazorDialog.svg?logo=nuget)](https://www.nuget.org/packages/BlazorDialog) [![Nuget](https://img.shields.io/nuget/dt/BlazorDialog.svg?logo=nuget)](https://www.nuget.org/packages/BlazorDialog) [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=7CRGWPYB5AKJQ&currency_code=EUR&source=url)
 
 Dialog component as a service for [Blazor](https://blazor.net)!
