@@ -8,6 +8,12 @@ Dialog component as a service for [Blazor](https://blazor.net)!
 
 TODO: Add gif
 
+## Features
+* Call a dialog as a service and `await` for the result !
+* Can use dialogs as normal components (if you don't want to use as a service)
+* Build-in modal dialog
+* Option to use completely custom markup/css (without using the build-in opinionated css and html)
+
 > ⚠️ Warning
 
 > This project is build on top of an experimental framework. There are many limitations and there is a high propability that there will be breaking changes each version.
