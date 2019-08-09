@@ -12,7 +12,7 @@ TODO: Add gif
 ## Features
 * Call a dialog as a service and `await` for the result !
 * Can use dialogs as normal components (if you don't want to use as a service)
-* Build-in modal dialog
+* Build-in modal dialog (similar to bootstrap)
 * Option to use completely custom markup/css (without using the build-in opinionated css and html)
 
 
