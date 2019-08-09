@@ -6,9 +6,8 @@ Dialog component as a service for [Blazor](https://blazor.net)!
 
 TODO: Add gif
 
-> ⚠️ Warning
-
-> WORK IN PROGRESS: Do not use yet is production
+> ⚠️
+> WORK IN PROGRESS: Do not use is production yet
 
 ## Features
 * Call a dialog as a service and `await` for the result !
