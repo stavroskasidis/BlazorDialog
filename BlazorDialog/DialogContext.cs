@@ -36,7 +36,7 @@ namespace BlazorDialog
 
         public void Hide()
         {
-            _dialogService.HideDialog(this._dialogId, null);
+            _dialogService.HideDialog(this._dialogId);
         }
     }
 }

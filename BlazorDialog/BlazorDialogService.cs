@@ -20,6 +20,11 @@ namespace BlazorDialog
             };
         }
 
+        public void HideDialog(string dialogId)
+        {
+            _dialogStates.HideDialog(dialogId, null);
+        }
+
         public void HideDialog(string dialogId, object result)
         {
             _dialogStates.HideDialog(dialogId, result);
