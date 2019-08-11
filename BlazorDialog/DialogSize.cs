@@ -8,7 +8,8 @@ namespace BlazorDialog
     public enum DialogSizes
     {
         Normal,
+        Small,
         Large,
-        Small
+        ExtraLarge
     }
 }

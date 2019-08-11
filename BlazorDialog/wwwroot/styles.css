@@ -41,7 +41,7 @@
 }
 
 .blazor-dialog-content {
-    margin: 10px;
+    margin: 5px;
 }
 
 @media (min-width: 576px) {
@@ -54,6 +54,12 @@
 @media (min-width: 992px) {
     .blazor-dialog-content-wrapper-large {
         max-width: 800px;
+    }
+}
+
+@media (min-width: 1416px) {
+    .blazor-dialog-content-wrapper-xlarge {
+        max-width: 1200px;
     }
 }
 

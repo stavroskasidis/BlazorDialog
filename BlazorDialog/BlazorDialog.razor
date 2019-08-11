@@ -27,11 +27,38 @@
     [Parameter] protected DialogSizes Size { get; set; } = DialogSizes.Normal;
     [Parameter] protected bool Centered { get; set; }
     [Parameter] protected bool IsCustom { get; set; }
+    [Parameter] protected EventCallback OnShow { get; set; }
+    [Parameter] protected EventCallback OnHide { get; set; }
+    [Parameter] protected bool? IsShowing { get; set; }
 
     protected override void OnInit()
     {
         if (Id == null) throw new ArgumentNullException(nameof(Id));
-        states.OnDialogStateChange += StateHasChanged;
+        states.OnDialogStateChange += async () =>
+        {
+            if (states.IsShowing.ContainsKey(Id) && states.IsShowing[Id])
+            {
+                await OnShow.InvokeAsync(null);
+            }
+            else
+            {
+                await OnHide.InvokeAsync(null);
+            }
+
+            StateHasChanged();
+        };
+    }
+
+    protected override void OnParametersSet()
+    {
+        if(IsShowing.HasValue && IsShowing.Value && (!states.IsShowing.ContainsKey(Id) || !states.IsShowing[Id]))
+        {
+            states.ShowDialog(this.Id, null);
+        }
+        else if (IsShowing.HasValue && !IsShowing.Value && states.IsShowing.ContainsKey(Id) && states.IsShowing[Id])
+        {
+            states.HideDialog(this.Id, null);
+        }
     }
 
     public void Dispose()
@@ -54,6 +81,8 @@
                     return "blazor-dialog-content-wrapper-small";
                 case DialogSizes.Large:
                     return "blazor-dialog-content-wrapper-large";
+                case DialogSizes.ExtraLarge:
+                    return "blazor-dialog-content-wrapper-xlarge";
                 default:
                     throw new Exception("Unknown dialog size");
             }
