@@ -7,7 +7,6 @@ namespace BlazorDialog
 {
     public class BlazorDialogService : IBlazorDialogService
     {
-        private readonly DialogStates _dialogStates;
         private Dictionary<string, TaskCompletionSource<object>> taskCompletionSources = new Dictionary<string, TaskCompletionSource<object>>();
 
         public BlazorDialogService(DialogStates states)
