@@ -1,0 +1,10 @@
+﻿@typeparam TInput
+@namespace BlazorDialog
+
+@ChildContent(new DialogContext<TInput>(ParentDialog, (TInput)Input))
+
+@code{
+    [Parameter] protected RenderFragment<DialogContext<TInput>> ChildContent { get; set; }
+    [CascadingParameter(Name = "DialogInput")] protected object Input { get; set; }
+    [CascadingParameter(Name = "ParentDialog")] protected ModalDialog ParentDialog { get; set; }
+}

@@ -1,0 +1,164 @@
+﻿@inject IBlazorDialogService dialogService
+@namespace BlazorDialog
+@implements IDisposable
+@if (IsShowing)
+{
+    <CascadingValue Value="this.Input" Name="DialogInput">
+        <CascadingValue Value="this" Name="ParentDialog">
+            @if (!IsCustom)
+            {
+                <div class="blazor-dialog-container @(Centered ? "blazor-dialog-centered" : "")">
+                    <div class="blazor-dialog-content-wrapper @ContentWrapperCssClass">
+                        <div class="blazor-dialog-content">
+                            @ChildContent
+                        </div>
+                    </div>
+                </div>
+            }
+            else
+            {
+                @ChildContent
+            }
+        </CascadingValue>
+    </CascadingValue>
+}
+
+@code{
+    [Parameter] protected RenderFragment ChildContent { get; set; }
+    [Parameter] public string Id { get; protected set; }
+    [Parameter] protected bool IsShowing { get; set; }
+    [Parameter] protected EventCallback<bool> IsShowingChanged { get; set; }
+    [Parameter] protected object Input { get; set; }
+    [Parameter] protected EventCallback<DialogBeforeShowEventArgs> OnBeforeShow { get; set; }
+    [Parameter] protected EventCallback<DialogAfterShowEventArgs> OnAfterShow { get; set; }
+    [Parameter] protected EventCallback<DialogBeforeHideEventArgs> OnBeforeHide { get; set; }
+    [Parameter] protected EventCallback<DialogAfterHideEventArgs> OnAfterHide { get; set; }
+    [Parameter] public DialogSize Size { get; protected set; } = DialogSize.Normal;
+    [Parameter] public bool Centered { get; protected set; }
+    [Parameter] public bool IsCustom { get; protected set; }
+
+    protected TaskCompletionSource<object> taskCompletionSource;
+    internal Action<object> OnDialogHide;
+    protected void NotifyDialogHidden(object result) => OnDialogHide?.Invoke(result);
+
+    protected string ContentWrapperCssClass
+    {
+        get
+        {
+            switch (Size)
+            {
+                case DialogSize.Normal:
+                    return "";
+                case DialogSize.Small:
+                    return "blazor-dialog-content-wrapper-small";
+                case DialogSize.Large:
+                    return "blazor-dialog-content-wrapper-large";
+                case DialogSize.ExtraLarge:
+                    return "blazor-dialog-content-wrapper-xlarge";
+                default:
+                    throw new Exception("Unknown dialog size");
+            }
+        }
+    }
+
+
+
+    protected override void OnInit()
+    {
+        if (Id != null)
+        {
+            dialogService.Register(this);
+        }
+        OnDialogHide = (object result) =>
+        {
+            if (taskCompletionSource != null)
+            {
+                taskCompletionSource.SetResult(result);
+                taskCompletionSource = null;
+            }
+        };
+    }
+
+    public void Dispose()
+    {
+        dialogService.Unregister(this);
+        if (taskCompletionSource != null)
+        {
+            taskCompletionSource.SetCanceled();
+            taskCompletionSource = null;
+        }
+    }
+
+    public async Task Show()
+    {
+        await Show<object>();
+    }
+
+    public async Task<TResult> Show<TResult>()
+    {
+        this.Input = null;
+        return (TResult)await ShowInternal();
+    }
+
+    public async Task Show(object input)
+    {
+        await this.Show<object>(input);
+    }
+
+    public async Task<TResult> Show<TResult>(object input)
+    {
+        this.Input = input;
+        return (TResult)await ShowInternal();
+    }
+
+    private async Task<object> ShowInternal()
+    {
+        if (OnBeforeShow.HasDelegate)
+        {
+            var args = new DialogBeforeShowEventArgs(this);
+            await OnBeforeShow.InvokeAsync(args);
+            if (args.PreventShow) return default;
+        }
+        this.IsShowing = true;
+        await IsShowingChanged.InvokeAsync(this.IsShowing);
+        await Invoke(() => StateHasChanged());
+        if (OnAfterShow.HasDelegate)
+        {
+            var args = new DialogAfterShowEventArgs(this);
+            await OnAfterShow.InvokeAsync(args);
+        }
+        if (taskCompletionSource != null)
+        {
+            taskCompletionSource.SetCanceled();
+            taskCompletionSource = null;
+        }
+
+        taskCompletionSource = new TaskCompletionSource<object>();
+        return await taskCompletionSource.Task;
+    }
+
+
+    public async Task Hide<TResult>(TResult result)
+    {
+        if (OnBeforeHide.HasDelegate)
+        {
+            var args = new DialogBeforeHideEventArgs(this);
+            await OnBeforeHide.InvokeAsync(args);
+            if (args.PreventHide) return;
+        }
+        IsShowing = false;
+        await IsShowingChanged.InvokeAsync(this.IsShowing);
+        NotifyDialogHidden(result);
+        await Invoke(() => StateHasChanged());
+        if (OnAfterHide.HasDelegate)
+        {
+            var args = new DialogAfterHideEventArgs(this);
+            await OnAfterHide.InvokeAsync(args);
+        }
+    }
+
+    public async Task Hide()
+    {
+        await this.Hide<object>(null);
+    }
+}

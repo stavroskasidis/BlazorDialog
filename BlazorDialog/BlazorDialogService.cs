@@ -7,26 +7,33 @@ namespace BlazorDialog
 {
     public class BlazorDialogService : IBlazorDialogService
     {
-        private Dictionary<string, TaskCompletionSource<object>> taskCompletionSources = new Dictionary<string, TaskCompletionSource<object>>();
+        private Dictionary<string, ModalDialog> registeredDialogs = new Dictionary<string, ModalDialog>();
 
-        public BlazorDialogService(DialogStates states)
+        public void Register(ModalDialog blazorDialog)
         {
-            this._dialogStates = states;
-            this._dialogStates.OnDialogHide += (string dialogId, object result) =>
+            if(blazorDialog?.Id == null)
             {
-                taskCompletionSources[dialogId].SetResult(result);
-                taskCompletionSources.Remove(dialogId);
-            };
+                throw new ArgumentException("BlazorDialog Id is null", nameof(blazorDialog));
+            }
+            registeredDialogs[blazorDialog.Id] = blazorDialog;
         }
 
-        public void HideDialog(string dialogId)
+        public void Unregister(ModalDialog blazorDialog)
         {
-            _dialogStates.HideDialog(dialogId, null);
+            if (blazorDialog.Id != null && registeredDialogs.ContainsKey(blazorDialog.Id))
+            {
+                registeredDialogs.Remove(blazorDialog.Id);
+            }
         }
 
-        public void HideDialog(string dialogId, object result)
+        public async Task HideDialog(string dialogId)
         {
-            _dialogStates.HideDialog(dialogId, result);
+            await registeredDialogs[dialogId].Hide();
+        }
+
+        public async Task HideDialog(string dialogId, object result)
+        {
+            await registeredDialogs[dialogId].Hide(result);
         }
 
         public async Task ShowDialog(string dialogId)
@@ -46,13 +53,7 @@ namespace BlazorDialog
 
         public async Task<TResult> ShowDialog<TResult>(string dialogId, object input)
         {
-            if (taskCompletionSources.ContainsKey(dialogId))
-            {
-                taskCompletionSources[dialogId].SetCanceled();
-            }
-            taskCompletionSources[dialogId] = new TaskCompletionSource<object>();
-            _dialogStates.ShowDialog(dialogId, input);
-            return (TResult)await taskCompletionSources[dialogId].Task;
+            return await registeredDialogs[dialogId].Show<TResult>(input);
         }
     }
 }

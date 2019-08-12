@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace BlazorDialog
 {
-    public enum DialogSizes
+    public enum DialogSize
     {
         Normal,
         Small,
