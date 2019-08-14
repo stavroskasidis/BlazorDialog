@@ -13,15 +13,15 @@
     <option value="@DialogSize.Small">@DialogSize.Small</option>
 </select>
 
-<ModalDialog Id="simple-dialog" Size="size" Centered="isCentered">
+<Dialog Id="simple-dialog" Size="size" Centered="isCentered">
     <DialogInputProvider TInput="string">
         <h4>@context.Input</h4>
         <button type="button" class="btn btn-primary" @onclick="@(() => context.Dialog.Hide("yes"))">Yes</button>
         <button type="button" class="btn btn-secondary" @onclick="@(()=> context.Dialog.Hide("no"))">No</button>
     </DialogInputProvider>
-</ModalDialog>
+</Dialog>
 
-<ModalDialog Id="simple-large-dialog" Size="size" Centered="isCentered">
+<Dialog Id="simple-large-dialog" Size="size" Centered="isCentered">
     <DialogInputProvider TInput="string">
         <h4>@context.Input</h4>
         <p>Lorem Ipsum</p>
@@ -40,7 +40,7 @@
         <button type="button" class="btn btn-primary" @onclick="@(()=> context.Dialog.Hide("yes"))">Yes</button>
         <button type="button" class="btn btn-secondary" @onclick="@(()=> context.Dialog.Hide("no"))">No</button>
     </DialogInputProvider>
-</ModalDialog>
+</Dialog>
 
 <button @onclick="SimpleDialogOnClick">Simple Dialog</button>
 <button @onclick="SimpleDialogBigOnClick">Simple Dialog Big</button>

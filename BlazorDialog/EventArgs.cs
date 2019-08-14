@@ -7,8 +7,8 @@ namespace BlazorDialog
 {
     public abstract class DialogEventArgs
     {
-        public ModalDialog Dialog { get; protected set; }
-        public DialogEventArgs(ModalDialog dialog)
+        public Dialog Dialog { get; protected set; }
+        public DialogEventArgs(Dialog dialog)
         {
             Dialog = dialog;
         }
@@ -16,7 +16,7 @@ namespace BlazorDialog
 
     public class DialogBeforeShowEventArgs : DialogEventArgs
     {
-        public DialogBeforeShowEventArgs(ModalDialog dialog) : base(dialog)
+        public DialogBeforeShowEventArgs(Dialog dialog) : base(dialog)
         {
         }
 
@@ -25,14 +25,14 @@ namespace BlazorDialog
 
     public class DialogAfterShowEventArgs : DialogEventArgs
     {
-        public DialogAfterShowEventArgs(ModalDialog dialog) : base(dialog)
+        public DialogAfterShowEventArgs(Dialog dialog) : base(dialog)
         {
         }
     }
 
     public class DialogBeforeHideEventArgs : DialogEventArgs
     {
-        public DialogBeforeHideEventArgs(ModalDialog dialog) : base(dialog)
+        public DialogBeforeHideEventArgs(Dialog dialog) : base(dialog)
         {
         }
 
@@ -41,7 +41,7 @@ namespace BlazorDialog
 
     public class DialogAfterHideEventArgs : DialogEventArgs
     {
-        public DialogAfterHideEventArgs(ModalDialog dialog) : base(dialog)
+        public DialogAfterHideEventArgs(Dialog dialog) : base(dialog)
         {
         }
     }

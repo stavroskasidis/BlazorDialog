@@ -7,9 +7,9 @@ namespace BlazorDialog
 {
     public class BlazorDialogService : IBlazorDialogService
     {
-        private Dictionary<string, ModalDialog> registeredDialogs = new Dictionary<string, ModalDialog>();
+        private Dictionary<string, Dialog> registeredDialogs = new Dictionary<string, Dialog>();
 
-        public void Register(ModalDialog blazorDialog)
+        public void Register(Dialog blazorDialog)
         {
             if(blazorDialog?.Id == null)
             {
@@ -18,7 +18,7 @@ namespace BlazorDialog
             registeredDialogs[blazorDialog.Id] = blazorDialog;
         }
 
-        public void Unregister(ModalDialog blazorDialog)
+        public void Unregister(Dialog blazorDialog)
         {
             if (blazorDialog.Id != null && registeredDialogs.ContainsKey(blazorDialog.Id))
             {

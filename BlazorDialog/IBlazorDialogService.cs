@@ -4,8 +4,8 @@ namespace BlazorDialog
 {
     public interface IBlazorDialogService
     {
-        void Register(ModalDialog blazorDialog);
-        void Unregister(ModalDialog blazorDialog);
+        void Register(Dialog blazorDialog);
+        void Unregister(Dialog blazorDialog);
         Task HideDialog(string dialogId);
         Task HideDialog(string dialogId, object result);
         Task ShowDialog(string dialogId);

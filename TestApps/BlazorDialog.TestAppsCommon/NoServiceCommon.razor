@@ -10,21 +10,21 @@
     <option value="@DialogSize.Small">@DialogSize.Small</option>
 </select>
 
-<ModalDialog Size="size" Centered="isCentered" IsShowing="simpleIsShowing">
+<Dialog Size="size" Centered="isCentered" IsShowing="simpleIsShowing">
     <h4>Simple Dialog (No Service)</h4>
     <button type="button" class="btn btn-primary" @onclick="@(()=> OnDialogResult("yes"))">Yes</button>
     <button type="button" class="btn btn-secondary" @onclick="@(()=> OnDialogResult("no"))">No</button>
-</ModalDialog>
+</Dialog>
 
-<ModalDialog Size="size" Centered="isCentered" IsShowing="simpleWithInputIsShowing" Input="@("Simple Dialog With Input (No Service): Previous result =>" + dialogResult)">
+<Dialog Size="size" Centered="isCentered" IsShowing="simpleWithInputIsShowing" Input="@("Simple Dialog With Input (No Service): Previous result =>" + dialogResult)">
     <DialogInputProvider TInput="string">
         <h4>@context.Input</h4>
         <button type="button" class="btn btn-primary" @onclick="@(()=> OnDialogResult("yes"))">Yes</button>
         <button type="button" class="btn btn-secondary" @onclick="@(()=> OnDialogResult("no"))">No</button>
     </DialogInputProvider>
-</ModalDialog>
+</Dialog>
 
-<ModalDialog Size="size" Centered="isCentered" IsShowing="simpleLargeIsShowing">
+<Dialog Size="size" Centered="isCentered" IsShowing="simpleLargeIsShowing">
     <h4>Simple Large Dialog (No Service)</h4>
     <p>Lorem Ipsum</p>
     <p>
@@ -41,7 +41,7 @@
 
     <button type="button" class="btn btn-primary" @onclick="@(()=> OnDialogResult("yes"))">Yes</button>
     <button type="button" class="btn btn-secondary" @onclick="@(()=> OnDialogResult("no"))">No</button>
-</ModalDialog>
+</Dialog>
 
 <button @onclick="SimpleDialogOnClick">Simple Dialog</button>
 <button @onclick="SimpleDialogWithInputOnClick">Simple Dialog With Input</button>

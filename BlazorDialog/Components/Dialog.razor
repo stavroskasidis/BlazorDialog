@@ -24,18 +24,18 @@
 }
 
 @code{
-    [Parameter] protected RenderFragment ChildContent { get; set; }
-    [Parameter] public string Id { get; protected set; }
-    [Parameter] protected bool IsShowing { get; set; }
-    [Parameter] protected EventCallback<bool> IsShowingChanged { get; set; }
-    [Parameter] protected object Input { get; set; }
-    [Parameter] protected EventCallback<DialogBeforeShowEventArgs> OnBeforeShow { get; set; }
-    [Parameter] protected EventCallback<DialogAfterShowEventArgs> OnAfterShow { get; set; }
-    [Parameter] protected EventCallback<DialogBeforeHideEventArgs> OnBeforeHide { get; set; }
-    [Parameter] protected EventCallback<DialogAfterHideEventArgs> OnAfterHide { get; set; }
-    [Parameter] public DialogSize Size { get; protected set; } = DialogSize.Normal;
-    [Parameter] public bool Centered { get; protected set; }
-    [Parameter] public bool IsCustom { get; protected set; }
+    [Parameter] public RenderFragment ChildContent { get; set; }
+    [Parameter] public string Id { get; set; }
+    [Parameter] public bool IsShowing { get; set; }
+    [Parameter] public EventCallback<bool> IsShowingChanged { get; set; }
+    [Parameter] public object Input { get; set; }
+    [Parameter] public EventCallback<DialogBeforeShowEventArgs> OnBeforeShow { get; set; }
+    [Parameter] public EventCallback<DialogAfterShowEventArgs> OnAfterShow { get; set; }
+    [Parameter] public EventCallback<DialogBeforeHideEventArgs> OnBeforeHide { get; set; }
+    [Parameter] public EventCallback<DialogAfterHideEventArgs> OnAfterHide { get; set; }
+    [Parameter] public DialogSize Size { get; set; } = DialogSize.Normal;
+    [Parameter] public bool Centered { get; set; }
+    [Parameter] public bool IsCustom { get; set; }
 
     protected TaskCompletionSource<object> taskCompletionSource;
     internal Action<object> OnDialogHide;
@@ -63,7 +63,7 @@
 
 
 
-    protected override void OnInit()
+    protected override void OnInitialized()
     {
         if (Id != null)
         {
@@ -121,7 +121,7 @@
         }
         this.IsShowing = true;
         await IsShowingChanged.InvokeAsync(this.IsShowing);
-        await Invoke(() => StateHasChanged());
+        await InvokeAsync(() => StateHasChanged());
         if (OnAfterShow.HasDelegate)
         {
             var args = new DialogAfterShowEventArgs(this);
@@ -149,7 +149,7 @@
         IsShowing = false;
         await IsShowingChanged.InvokeAsync(this.IsShowing);
         NotifyDialogHidden(result);
-        await Invoke(() => StateHasChanged());
+        await InvokeAsync(() => StateHasChanged());
         if (OnAfterHide.HasDelegate)
         {
             var args = new DialogAfterHideEventArgs(this);

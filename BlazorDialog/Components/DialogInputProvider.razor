@@ -4,7 +4,7 @@
 @ChildContent(new DialogContext<TInput>(ParentDialog, (TInput)Input))
 
 @code{
-    [Parameter] protected RenderFragment<DialogContext<TInput>> ChildContent { get; set; }
+    [Parameter] public RenderFragment<DialogContext<TInput>> ChildContent { get; set; }
     [CascadingParameter(Name = "DialogInput")] protected object Input { get; set; }
-    [CascadingParameter(Name = "ParentDialog")] protected ModalDialog ParentDialog { get; set; }
+    [CascadingParameter(Name = "ParentDialog")] protected Dialog ParentDialog { get; set; }
 }
