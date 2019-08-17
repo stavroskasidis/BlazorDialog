@@ -1,7 +1,7 @@
 ﻿@inject IBlazorDialogService dialogService
 @namespace BlazorDialog
 @implements IDisposable
-@if (IsShowing)
+@if (isShowing)
 {
     <CascadingValue Value="this.Input" Name="DialogInput">
         <CascadingValue Value="this" Name="ParentDialog">
@@ -26,8 +26,9 @@
 @code{
     [Parameter] public RenderFragment ChildContent { get; set; }
     [Parameter] public string Id { get; set; }
-    [Parameter] public bool IsShowing { get; set; }
-    [Parameter] public EventCallback<bool> IsShowingChanged { get; set; }
+    [Parameter] public bool? IsShowing { get; set; }
+    [Parameter] public EventCallback<bool?> IsShowingChanged { get; set; }
+    private bool isShowing;
     [Parameter] public object Input { get; set; }
     [Parameter] public EventCallback<DialogBeforeShowEventArgs> OnBeforeShow { get; set; }
     [Parameter] public EventCallback<DialogAfterShowEventArgs> OnAfterShow { get; set; }
@@ -62,7 +63,6 @@
     }
 
 
-
     protected override void OnInitialized()
     {
         if (Id != null)
@@ -77,6 +77,40 @@
                 taskCompletionSource = null;
             }
         };
+    }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        if(IsShowing.HasValue && IsShowing.Value && !isShowing)
+        {
+            if (OnBeforeShow.HasDelegate)
+            {
+                var args = new DialogBeforeShowEventArgs(this);
+                await OnBeforeShow.InvokeAsync(args);
+                if (args.PreventShow) return;
+            }
+            this.isShowing = true;
+            if (OnAfterShow.HasDelegate)
+            {
+                var args = new DialogAfterShowEventArgs(this);
+                await OnAfterShow.InvokeAsync(args);
+            }
+        }
+        else if(IsShowing.HasValue && !IsShowing.Value && isShowing)
+        {
+            if (OnBeforeHide.HasDelegate)
+            {
+                var args = new DialogBeforeHideEventArgs(this);
+                await OnBeforeHide.InvokeAsync(args);
+                if (args.PreventHide) return;
+            }
+            this.isShowing = false;
+            if (OnAfterHide.HasDelegate)
+            {
+                var args = new DialogAfterHideEventArgs(this);
+                await OnAfterHide.InvokeAsync(args);
+            }
+        }
     }
 
     public void Dispose()
@@ -119,8 +153,8 @@
             await OnBeforeShow.InvokeAsync(args);
             if (args.PreventShow) return default;
         }
-        this.IsShowing = true;
-        await IsShowingChanged.InvokeAsync(this.IsShowing);
+        this.IsShowing = this.isShowing = true;
+        await IsShowingChanged.InvokeAsync(isShowing);
         await InvokeAsync(() => StateHasChanged());
         if (OnAfterShow.HasDelegate)
         {
@@ -146,8 +180,8 @@
             await OnBeforeHide.InvokeAsync(args);
             if (args.PreventHide) return;
         }
-        IsShowing = false;
-        await IsShowingChanged.InvokeAsync(this.IsShowing);
+        this.IsShowing = this.isShowing = false;
+        await IsShowingChanged.InvokeAsync(isShowing);
         NotifyDialogHidden(result);
         await InvokeAsync(() => StateHasChanged());
         if (OnAfterHide.HasDelegate)
