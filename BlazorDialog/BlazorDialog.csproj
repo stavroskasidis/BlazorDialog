@@ -17,7 +17,7 @@
     <Copyright />
     <PackageTags>blazor blazor-component blazor-dialog dialog modal blazor-modal blazordialog blazormodaldialog blazormodal razor razor-components razorcomponents</PackageTags>
     <VersionSuffix>$(VersionSuffix)</VersionSuffix>
-    <Version>0.1.0</Version>
+    <Version>0.2.0</Version>
     <Version Condition=" '$(VersionSuffix)' != '' ">$(Version)-$(VersionSuffix)</Version>
     <Product>BlazorDialog</Product>
   </PropertyGroup>
@@ -27,11 +27,17 @@
     <Content Remove="node_modules\**" />
     <EmbeddedResource Remove="node_modules\**" />
     <None Remove="node_modules\**" />
-  </ItemGroup>  
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="**\*.json">
+      <Pack>false</Pack>
+    </Content>
+  </ItemGroup>
   
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Components" Version="3.0.0-preview8.19405.7" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="3.0.0-preview8.19405.7" />
+    <PackageReference Include="Microsoft.AspNetCore.Components" Version="3.0.0-preview9.19424.4" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="3.0.0-preview9.19424.4" />
   </ItemGroup>
 
 </Project>
