@@ -1,27 +1,25 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <OutputType>Library</OutputType>
-    <IsPackable>true</IsPackable>
     <LangVersion>7.3</LangVersion>
-    <AddRazorSupportForMvc>true</AddRazorSupportForMvc>
+    <IsPackable>true</IsPackable>
     <RazorLangVersion>3.0</RazorLangVersion>
 
 
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
-    <PackageId>Blazor.Dialog</PackageId>
+    <PackageId>BlazorDialog</PackageId>
     <Authors>Stavros Kasidis (AkiraGTX)</Authors>
     <PackageLicenseUrl>https://github.com/stavroskasidis/BlazorDialog/blob/master/LICENSE</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/stavroskasidis/BlazorDialog</PackageProjectUrl>
-    <Description>A "show and wait for result" dialog component for Blazor</Description>
+    <Description>Dialog component as a service for Blazor</Description>
     <PackageReleaseNotes>https://github.com/stavroskasidis/BlazorDialog/blob/master/README.md</PackageReleaseNotes>
     <Copyright />
     <PackageTags>blazor blazor-component blazor-dialog dialog modal blazor-modal blazordialog blazormodaldialog blazormodal razor razor-components razorcomponents</PackageTags>
     <VersionSuffix>$(VersionSuffix)</VersionSuffix>
-    <Version>0.1.0</Version>
+    <Version>0.2.0</Version>
     <Version Condition=" '$(VersionSuffix)' != '' ">$(Version)-$(VersionSuffix)</Version>
-    <Product>Blazor.Dialog</Product>
+    <Product>BlazorDialog</Product>
   </PropertyGroup>
   
   <ItemGroup>
@@ -29,10 +27,16 @@
     <Content Remove="node_modules\**" />
     <EmbeddedResource Remove="node_modules\**" />
     <None Remove="node_modules\**" />
-  </ItemGroup>  
-  
-  <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Components.Browser" Version="3.0.0-preview7.19365.7" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Update="**\*.json">
+      <Pack>false</Pack>
+    </Content>
+  </ItemGroup>
+  
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Components" Version="3.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="3.0.0" />
+  </ItemGroup>
 </Project>

@@ -1,14 +1,20 @@
 ﻿# Blazor Dialog
- 
-TODO: Add build status/nuget shields
 
-A "show and wait for result" dialog component for [Blazor](https://blazor.net)!
+[![Build status](https://dev.azure.com/stavros-kasidis/Blazor%20Dialog/_apis/build/status/Blazor%20Dialog-CI)](https://dev.azure.com/stavros-kasidis/Blazor%20Dialog/_build/latest?definitionId=16) [![Nuget (with prereleases)](https://img.shields.io/nuget/vpre/BlazorDialog.svg?logo=nuget)](https://www.nuget.org/packages/BlazorDialog) [![Nuget](https://img.shields.io/nuget/dt/BlazorDialog.svg?logo=nuget)](https://www.nuget.org/packages/BlazorDialog) [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=7CRGWPYB5AKJQ&currency_code=EUR&source=url)
+
+Dialog component as a service for [Blazor](https://blazor.net)!
 
 TODO: Add gif
 
-> ⚠️ Warning
+> ⚠️
+> WORK IN PROGRESS: Do not use in production yet
 
-> This project is build on top of an experimental framework. There are many limitations and there is a high propability that there will be breaking changes each version.
+## Features
+* Call a dialog as a service and `await` for the result !
+* Can use dialogs as normal components (if you don't want to use as a service)
+* Build-in modal dialog (similar to bootstrap)
+* Option to use completely custom markup/css (without using the build-in opinionated css and html)
+
 
 ## Samples / Demo
 TODO: Add Demo
@@ -45,7 +51,7 @@ Add the following static file reference in your `_Host.cshtml` (server-side blaz
 Make sure that there is a call to `app.UseStaticFiles();` in your server project's `Startup.cs`.
 
 ```html
-<link href="_content/Blazor.Dialog/styles.min.css" rel="stylesheet" />
+<link href="_content/BlazorDialog/styles.min.css" rel="stylesheet" />
 ```
 
 ## Basic usage
@@ -54,11 +60,13 @@ Make sure that there is a call to `app.UseStaticFiles();` in your server project
 TODO: write
 ```
 
-
 ## ⚠️ Breaking changes ⚠️
 
 None so far
 
 ## Release Notes
 
-TODO: Write
+<details open="open"><summary>0.1</summary>
+    
+>- Initial release.
+</details>

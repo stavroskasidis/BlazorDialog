@@ -7,36 +7,12 @@ namespace BlazorDialog
 {
     public class DialogContext<TInput>
     {
-        private readonly string _dialogId;
-        private readonly IBlazorDialogService _dialogService;
-
         public TInput Input { get; protected set; }
-
-        public DialogContext(string dialogId, IBlazorDialogService dialogService, TInput input)
+        public Dialog Dialog { get; protected set; }
+        public DialogContext(Dialog blazorDialog , TInput input)
         {
-            _dialogId = dialogId;
-            _dialogService = dialogService;
+            Dialog = blazorDialog;
             Input = input;
-        }
-
-        public Task Show()
-        {
-            return _dialogService.ShowDialog(this._dialogId);
-        }
-
-        public Task Show(TInput input)
-        {
-            return _dialogService.ShowDialog<TInput>(this._dialogId, input);
-        }
-
-        public void Hide<TResult>(TResult result)
-        {
-            _dialogService.HideDialog(this._dialogId, result);
-        }
-
-        public void Hide()
-        {
-            _dialogService.HideDialog(this._dialogId, null);
         }
     }
 }
