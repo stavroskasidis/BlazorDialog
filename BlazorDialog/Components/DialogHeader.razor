@@ -1,0 +1,21 @@
+﻿@namespace BlazorDialog
+<div class="blazor-dialog-header">
+    <h5 class="blazor-dialog-title">@ChildContent</h5>
+    @if (ShowClose)
+    {
+        <button type="button" class="blazor-dialog-close" aria-label="Close" @onclick="OnCloseClick">
+            <span aria-hidden="true">×</span>
+        </button>
+    }
+</div>
+
+@code{
+    [Parameter] public RenderFragment ChildContent { get; set; }
+    [Parameter] public bool ShowClose { get; set; } = false;
+    [CascadingParameter(Name = "ParentDialog")] Dialog Dialog { get; set; }
+
+    private async Task OnCloseClick()
+    {
+        await Dialog.Hide();
+    }
+}

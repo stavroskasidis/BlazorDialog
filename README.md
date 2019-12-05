@@ -66,7 +66,13 @@ None so far
 
 ## Release Notes
 
-<details open="open"><summary>0.1</summary>
+<details open="open"><summary>0.3</summary>
+    
+>- Upgrated to 3.1
+>- Added new helper components: `DialogHeader`, `DialogBody`, `DialogFooter`
+</details>
+
+<details><summary>0.1</summary>
     
 >- Initial release.
 </details>
