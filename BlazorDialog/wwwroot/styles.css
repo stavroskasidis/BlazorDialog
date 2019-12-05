@@ -10,6 +10,63 @@
     background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 }
 
+.blazor-dialog-body {
+    position: relative;
+    flex: 1 1 auto;
+    padding: 1rem;
+}
+
+.blazor-dialog-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: 1rem;
+    border-bottom: 1px solid #e9ecef;
+    border-top-left-radius: .3rem;
+    border-top-right-radius: .3rem;
+}
+
+.blazor-dialog-title {
+    margin-bottom: 0;
+    line-height: 1.5;
+}
+
+.blazor-dialog-close {
+    padding: 1rem;
+    margin: -1rem -1rem -1rem auto;
+    background-color: transparent;
+    border: 0;
+    float: right;
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 1;
+    color: #000;
+    text-shadow: 0 1px 0 #fff;
+    opacity: .5;
+    cursor: pointer;
+}
+
+    .blazor-dialog-close:hover {
+        color: #000;
+        text-decoration: none;
+        opacity: .75;
+    }
+
+
+.blazor-dialog-footer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 1rem;
+    border-top: 1px solid #e9ecef;
+}
+    .blazor-dialog-footer > :not(:last-child) {
+        margin-right: .25rem;
+    }
+    .blazor-dialog-footer > :not(:first-child) {
+        margin-left: .25rem;
+    }
+
 @media (min-width: 576px) {
     .blazor-dialog-centered {
         min-height: calc(100% - (1.75rem * 2));
