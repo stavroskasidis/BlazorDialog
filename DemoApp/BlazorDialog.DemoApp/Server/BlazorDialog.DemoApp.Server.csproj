@@ -1,0 +1,31 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <LangVersion>7.3</LangVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Blazor.Server" Version="3.1.0-preview4.19579.2" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <Compile Remove="ClientSources\**" />
+    <Content Remove="ClientSources\**" />
+    <None Include="ClientSources\**" CopyToPublishDirectory="Always" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Client\BlazorDialog.DemoApp.Client.csproj" />
+    <ProjectReference Include="..\Shared\BlazorDialog.DemoApp.Shared.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="ClientSources\" />
+  </ItemGroup>
+
+  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+    <Exec Command="del /s /f /q &quot;$(ProjectDir)ClientSources\&quot;&#xD;&#xA;xcopy &quot;$(ProjectDir)..\Client\*.razor&quot; &quot;$(ProjectDir)ClientSources\&quot; /y /s&#xD;&#xA;xcopy &quot;$(ProjectDir)..\Client\*.cs&quot; &quot;$(ProjectDir)ClientSources\&quot; /y /s&#xD;&#xA;xcopy &quot;$(ProjectDir)..\Client\*.js&quot; &quot;$(ProjectDir)ClientSources\&quot; /y /s&#xD;&#xA;xcopy &quot;$(ProjectDir)..\Client\*.css&quot; &quot;$(ProjectDir)ClientSources\&quot; /y /s" />
+  </Target>
+
+</Project>

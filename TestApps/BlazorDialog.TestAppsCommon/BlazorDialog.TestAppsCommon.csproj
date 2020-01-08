@@ -8,11 +8,6 @@
 
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="3.0.0-preview9.19424.4" />
-  </ItemGroup>
-
-
-  <ItemGroup>
     <ProjectReference Include="..\..\BlazorDialog\BlazorDialog.csproj" />
   </ItemGroup>
 
