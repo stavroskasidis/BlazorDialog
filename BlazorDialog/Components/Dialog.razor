@@ -1,10 +1,11 @@
 ﻿@inject IBlazorDialogService dialogService
+@inject IBlazorDialogStore dialogStore
 @namespace BlazorDialog
 @implements IDisposable
 @if (isShowing)
 {
     <CascadingValue Value="this.Input" Name="DialogInput">
-        <CascadingValue Value="this" Name="ParentDialog">
+        <CascadingValue Value="this" Name="ParentDialog" IsFixed="true">
             @if (!IsCustom)
             {
                 <div class="blazor-dialog-container @(Centered ? "blazor-dialog-centered" : "")">
@@ -67,7 +68,7 @@
     {
         if (Id != null)
         {
-            dialogService.Register(this);
+            dialogStore.Register(this);
         }
         OnDialogHide = (object result) =>
         {
@@ -81,7 +82,7 @@
 
     protected override async Task OnParametersSetAsync()
     {
-        if(IsShowing.HasValue && IsShowing.Value && !isShowing)
+        if (IsShowing.HasValue && IsShowing.Value && !isShowing)
         {
             if (OnBeforeShow.HasDelegate)
             {
@@ -96,7 +97,7 @@
                 await OnAfterShow.InvokeAsync(args);
             }
         }
-        else if(IsShowing.HasValue && !IsShowing.Value && isShowing)
+        else if (IsShowing.HasValue && !IsShowing.Value && isShowing)
         {
             if (OnBeforeHide.HasDelegate)
             {
@@ -115,7 +116,7 @@
 
     public void Dispose()
     {
-        dialogService.Unregister(this);
+        dialogStore.Unregister(this);
         if (taskCompletionSource != null)
         {
             taskCompletionSource.SetCanceled();

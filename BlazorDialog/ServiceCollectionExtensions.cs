@@ -10,6 +10,7 @@ namespace Microsoft.Extensions.DependencyInjection
     {
         public static IServiceCollection AddBlazorDialog(this IServiceCollection services)
         {
+            services.AddScoped<IBlazorDialogStore, BlazorDialogStore>();
             services.AddScoped<IBlazorDialogService, BlazorDialogService>();
             return services;
         }
