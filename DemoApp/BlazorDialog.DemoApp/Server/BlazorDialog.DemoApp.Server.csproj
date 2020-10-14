@@ -22,7 +22,6 @@
 
   <ItemGroup>
     <Folder Include="ClientSources\" />
-    <Folder Include="Controllers\" />
   </ItemGroup>
 
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent">

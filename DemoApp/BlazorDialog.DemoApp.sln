@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29613.14
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorDialog.DemoApp.Server", "BlazorDialog.DemoApp\Server\BlazorDialog.DemoApp.Server.csproj", "{25348309-869E-4D7A-AEDC-FACFF12145F3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorDialog.DemoApp.Server", "BlazorDialog.DemoApp\Server\BlazorDialog.DemoApp.Server.csproj", "{25348309-869E-4D7A-AEDC-FACFF12145F3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorDialog.DemoApp.Client", "BlazorDialog.DemoApp\Client\BlazorDialog.DemoApp.Client.csproj", "{C62F0AA9-9442-41A7-854F-47BF5126FE31}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorDialog.DemoApp.Client", "BlazorDialog.DemoApp\Client\BlazorDialog.DemoApp.Client.csproj", "{C62F0AA9-9442-41A7-854F-47BF5126FE31}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorDialog.DemoApp.Shared", "BlazorDialog.DemoApp\Shared\BlazorDialog.DemoApp.Shared.csproj", "{A21CB807-ACB7-4C74-8959-37225100BC3B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorDialog.DemoApp.Shared", "BlazorDialog.DemoApp\Shared\BlazorDialog.DemoApp.Shared.csproj", "{A21CB807-ACB7-4C74-8959-37225100BC3B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

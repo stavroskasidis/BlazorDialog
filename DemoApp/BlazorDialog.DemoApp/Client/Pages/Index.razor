@@ -1,5 +1,20 @@
 ﻿@page "/"
+<h1>Blazor Dialog Samples App</h1>
 
-<h1>Hello, world!</h1>
+@{
+    var tabItems = new List<TabItem>()
+{
+        new TabItem
+        {
+            HeaderText = "Demo",
+            Contents = @<BlazorDialog.DemoApp.Client.Sources.Index />
+        },
+        new TabItem
+        {
+            HeaderText = "<> Source",
+            Contents = @<SourceFileLoader SourceFilePath="Sources/Index.razor" />
+        },
+    };
+}
 
-Welcome to your new app.
+<TabStrip Title="Using a dialog as a service" TabItems="tabItems" />
