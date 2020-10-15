@@ -1,0 +1,22 @@
+﻿@page "/Customization"
+
+@{
+    var tabItems = new List<TabItem>()
+{
+        new TabItem
+        {
+            HeaderText = "Demo",
+            Contents = @<BlazorDialog.DemoApp.Client.Sources.Customization />
+        },
+        new TabItem
+        {
+            HeaderText = "<> Source",
+            Contents = @<div>
+                            <SourceFileLoader SourceFilePath="Sources/Customization.razor" />
+                            <SourceFileLoader SourceFilePath="wwwroot/css/custom-modal.css" />
+                        </div>
+        }
+    };
+}
+
+<TabStrip Title="Using a custom dialog" TabItems="tabItems" />

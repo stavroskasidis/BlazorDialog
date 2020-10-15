@@ -1,0 +1,53 @@
+﻿<ul>
+    <li>If you don't want to use the opinionated build-in dialog styling/css you don't have to!</li>
+    <li>Use any markup/css you want and the dialog will render that when showing itself.</li>
+    <li>There are some caveats though. You have to provide every bit of css and html that makes the dialog appear
+    and behave as a dialog (e.g. modal/with backdrop etc).</li>
+    <li>This approach is well suited when you want to use a dialog as a service but you want to use completely custom html/css.</li>
+    <li>Dialog parameters such as <code>Centered</code> and <code>Side</code> are ignored in custom dialogs.</li>
+</ul>
+
+<Dialog IsShowing="isShowing" IsCustom="true" >
+
+    <!-- all dialog markup and css must be provided. This example is taken from https://www.w3schools.com/howto/howto_css_modals.asp -->
+    <div class="mymodal">
+        <div class="mymodal-content">
+            <div class="mymodal-header">
+                <span class="mymodal-close" @onclick="@(()=> { dialogResult = null; isShowing = false; } )">&times;</span>
+                <h2>@question</h2>
+            </div>
+            <div class="mymodal-body">
+                <p>Some text in the Modal Body</p>
+                <p>Some other text...</p>
+            </div>
+            <div class="mymodal-footer">
+                <button type="button" class="btn btn-primary" @onclick="@(()=> { dialogResult = "yes"; isShowing = false; })">Yes</button>
+                <button type="button" class="btn btn-danger" @onclick="@(()=> { dialogResult = "no"; isShowing = false; })">No</button>
+            </div>
+        </div>
+
+    </div>
+
+</Dialog>
+
+<div class="mt-4">
+    <button class="btn btn-primary" @onclick="ButtonOnClick">Show Custom Dialog</button>
+</div>
+
+@if (dialogResult != null)
+{
+    <div class="mt-3">DialogResult: @dialogResult</div>
+}
+
+@code{
+    string dialogResult = null;
+    bool isShowing = false;
+    string question = "Do you agree ?";
+
+    void ButtonOnClick()
+    {
+        dialogResult = null;
+        isShowing = true;
+    }
+
+}

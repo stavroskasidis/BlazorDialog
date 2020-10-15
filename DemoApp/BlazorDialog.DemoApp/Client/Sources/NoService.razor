@@ -1,0 +1,64 @@
+﻿<ul>
+    <li>You can use <code>BlazorDialog</code> as a regular component.</li>
+    <li>You can use a flag to indicate if it is showing or not.</li>
+    <li>There are some optional build-in helper components like <code>DialogHeader</code>, <code>DialogBody</code>, <code>DialogFooter</code>. </li>
+</ul>
+<div>
+    <div class="form-inline">
+        <label for="question" class="mr-sm-3">Question:</label>
+        <input @bind="@question" class="mr-sm-3"/>
+        <label for="size" class="mr-sm-3">Size</label>
+        <select class="form-control mr-sm-3" id="size" @bind="size">
+            <option value="@DialogSize.Normal">@DialogSize.Normal</option>
+            <option value="@DialogSize.Large">@DialogSize.Large</option>k
+            <option value="@DialogSize.Small">@DialogSize.Small</option>
+        </select>
+        <div class="form-check mb-2 mr-sm-2">
+            <input class="form-check-input" id="isCentered" type="checkbox" @bind="isCentered" />
+            <label class="form-check-label" for="isCentered">Is centered</label>
+        </div>
+
+    </div>
+</div>
+
+<Dialog Size="size" Centered="isCentered" IsShowing="isShowing">
+    <DialogHeader>
+        <h4>@question</h4>
+    </DialogHeader>
+    <DialogBody>
+        <p>Lorem Ipsum</p>
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum quis est vitae purus eleifend bibendum id et neque. Sed eu nisi commodo,
+            sagittis neque suscipit, euismod quam. In metus turpis, pulvinar ut odio vel, vehicula congue dui. Praesent sed feugiat est. Ut ut rhoncus mi,
+            et facilisis eros. Vivamus malesuada nulla eu tincidunt vulputate. Donec non augue aliquam, sodales est vel, varius quam. Nam vel fringilla felis.
+        </p>
+    </DialogBody>
+    <DialogFooter>
+        <button type="button" class="btn btn-primary" @onclick="@(()=> { dialogResult = "yes"; isShowing = false; })">Yes</button>
+        <button type="button" class="btn btn-secondary" @onclick="@(()=> { dialogResult = "no"; isShowing = false; })">No</button>
+    </DialogFooter>
+</Dialog>
+
+<div class="mt-4">
+    <button class="btn btn-primary" @onclick="ButtonOnClick">Show Dialog</button>
+</div>
+
+@if (dialogResult != null)
+{
+    <div class="mt-3">DialogResult: @dialogResult</div>
+}
+
+@code{
+    string dialogResult = null;
+    bool isShowing = false;
+    bool isCentered;
+    string question = "Do you agree ?";
+    DialogSize size;
+
+    void ButtonOnClick()
+    {
+        dialogResult = null;
+        isShowing = true;
+    }
+
+}

@@ -1,5 +1,4 @@
 ﻿@page "/"
-<h1>Blazor Dialog Samples App</h1>
 
 @{
     var tabItems = new List<TabItem>()
@@ -12,9 +11,12 @@
         new TabItem
         {
             HeaderText = "<> Source",
-            Contents = @<SourceFileLoader SourceFilePath="Sources/Index.razor" />
-        },
+            Contents = @<div>
+                            <SourceFileLoader SourceFilePath="Sources/Index.razor" />
+                            <SourceFileLoader SourceFilePath="App.razor" />
+                        </div>
+        }
     };
 }
 
-<TabStrip Title="Using a dialog as a service" TabItems="tabItems" />
+<TabStrip Title="Using a dialog procedurally as a service call" TabItems="tabItems" />

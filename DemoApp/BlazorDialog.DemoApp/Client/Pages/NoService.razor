@@ -1,0 +1,18 @@
+﻿@page "/NoService"
+@{
+    var tabItems = new List<TabItem>()
+{
+        new TabItem
+        {
+            HeaderText = "Demo",
+            Contents = @<BlazorDialog.DemoApp.Client.Sources.NoService />
+        },
+        new TabItem
+        {
+            HeaderText = "<> Source",
+            Contents = @<SourceFileLoader SourceFilePath="Sources/NoService.razor" />
+        },
+    };
+}
+
+<TabStrip Title="Using a dialog as a component" TabItems="tabItems" />

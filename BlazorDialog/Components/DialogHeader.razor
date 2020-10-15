@@ -3,7 +3,7 @@
     <h5 class="blazor-dialog-title">@ChildContent</h5>
     @if (ShowClose)
     {
-        <button type="button" class="blazor-dialog-close" aria-label="Close" @onclick="OnCloseClick">
+        <button @onclick="OnCloseClick" type="button" class="blazor-dialog-close" aria-label="Close" >
             <span aria-hidden="true">×</span>
         </button>
     }
