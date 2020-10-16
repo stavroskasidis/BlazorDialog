@@ -25,17 +25,58 @@
 }
 
 @code{
+
     [Parameter] public RenderFragment ChildContent { get; set; }
+
+    /// <summary>
+    /// The unique idetifier of the dialog. This field is required when using the dialog as a service.
+    /// </summary>
     [Parameter] public string Id { get; set; }
+
+    /// <summary>
+    /// Use this to show/hide the dialog as a simple component.
+    /// </summary>
     [Parameter] public bool? IsShowing { get; set; }
     private bool isShowing;
-    [Parameter] public object Input { get; set; }
+
+    /// <summary>
+    /// The input provided to the dialog when opening.
+    /// </summary>
+    public object Input { get; set; }
+
+    /// <summary>
+    /// An event that is triggered before the dialog appears.
+    /// </summary>
     [Parameter] public EventCallback<DialogBeforeShowEventArgs> OnBeforeShow { get; set; }
+
+    /// <summary>
+    /// An event that is triggered after the dialog appears.
+    /// </summary>
     [Parameter] public EventCallback<DialogAfterShowEventArgs> OnAfterShow { get; set; }
+
+    /// <summary>
+    /// An event that is triggered before the dialog hides.
+    /// </summary>
     [Parameter] public EventCallback<DialogBeforeHideEventArgs> OnBeforeHide { get; set; }
+
+    /// <summary>
+    /// An event that is triggered after the dialog hides.
+    /// </summary>
     [Parameter] public EventCallback<DialogAfterHideEventArgs> OnAfterHide { get; set; }
+
+    /// <summary>
+    /// Allows you to set the dialog size. Ignored when the dialog is <see cref="Dialog.IsCustom" />.
+    /// </summary>
     [Parameter] public DialogSize Size { get; set; } = DialogSize.Normal;
+
+    /// <summary>
+    /// Allows you to set the positioning of the dialog from the top. Ignored when the dialog is <see cref="Dialog.IsCustom" />.
+    /// </summary>
     [Parameter] public bool Centered { get; set; }
+
+    /// <summary>
+    /// If set to true then all default html/css is removed. Use when custom dialog implementations are needed.
+    /// </summary>
     [Parameter] public bool IsCustom { get; set; }
 
     protected TaskCompletionSource<object> taskCompletionSource;
