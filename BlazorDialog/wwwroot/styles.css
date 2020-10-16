@@ -33,7 +33,6 @@
 
 .blazor-dialog-close {
     padding: 1rem;
-    margin: -1rem -1rem -1rem auto;
     background-color: transparent;
     border: 0;
     float: right;
@@ -119,5 +118,56 @@
 @media (min-width: 576px) {
     .blazor-dialog-content-wrapper-small {
         max-width: 300px;
+    }
+}
+
+/* ============== Animations ==============*/
+
+.blazor-dialog__animations--slidedown {
+    animation: blazordialog-slidedown;
+    animation-duration: 0.3s;
+}
+
+@keyframes blazordialog-slidedown {
+    from {
+        transform: translateY(-50px);
+        opacity: 0
+    }
+
+    to {
+        transform: translateY(0px);
+        opacity: 1
+    }
+}
+
+.blazor-dialog__animations--zoom {
+    animation: blazordialog-zoom;
+    animation-duration: 0.3s;
+}
+
+@keyframes blazordialog-zoom {
+    from {
+        transform: scale(0.5);
+        opacity: 0
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1
+    }
+}
+
+.blazor-dialog__animations--fadein {
+    animation: blazordialog-fadein;
+    animation-duration: 0.4s;
+}
+
+@keyframes blazordialog-fadein {
+    from {
+        opacity: 0
+    }
+
+    to {
+        opacity: 1
     }
 }

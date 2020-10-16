@@ -1,6 +1,6 @@
 ﻿@namespace BlazorDialog
 <div class="blazor-dialog-header">
-    <h5 class="blazor-dialog-title">@ChildContent</h5>
+    <div class="blazor-dialog-title">@ChildContent</div>
     @if (ShowClose)
     {
         <button @onclick="OnCloseClick" type="button" class="blazor-dialog-close" aria-label="Close" >

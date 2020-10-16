@@ -13,7 +13,15 @@
     <option value="@DialogSize.Small">@DialogSize.Small</option>
 </select>
 
-<Dialog Id="simple-dialog" Size="size" Centered="isCentered">
+<label>Animation:</label>
+<select @bind="animation">
+    <option value="@DialogAnimation.None">@DialogAnimation.None</option>
+    <option value="@DialogAnimation.SlideDown">@DialogAnimation.SlideDown</option>
+    <option value="@DialogAnimation.Zoom">@DialogAnimation.Zoom</option>
+    <option value="@DialogAnimation.FadeIn">@DialogAnimation.FadeIn</option>
+</select>
+
+<Dialog Id="simple-dialog" Size="size" Centered="isCentered" Animation="animation">
     <DialogInputProvider TInput="string">
         <DialogBody>
             <h4>@context.Input</h4>
@@ -25,7 +33,7 @@
     </DialogInputProvider>
 </Dialog>
 
-<Dialog Id="simple-large-dialog" Size="size" Centered="isCentered">
+<Dialog Id="simple-large-dialog" Size="size" Centered="isCentered" Animation="animation">
     <DialogInputProvider TInput="string">
         <DialogHeader ShowClose="true">
             <h4>@context.Input</h4>
@@ -64,6 +72,7 @@
     string dialogResult = null;
     bool isCentered;
     DialogSize size;
+    DialogAnimation animation;
 
     async Task SimpleDialogOnClick()
     {

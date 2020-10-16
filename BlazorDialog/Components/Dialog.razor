@@ -9,7 +9,7 @@
             @if (!IsCustom)
             {
                 <div class="blazor-dialog-container @(Centered ? "blazor-dialog-centered" : "")">
-                    <div class="blazor-dialog-content-wrapper @ContentWrapperCssClass">
+                    <div class="blazor-dialog-content-wrapper @ContentWrapperCssClass @AnimationCssClass">
                         <div class="blazor-dialog-content">
                             @ChildContent
                         </div>
@@ -70,6 +70,11 @@
     [Parameter] public DialogSize Size { get; set; } = DialogSize.Normal;
 
     /// <summary>
+    /// Allows you to change the appearing animation. Ignored when the dialog is <see cref="Dialog.IsCustom" />.
+    /// </summary>
+    [Parameter] public DialogAnimation Animation { get; set; } = DialogAnimation.None;
+
+    /// <summary>
     /// Allows you to set the positioning of the dialog from the top. Ignored when the dialog is <see cref="Dialog.IsCustom" />.
     /// </summary>
     [Parameter] public bool Centered { get; set; }
@@ -99,6 +104,26 @@
                     return "blazor-dialog-content-wrapper-xlarge";
                 default:
                     throw new Exception("Unknown dialog size");
+            }
+        }
+    }
+
+    protected string AnimationCssClass
+    {
+        get
+        {
+            switch (Animation)
+            {
+                case DialogAnimation.None:
+                    return "";
+                case DialogAnimation.SlideDown:
+                    return "blazor-dialog__animations--slidedown";
+                case DialogAnimation.Zoom:
+                    return "blazor-dialog__animations--zoom";
+                case DialogAnimation.FadeIn:
+                    return "blazor-dialog__animations--fadein";
+                default:
+                    throw new Exception("Unknown dialog animation");
             }
         }
     }
