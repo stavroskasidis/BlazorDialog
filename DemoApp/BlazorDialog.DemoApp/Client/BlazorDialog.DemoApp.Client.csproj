@@ -6,7 +6,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="BlazorDialog" Version="0.3.0" />
 	  <PackageReference Include="Microsoft.AspNetCore.Components.Authorization" Version="3.1.8" />
 	  <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="3.2.1" />
 	  <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Build" Version="3.2.1" PrivateAssets="all" />
@@ -14,6 +13,7 @@
 	  <PackageReference Include="Microsoft.Extensions.Http" Version="3.1.8" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\BlazorDialog\BlazorDialog.csproj" />
     <ProjectReference Include="..\Shared\BlazorDialog.DemoApp.Shared.csproj" />
   </ItemGroup>
 

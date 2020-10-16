@@ -7,8 +7,7 @@
     <li>Dialog parameters such as <code>Centered</code> and <code>Side</code> are ignored in custom dialogs.</li>
 </ul>
 
-<Dialog IsShowing="isShowing" IsCustom="true" >
-
+<Dialog IsShowing="isShowing" IsCustom="true">
     <!-- all dialog markup and css must be provided. This example is taken from https://www.w3schools.com/howto/howto_css_modals.asp -->
     <div class="mymodal">
         <div class="mymodal-content">
@@ -25,19 +24,14 @@
                 <button type="button" class="btn btn-danger" @onclick="@(()=> { dialogResult = "no"; isShowing = false; })">No</button>
             </div>
         </div>
-
     </div>
-
 </Dialog>
 
 <div class="mt-4">
     <button class="btn btn-primary" @onclick="ButtonOnClick">Show Custom Dialog</button>
 </div>
 
-@if (dialogResult != null)
-{
-    <div class="mt-3">DialogResult: @dialogResult</div>
-}
+<div class="mt-3">DialogResult: <code>@dialogResult</code></div>
 
 @code{
     string dialogResult = null;

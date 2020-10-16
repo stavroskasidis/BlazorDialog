@@ -220,3 +220,52 @@ app {
         animation: octocat-wave 560ms ease-in-out
     }
 }
+
+
+/* =================== Event Log ====================== */
+
+.event-log {
+    padding: 17px 10px 0;
+    height: 400px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    background-color: #f3f3f3;
+}
+
+.event-log-entry {
+    padding: 5px 12px;
+    border-bottom: 3px solid #f3f3f3;
+    margin-top: 0px;
+    background-color: rgb(255, 255, 255);
+}
+
+.event-log-header {
+    padding: 5px 12px;
+    background-color: #fff;
+    display: flex;
+    justify-content: flex-start;
+    position: relative;
+}
+
+.event-log-title {
+    flex: 0 1 auto;
+    width: 90px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    letter-spacing: .35px;
+    color: #3D57D8;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 21px;
+}
+
+.event-log-clear {
+    flex: 0 1 auto;
+    width: 50px;
+    margin-left: auto;
+    font-weight: 400;
+    cursor: pointer;
+    font-size: 14px;
+    line-height: 21px;
+}
