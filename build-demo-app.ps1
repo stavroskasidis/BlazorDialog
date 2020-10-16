@@ -33,7 +33,11 @@ $proc = Start-Process "dotnet" -ArgumentList "--version" -PassThru
 Confirm-Process $proc "Could not find dotnet sdk, please install and run again ..."
 
 Write-Message "Building ..."
-dotnet publish DemoApp\BlazorDialog.DemoApp\Server -c Release -o artifacts\demoapp
+dotnet build DemoApp\BlazorDialog.DemoApp\Server -c Release -o
+Confirm-PreviousCommand
+
+Write-Message "Publishing ..."
+dotnet publish DemoApp\BlazorDialog.DemoApp\Server -c Release -o artifacts\demoapp --no-build
 Confirm-PreviousCommand
 
 Write-Message "Build completed successfully"
