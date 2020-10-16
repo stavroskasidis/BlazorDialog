@@ -9,8 +9,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorDialog.DemoApp.Client
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorDialog.DemoApp.Shared", "BlazorDialog.DemoApp\Shared\BlazorDialog.DemoApp.Shared.csproj", "{A21CB807-ACB7-4C74-8959-37225100BC3B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorDialog", "..\BlazorDialog\BlazorDialog.csproj", "{4CF3C59A-21E2-4AA9-8D06-F0AFF76386AA}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,10 +27,6 @@ Global
 		{A21CB807-ACB7-4C74-8959-37225100BC3B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A21CB807-ACB7-4C74-8959-37225100BC3B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A21CB807-ACB7-4C74-8959-37225100BC3B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4CF3C59A-21E2-4AA9-8D06-F0AFF76386AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4CF3C59A-21E2-4AA9-8D06-F0AFF76386AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4CF3C59A-21E2-4AA9-8D06-F0AFF76386AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4CF3C59A-21E2-4AA9-8D06-F0AFF76386AA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
