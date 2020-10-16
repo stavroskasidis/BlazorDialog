@@ -10,9 +10,18 @@
         <label for="size" class="mr-sm-3">Size</label>
         <select class="form-control mr-sm-3" id="size" @bind="size">
             <option value="@DialogSize.Normal">@DialogSize.Normal</option>
-            <option value="@DialogSize.Large">@DialogSize.Large</option>k
+            <option value="@DialogSize.Large">@DialogSize.Large</option>
             <option value="@DialogSize.Small">@DialogSize.Small</option>
         </select>
+
+        <label for="animation" class="mr-sm-3">Animation</label>
+        <select class="form-control mr-sm-3" id="animation" @bind="animation">
+            <option value="@DialogAnimation.None">@DialogAnimation.None</option>
+            <option value="@DialogAnimation.SlideDown">@DialogAnimation.SlideDown</option>
+            <option value="@DialogAnimation.Zoom">@DialogAnimation.Zoom</option>
+            <option value="@DialogAnimation.FadeIn">@DialogAnimation.FadeIn</option>
+        </select>
+
         <div class="form-check mb-2 mr-sm-2">
             <input class="form-check-input" id="isCentered" type="checkbox" @bind="isCentered" />
             <label class="form-check-label" for="isCentered">Is centered</label>
@@ -21,7 +30,7 @@
     </div>
 </div>
 
-<Dialog Size="size" Centered="isCentered" IsShowing="isShowing">
+<Dialog Size="size" Centered="isCentered" IsShowing="isShowing" Animation="animation">
     <DialogHeader>
         <h4>@question</h4>
     </DialogHeader>
@@ -51,6 +60,7 @@
     bool isCentered;
     string question = "Do you agree ?";
     DialogSize size;
+    DialogAnimation animation;
 
     void ButtonOnClick()
     {
