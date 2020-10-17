@@ -10,5 +10,6 @@ namespace BlazorDialog
         void Register(Dialog blazorDialog);
         void Unregister(Dialog blazorDialog);
         Dialog GetById(string id);
+        int GetVisibleDialogsCount();
     }
 }
