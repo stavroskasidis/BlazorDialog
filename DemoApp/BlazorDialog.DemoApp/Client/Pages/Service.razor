@@ -1,0 +1,22 @@
+﻿@page "/Service"
+
+@{
+    var tabItems = new List<TabItem>()
+{
+        new TabItem
+        {
+            HeaderText = "Demo",
+            Contents = @<BlazorDialog.DemoApp.Client.Sources.Index />
+        },
+        new TabItem
+        {
+            HeaderText = "<> Source",
+            Contents = @<div>
+                            <SourceFileLoader SourceFilePath="Sources/Index.razor" />
+                            <SourceFileLoader SourceFilePath="App.razor" />
+                        </div>
+        }
+    };
+}
+
+<TabStrip Title="Using a dialog procedurally as a service call" TabItems="tabItems" />

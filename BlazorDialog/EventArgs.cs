@@ -20,7 +20,7 @@ namespace BlazorDialog
         {
         }
 
-        public bool PreventShow { get; set; }
+        //public bool PreventShow { get; set; }
     }
 
     public class DialogAfterShowEventArgs : DialogEventArgs
@@ -36,7 +36,7 @@ namespace BlazorDialog
         {
         }
 
-        public bool PreventHide { get; set; }
+        //public bool PreventHide { get; set; }
     }
 
     public class DialogAfterHideEventArgs : DialogEventArgs

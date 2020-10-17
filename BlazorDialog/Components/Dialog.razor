@@ -1,14 +1,15 @@
 ﻿@inject IBlazorDialogService dialogService
+@inject IBlazorDialogStore dialogStore
 @namespace BlazorDialog
 @implements IDisposable
 @if (isShowing)
 {
-    <CascadingValue Value="this.Input" Name="DialogInput">
-        <CascadingValue Value="this" Name="ParentDialog">
+    <CascadingValue Value="this" Name="ParentDialog" IsFixed="true">
+        <CascadingValue Value="this.Input" Name="DialogInput">
             @if (!IsCustom)
             {
                 <div class="blazor-dialog-container @(Centered ? "blazor-dialog-centered" : "")">
-                    <div class="blazor-dialog-content-wrapper @ContentWrapperCssClass">
+                    <div class="blazor-dialog-content-wrapper @ContentWrapperCssClass @AnimationCssClass">
                         <div class="blazor-dialog-content">
                             @ChildContent
                         </div>
@@ -24,18 +25,63 @@
 }
 
 @code{
+
     [Parameter] public RenderFragment ChildContent { get; set; }
+
+    /// <summary>
+    /// The unique idetifier of the dialog. This field is required when using the dialog as a service.
+    /// </summary>
     [Parameter] public string Id { get; set; }
+
+    /// <summary>
+    /// Use this to show/hide the dialog as a simple component.
+    /// </summary>
     [Parameter] public bool? IsShowing { get; set; }
-    [Parameter] public EventCallback<bool?> IsShowingChanged { get; set; }
     private bool isShowing;
+
+    /// <summary>
+    /// The input provided to the dialog when opening.
+    /// </summary>
     [Parameter] public object Input { get; set; }
+
+    /// <summary>
+    /// An event that is triggered before the dialog appears.
+    /// </summary>
     [Parameter] public EventCallback<DialogBeforeShowEventArgs> OnBeforeShow { get; set; }
+
+    /// <summary>
+    /// An event that is triggered after the dialog appears.
+    /// </summary>
     [Parameter] public EventCallback<DialogAfterShowEventArgs> OnAfterShow { get; set; }
+
+    /// <summary>
+    /// An event that is triggered before the dialog hides.
+    /// </summary>
     [Parameter] public EventCallback<DialogBeforeHideEventArgs> OnBeforeHide { get; set; }
+
+    /// <summary>
+    /// An event that is triggered after the dialog hides.
+    /// </summary>
     [Parameter] public EventCallback<DialogAfterHideEventArgs> OnAfterHide { get; set; }
+
+    /// <summary>
+    /// Allows you to set the dialog size. Ignored when the dialog is <see cref="Dialog.IsCustom" />.
+    /// </summary>
     [Parameter] public DialogSize Size { get; set; } = DialogSize.Normal;
+
+    /// <summary>
+    /// Allows you to change the appearing animation. Ignored when the dialog is <see cref="Dialog.IsCustom" />.
+    /// </summary>
+    [Parameter] public DialogAnimation Animation { get; set; } = DialogAnimation.None;
+
+    /// <summary>
+    /// Allows you to set the positioning of the dialog from the top. Ignored when the dialog is <see cref="Dialog.IsCustom" />.
+    /// </summary>
     [Parameter] public bool Centered { get; set; }
+
+    /// <summary>
+    /// If set to true then all default html/css is removed. Use when custom dialog implementations are needed.
+    /// </summary>
     [Parameter] public bool IsCustom { get; set; }
 
     protected TaskCompletionSource<object> taskCompletionSource;
@@ -62,12 +108,32 @@
         }
     }
 
+    protected string AnimationCssClass
+    {
+        get
+        {
+            switch (Animation)
+            {
+                case DialogAnimation.None:
+                    return "";
+                case DialogAnimation.SlideDown:
+                    return "blazor-dialog__animations--slidedown";
+                case DialogAnimation.Zoom:
+                    return "blazor-dialog__animations--zoom";
+                case DialogAnimation.FadeIn:
+                    return "blazor-dialog__animations--fadein";
+                default:
+                    throw new Exception("Unknown dialog animation");
+            }
+        }
+    }
+
 
     protected override void OnInitialized()
     {
         if (Id != null)
         {
-            dialogService.Register(this);
+            dialogStore.Register(this);
         }
         OnDialogHide = (object result) =>
         {
@@ -79,15 +145,22 @@
         };
     }
 
+    public override async Task SetParametersAsync(ParameterView parameters)
+    {
+        isShowingChanged = parameters.TryGetValue(nameof(IsShowing), out bool? newIsShowing) && newIsShowing != IsShowing;
+        await base.SetParametersAsync(parameters);
+    }
+
+    bool isShowingChanged = false;
+
     protected override async Task OnParametersSetAsync()
     {
-        if(IsShowing.HasValue && IsShowing.Value && !isShowing)
+        if (isShowingChanged && IsShowing == true && !isShowing)
         {
             if (OnBeforeShow.HasDelegate)
             {
                 var args = new DialogBeforeShowEventArgs(this);
                 await OnBeforeShow.InvokeAsync(args);
-                if (args.PreventShow) return;
             }
             this.isShowing = true;
             if (OnAfterShow.HasDelegate)
@@ -96,13 +169,12 @@
                 await OnAfterShow.InvokeAsync(args);
             }
         }
-        else if(IsShowing.HasValue && !IsShowing.Value && isShowing)
+        else if (isShowingChanged && IsShowing == false && isShowing)
         {
             if (OnBeforeHide.HasDelegate)
             {
                 var args = new DialogBeforeHideEventArgs(this);
                 await OnBeforeHide.InvokeAsync(args);
-                if (args.PreventHide) return;
             }
             this.isShowing = false;
             if (OnAfterHide.HasDelegate)
@@ -115,7 +187,7 @@
 
     public void Dispose()
     {
-        dialogService.Unregister(this);
+        dialogStore.Unregister(this);
         if (taskCompletionSource != null)
         {
             taskCompletionSource.SetCanceled();
@@ -151,10 +223,8 @@
         {
             var args = new DialogBeforeShowEventArgs(this);
             await OnBeforeShow.InvokeAsync(args);
-            if (args.PreventShow) return default;
         }
-        this.IsShowing = this.isShowing = true;
-        await IsShowingChanged.InvokeAsync(isShowing);
+        this.isShowing = true;
         await InvokeAsync(() => StateHasChanged());
         if (OnAfterShow.HasDelegate)
         {
@@ -178,10 +248,8 @@
         {
             var args = new DialogBeforeHideEventArgs(this);
             await OnBeforeHide.InvokeAsync(args);
-            if (args.PreventHide) return;
         }
-        this.IsShowing = this.isShowing = false;
-        await IsShowingChanged.InvokeAsync(isShowing);
+        this.isShowing = false;
         NotifyDialogHidden(result);
         await InvokeAsync(() => StateHasChanged());
         if (OnAfterHide.HasDelegate)

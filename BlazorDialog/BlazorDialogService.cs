@@ -7,33 +7,21 @@ namespace BlazorDialog
 {
     public class BlazorDialogService : IBlazorDialogService
     {
-        private Dictionary<string, Dialog> registeredDialogs = new Dictionary<string, Dialog>();
+        private readonly IBlazorDialogStore _blazorDialogStore;
 
-        public void Register(Dialog blazorDialog)
+        public BlazorDialogService(IBlazorDialogStore blazorDialogStore)
         {
-            if(blazorDialog?.Id == null)
-            {
-                throw new ArgumentException("BlazorDialog Id is null", nameof(blazorDialog));
-            }
-            registeredDialogs[blazorDialog.Id] = blazorDialog;
-        }
-
-        public void Unregister(Dialog blazorDialog)
-        {
-            if (blazorDialog.Id != null && registeredDialogs.ContainsKey(blazorDialog.Id))
-            {
-                registeredDialogs.Remove(blazorDialog.Id);
-            }
+            _blazorDialogStore = blazorDialogStore;
         }
 
         public async Task HideDialog(string dialogId)
         {
-            await registeredDialogs[dialogId].Hide();
+            await _blazorDialogStore.GetById(dialogId).Hide();
         }
 
         public async Task HideDialog(string dialogId, object result)
         {
-            await registeredDialogs[dialogId].Hide(result);
+            await _blazorDialogStore.GetById(dialogId).Hide(result);
         }
 
         public async Task ShowDialog(string dialogId)
@@ -53,7 +41,7 @@ namespace BlazorDialog
 
         public async Task<TResult> ShowDialog<TResult>(string dialogId, object input)
         {
-            return await registeredDialogs[dialogId].Show<TResult>(input);
+            return await _blazorDialogStore.GetById(dialogId).Show<TResult>(input);
         }
     }
 }

@@ -1,0 +1,21 @@
+﻿@page "/Events"
+
+@{
+    var tabItems = new List<TabItem>()
+{
+        new TabItem
+        {
+            HeaderText = "Demo",
+            Contents = @<BlazorDialog.DemoApp.Client.Sources.Events />
+        },
+        new TabItem
+        {
+            HeaderText = "<> Source",
+            Contents = @<div>
+                            <SourceFileLoader SourceFilePath="Sources/Events.razor" />
+                        </div>
+        }
+    };
+}
+
+<TabStrip Title="Dialog events" TabItems="tabItems" />

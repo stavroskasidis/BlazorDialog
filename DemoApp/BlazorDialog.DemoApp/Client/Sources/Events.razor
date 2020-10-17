@@ -1,0 +1,86 @@
+﻿@inject IBlazorDialogService dialogService
+@inject IJSRuntime jsRuntime
+
+<p>Dialog exposes the following events:</p>
+<ul>
+    <li>OnBeforeShow</li>
+    <li>OnAfterShow</li>
+    <li>OnBeforeHide</li>
+    <li>OnAfterHide</li>
+</ul>
+
+<div class="mt-4">
+    <button class="btn btn-primary" @onclick="ButtonOnClick">Show Dialog</button>
+</div>
+
+<div class="mt-3">DialogResult: <code>@dialogResult</code></div>
+
+<div class="event-log-wrapper">
+    <div class="event-log-header">
+        <span class="event-log-title">EVENT LOG</span>
+        <span class="event-log-clear" @onclick="()=> events.Clear()">Clear</span>
+    </div>
+    <div class="event-log" @ref="eventLogElement">
+        @foreach (var eventEntry in events)
+        {
+            <div class="event-log-entry">@eventEntry</div>
+        }
+    </div>
+</div>
+
+<Dialog IsShowing="isShowing" OnBeforeShow="OnBeforeShow" OnAfterShow="OnAfterShow" OnBeforeHide="OnBeforeHide" OnAfterHide="OnAfterHide">
+    <DialogBody>
+        <p>Lorem Ipsum</p>
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum quis est vitae purus eleifend bibendum id et neque. Sed eu nisi commodo,
+            sagittis neque suscipit, euismod quam. In metus turpis, pulvinar ut odio vel, vehicula congue dui. Praesent sed feugiat est. Ut ut rhoncus mi,
+            et facilisis eros. Vivamus malesuada nulla eu tincidunt vulputate. Donec non augue aliquam, sodales est vel, varius quam. Nam vel fringilla felis.
+        </p>
+    </DialogBody>
+    <DialogFooter>
+        <button type="button" class="btn btn-primary" @onclick="@(()=> { dialogResult = "ok"; isShowing = false; })">Ok</button>
+        <button type="button" class="btn btn-secondary" @onclick="@(()=> { dialogResult = "cancel"; isShowing = false; })">Cancel</button>
+    </DialogFooter>
+</Dialog>
+
+
+
+@code{
+    string dialogResult = null;
+    bool? isShowing = false;
+    List<string> events = new List<string>();
+    ElementReference eventLogElement;
+
+    async Task ButtonOnClick()
+    {
+        dialogResult = null;
+        isShowing = true;
+    }
+
+    public async Task OnBeforeShow(DialogBeforeShowEventArgs e)
+    {
+        await AddEventLogItem("Event: OnBeforeShow");
+    }
+
+    public async Task OnAfterShow(DialogAfterShowEventArgs e)
+    {
+        await AddEventLogItem("Event: OnAfterShow");
+    }
+
+    public async Task OnBeforeHide(DialogBeforeHideEventArgs e)
+    {
+        await AddEventLogItem("Event: OnBeforeHide");
+    }
+
+    public async Task OnAfterHide(DialogAfterHideEventArgs e)
+    {
+        await AddEventLogItem("Event: OnAfterHide");
+    }
+
+    protected async Task AddEventLogItem(string eventLogItem)
+    {
+        events.Add(eventLogItem);
+        await Task.Delay(50);
+        await jsRuntime.InvokeVoidAsync("DemoApp_ScrollDown", eventLogElement);
+    }
+}
