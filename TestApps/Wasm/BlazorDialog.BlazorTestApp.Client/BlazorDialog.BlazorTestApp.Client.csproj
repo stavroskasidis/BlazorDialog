@@ -17,5 +17,9 @@
     <ProjectReference Include="..\..\BlazorDialog.TestAppsCommon\BlazorDialog.TestAppsCommon.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Pages\" />
+  </ItemGroup>
+
 
 </Project>
