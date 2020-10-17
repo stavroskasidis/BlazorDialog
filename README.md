@@ -4,20 +4,17 @@
 
 Dialog component as a service for [Blazor](https://blazor.net)!
 
-TODO: Add gif
-
-> ⚠️
-> WORK IN PROGRESS: Do not use in production yet
+![demo-img](ReadmeResources/dialog-demo.gif)
 
 ## Features
-* Call a dialog as a service and `await` for the result !
-* Can use dialogs as normal components (if you don't want to use as a service)
-* Build-in modal dialog (similar to bootstrap)
-* Option to use completely custom markup/css (without using the build-in opinionated css and html)
+* Call a dialog procedurally as a service and `await` for the result !
+* Can use dialogs as normal components (if you don't want to use as a service).
+* Build-in modal dialog with optional helper components (`Header`, `Body`, `Footer`).
+* Option to use completely custom markup/css (without using the build-in opinionated css and html).
 
 
 ## Samples / Demo
-TODO: Add Demo
+You can find code samples and demos [here](https://blazor-dialog-demo.azurewebsites.net/).
 
 ## Installation
 **1. Add the nuget package in your Blazor project**
@@ -30,14 +27,30 @@ PM> Install-Package BlazorDialog
 ```
 *Nuget package page can be found [here](https://www.nuget.org/packages/BlazorDialog).*
 
-**2. Add the following line in your Blazor project's startup class**
+**2. Add the following line in your Blazor project in either `Startup.cs` (blazor server-side) or `Program.cs` (blazor wasm)**
 
+**- Blazor server-side: `Startup.cs`**
 ```csharp
 public class Startup
 {
     public void ConfigureServices(IServiceCollection services)
     {
+        // other code
         services.AddBlazorDialog();
+        // other code
+    }
+}
+```
+
+**- Blazor wasm: `Program.cs`**
+```csharp
+public class Program
+{
+    public static async Task Main(string[] args)
+    {
+       // other code
+        builder.Services.AddBlazorDialog();
+        // other code
     }
 }
 ```
@@ -54,21 +67,25 @@ Make sure that there is a call to `app.UseStaticFiles();` in your server project
 <link href="_content/BlazorDialog/styles.min.css" rel="stylesheet" />
 ```
 
-## Basic usage
-
-```xml
-TODO: write
-```
-
 ## ⚠️ Breaking changes ⚠️
 
-None so far
+<details open="open"><summary>Upgrading from 0.3 to 1.0</summary>
+
+>- Removed `PreventShow` and `PreventHide` from `OnBeforeShow` and `OnBeforeHide` respectively. Too many cases where infinite loops could happen.
+</details>
 
 ## Release Notes
 
-<details open="open"><summary>0.3</summary>
+<details  open="open"><summary>1.0</summary>
     
->- Upgrated to 3.1
+>- Fixed an infinite loop bug with `OnBeforeShow` event.
+>- Fixed css bugs.
+>- Removed `PreventShow` and `PreventHide` from `OnBeforeShow` and `OnBeforeHide` respectively. Too many cases where infinite loops could happen.
+</details>
+
+<details><summary>0.3</summary>
+    
+>- Upgrated to 3.1.
 >- Added new helper components: `DialogHeader`, `DialogBody`, `DialogFooter`
 </details>
 
