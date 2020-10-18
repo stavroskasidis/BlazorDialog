@@ -8,7 +8,7 @@
         <CascadingValue Value="this.Input" Name="DialogInput">
             @if (!IsCustom)
             {
-                <div class="blazor-dialog-container @(Centered ? "blazor-dialog-centered" : "")">
+                <div class="blazor-dialog-container @(Centered ? "blazor-dialog-centered" : "")" style="z-index:@(1050 + dialogDepth)">
                     <div class="blazor-dialog-content-wrapper @ContentWrapperCssClass @AnimationCssClass">
                         <div class="blazor-dialog-content">
                             @ChildContent
@@ -152,7 +152,7 @@
     }
 
     bool isShowingChanged = false;
-
+    int dialogDepth = 0;
     protected override async Task OnParametersSetAsync()
     {
         if (isShowingChanged && IsShowing == true && !isShowing)
@@ -163,6 +163,7 @@
                 await OnBeforeShow.InvokeAsync(args);
             }
             this.isShowing = true;
+            dialogDepth = dialogStore.GetVisibleDialogsCount();
             if (OnAfterShow.HasDelegate)
             {
                 var args = new DialogAfterShowEventArgs(this);
@@ -225,6 +226,7 @@
             await OnBeforeShow.InvokeAsync(args);
         }
         this.isShowing = true;
+        dialogDepth = dialogStore.GetVisibleDialogsCount();
         await InvokeAsync(() => StateHasChanged());
         if (OnAfterShow.HasDelegate)
         {
@@ -262,5 +264,10 @@
     public async Task Hide()
     {
         await this.Hide<object>(null);
+    }
+
+    public bool GetVisibility()
+    {
+        return this.isShowing;
     }
 }

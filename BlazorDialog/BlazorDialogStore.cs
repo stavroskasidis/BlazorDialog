@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
+using System.Linq;
 
 namespace BlazorDialog
 {
@@ -16,6 +18,11 @@ namespace BlazorDialog
             }
 
             throw new ArgumentException($"No dialog found for id '{id}'", nameof(id));
+        }
+
+        public int GetVisibleDialogsCount()
+        {
+            return registeredDialogs.Count(x => x.Value.GetVisibility());
         }
 
         public void Register(Dialog blazorDialog)

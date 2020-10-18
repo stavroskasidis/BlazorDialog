@@ -20,19 +20,6 @@
     <option value="@DialogAnimation.Zoom">@DialogAnimation.Zoom</option>
     <option value="@DialogAnimation.FadeIn">@DialogAnimation.FadeIn</option>
 </select>
-
-<Dialog Id="simple-dialog" Size="size" Centered="isCentered" Animation="animation">
-    <DialogInputProvider TInput="string">
-        <DialogBody>
-            <h4>@context.Input</h4>
-        </DialogBody>
-        <DialogFooter>
-            <button type="button" class="btn btn-primary" @onclick="@(() => context.Dialog.Hide("yes"))">Yes</button>
-            <button type="button" class="btn btn-secondary" @onclick="@(()=> context.Dialog.Hide("no"))">No</button>
-        </DialogFooter>
-    </DialogInputProvider>
-</Dialog>
-
 <Dialog Id="simple-large-dialog" Size="size" Centered="isCentered" Animation="animation">
     <DialogInputProvider TInput="string">
         <DialogHeader ShowClose="true">
@@ -59,6 +46,22 @@
         </DialogFooter>
     </DialogInputProvider>
 </Dialog>
+
+<Dialog Id="simple-dialog" Size="size" Centered="isCentered" Animation="animation">
+    <DialogInputProvider TInput="string">
+        <DialogBody>
+            <h4>@context.Input</h4>
+        </DialogBody>
+        <DialogFooter>
+            <button type="button" class="btn btn-primary" @onclick="@(() => context.Dialog.Hide("yes"))">Yes</button>
+            <button type="button" class="btn btn-secondary" @onclick="@(()=> context.Dialog.Hide("no"))">No</button>
+
+            <button @onclick="SimpleDialogBigOnClick">Simple Dialog Big (dialog in dialog)</button>
+        </DialogFooter>
+    </DialogInputProvider>
+</Dialog>
+
+
 
 <button @onclick="SimpleDialogOnClick">Simple Dialog</button>
 <button @onclick="SimpleDialogBigOnClick">Simple Dialog Big</button>
