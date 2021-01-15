@@ -95,13 +95,15 @@
             switch (Size)
             {
                 case DialogSize.Normal:
-                    return "";
+                    return "blazor-dialog-content-wrapper-windowed blazor-dialog-content-wrapper-normal";
                 case DialogSize.Small:
-                    return "blazor-dialog-content-wrapper-small";
+                    return "blazor-dialog-content-wrapper-windowed blazor-dialog-content-wrapper-small";
                 case DialogSize.Large:
-                    return "blazor-dialog-content-wrapper-large";
+                    return "blazor-dialog-content-wrapper-windowed blazor-dialog-content-wrapper-large";
                 case DialogSize.ExtraLarge:
-                    return "blazor-dialog-content-wrapper-xlarge";
+                    return "blazor-dialog-content-wrapper-windowed blazor-dialog-content-wrapper-xlarge";
+                case DialogSize.FullScreen:
+                    return "blazor-dialog-content-wrapper-full";
                 default:
                     throw new Exception("Unknown dialog size");
             }
