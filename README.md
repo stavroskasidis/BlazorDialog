@@ -76,7 +76,12 @@ Make sure that there is a call to `app.UseStaticFiles();` in your server project
 
 ## Release Notes
 
-<details  open="open"><summary>1.1</summary>
+<details  open="open"><summary>1.2</summary>
+    
+>- Added fullscreen mode.
+</details>
+
+<details ><summary>1.1</summary>
     
 >- Added support for dialog-in-dialog.
 </details>
