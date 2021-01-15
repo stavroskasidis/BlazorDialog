@@ -4,7 +4,7 @@
     top: 0;
     width: 100%; /* Full width */
     height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
+    /*overflow: auto;*/ /* Enable scroll if needed */
     background-color: rgb(0,0,0); /* Fallback color */
     background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 }
@@ -31,8 +31,8 @@
 }
 
 .blazor-dialog-close {
-    margin-top:auto;
-    margin-bottom:auto;
+    margin-top: auto;
+    margin-bottom: auto;
     background-color: transparent;
     border: 0;
     float: right;
@@ -59,9 +59,11 @@
     padding: 1rem;
     border-top: 1px solid #e9ecef;
 }
+
     .blazor-dialog-footer > :not(:last-child) {
         margin-right: .25rem;
     }
+
     .blazor-dialog-footer > :not(:first-child) {
         margin-left: .25rem;
     }
@@ -92,12 +94,33 @@
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
 }
 
+.blazor-dialog-content-wrapper-full {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    border: 0;
+    min-height:100%;
+    overflow: auto;
+}
+
+    .blazor-dialog-content-wrapper-full .blazor-dialog-content {
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+    }
+
 .blazor-dialog-content {
     margin: 5px;
 }
 
+.blazor-dialog-content-wrapper-windowed{
+    max-height:100%;
+    overflow: auto;
+}
+
 @media (min-width: 576px) {
-    .blazor-dialog-content-wrapper {
+    .blazor-dialog-content-wrapper-normal {
         max-width: 500px;
         margin: 2.75rem auto;
     }

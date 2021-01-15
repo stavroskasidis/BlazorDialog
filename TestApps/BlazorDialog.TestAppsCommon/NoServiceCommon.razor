@@ -7,7 +7,9 @@
 <select @bind="size">
     <option value="@DialogSize.Normal">@DialogSize.Normal</option>
     <option value="@DialogSize.Large">@DialogSize.Large</option>
+    <option value="@DialogSize.ExtraLarge">@DialogSize.ExtraLarge</option>
     <option value="@DialogSize.Small">@DialogSize.Small</option>
+    <option value="@DialogSize.FullScreen">@DialogSize.FullScreen</option>
 </select>
 <Dialog Size="size" Centered="isCentered" IsShowing="simpleIsShowing">
     <h4>Simple Dialog (No Service)</h4>
