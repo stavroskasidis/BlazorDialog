@@ -6,12 +6,14 @@
 <div>
     <div class="form-inline">
         <label for="question" class="mr-sm-3">Question:</label>
-        <input @bind="@question" class="mr-sm-3" />
+        <input @bind="@question" class="mr-sm-3 form-control" />
         <label for="size" class="mr-sm-3">Size</label>
         <select class="form-control mr-sm-3" id="size" @bind="size">
+            <option value="@DialogSize.Small">@DialogSize.Small</option>
             <option value="@DialogSize.Normal">@DialogSize.Normal</option>
             <option value="@DialogSize.Large">@DialogSize.Large</option>
-            <option value="@DialogSize.Small">@DialogSize.Small</option>
+            <option value="@DialogSize.ExtraLarge">@DialogSize.ExtraLarge</option>
+            <option value="@DialogSize.FullScreen">@DialogSize.FullScreen</option>
         </select>
 
         <label for="animation" class="mr-sm-3">Animation</label>

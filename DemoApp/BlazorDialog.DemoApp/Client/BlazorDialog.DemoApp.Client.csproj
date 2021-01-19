@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-	  <PackageReference Include="BlazorDialog" Version="1.0.0-beta-576" />
+	  <PackageReference Include="BlazorDialog" Version="1.2.0" />
 	  <PackageReference Include="Microsoft.AspNetCore.Components.Authorization" Version="3.1.8" />
 	  <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="3.2.1" />
 	  <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Build" Version="3.2.1" PrivateAssets="all" />
