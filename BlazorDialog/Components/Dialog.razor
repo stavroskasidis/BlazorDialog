@@ -8,7 +8,7 @@
         <CascadingValue Value="this.Input" Name="DialogInput">
             @if (!IsCustom)
             {
-                <div class="blazor-dialog-container @(Centered ? "blazor-dialog-centered" : "")" style="z-index:@(1050 + dialogDepth)">
+                <div class="blazor-dialog-container @(Centered ? "blazor-dialog-centered" : "")" style="z-index:@(BaseZIndex + dialogDepth)">
                     <div class="blazor-dialog-content-wrapper @ContentWrapperCssClass @AnimationCssClass">
                         <div class="blazor-dialog-content">
                             @ChildContent
@@ -32,6 +32,11 @@
     /// The unique idetifier of the dialog. This field is required when using the dialog as a service.
     /// </summary>
     [Parameter] public string Id { get; set; }
+
+    /// <summary>
+    /// The base z-index of the dialog when shown. Default: 1050
+    /// </summary>
+    [Parameter] public int BaseZIndex { get; set; } = 1050;
 
     /// <summary>
     /// Use this to show/hide the dialog as a simple component.
