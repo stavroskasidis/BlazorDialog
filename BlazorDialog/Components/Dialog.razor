@@ -8,7 +8,7 @@
         <CascadingValue Value="this.Input" Name="DialogInput">
             @if (!IsCustom)
             {
-                <div class="blazor-dialog-container @(Centered ? "blazor-dialog-centered" : "")" style="z-index:@(BaseZIndex + dialogDepth)">
+                <div class="blazor-dialog-container @CssClass @(Centered ? "blazor-dialog-centered" : "")" style="z-index:@(BaseZIndex + dialogDepth)">
                     <div class="blazor-dialog-content-wrapper @ContentWrapperCssClass @AnimationCssClass">
                         <div class="blazor-dialog-content">
                             @ChildContent
@@ -88,6 +88,11 @@
     /// If set to true then all default html/css is removed. Use when custom dialog implementations are needed.
     /// </summary>
     [Parameter] public bool IsCustom { get; set; }
+
+    /// <summary>
+    /// Adds a custom css class to the wrapper of the dialog.
+    /// </summary>
+    [Parameter] public string CssClass { get; set; }
 
     protected TaskCompletionSource<object> taskCompletionSource;
     internal Action<object> OnDialogHide;
