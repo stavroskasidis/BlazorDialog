@@ -1,8 +1,9 @@
 ﻿@namespace BlazorDialog
-<div class="blazor-dialog-footer">
+<div class="blazor-dialog-footer @CssClass">
     @ChildContent
 </div>
 
 @code{
     [Parameter] public RenderFragment ChildContent { get; set; }
+    [Parameter] public string CssClass { get; set; }
 }

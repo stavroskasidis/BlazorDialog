@@ -76,7 +76,12 @@ Make sure that there is a call to `app.UseStaticFiles();` in your server project
 
 ## Release Notes
 
-<details open="open"><summary>1.4</summary>
+<details open="open"><summary>1.5</summary>
+    
+>- Added css class parameter to all helper components (header/body/footer).
+</details>
+
+<details><summary>1.4</summary>
     
 >- Added css class parameter to dialog component.
 </details>
