@@ -122,25 +122,28 @@
 @media (min-width: 576px) {
     .blazor-dialog-content-wrapper-normal {
         max-width: 500px;
-        /*margin: 2.75rem auto;*/
+        margin: 2.75rem auto;
     }
 }
 
 @media (min-width: 992px) {
     .blazor-dialog-content-wrapper-large {
         max-width: 800px;
+        margin: 2.75rem auto;
     }
 }
 
 @media (min-width: 1416px) {
     .blazor-dialog-content-wrapper-xlarge {
         max-width: 1200px;
+        margin: 2.75rem auto;
     }
 }
 
 @media (min-width: 576px) {
     .blazor-dialog-content-wrapper-small {
         max-width: 300px;
+        margin: 2.75rem auto;
     }
 }
 
