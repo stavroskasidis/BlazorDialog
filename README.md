@@ -76,7 +76,12 @@ Make sure that there is a call to `app.UseStaticFiles();` in your server project
 
 ## Release Notes
 
-<details open="open"><summary>1.3</summary>
+<details open="open"><summary>1.4</summary>
+    
+>- Added css class parameter to dialog component.
+</details>
+
+<details><summary>1.3</summary>
     
 >- Added base z-index parameter to dialog component.
 </details>
