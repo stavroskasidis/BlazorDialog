@@ -11,6 +11,7 @@ namespace BlazorDialog
         Small,
         Large,
         ExtraLarge,
+        ExtraExtraLarge,
         FullScreen
     }
 }
