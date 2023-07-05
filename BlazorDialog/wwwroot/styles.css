@@ -140,6 +140,12 @@
     }
 }
 
+@media (min-width: 1616px) {
+    .blazor-dialog-content-wrapper-xxlarge { 
+        max-width: 1400px; margin: 2.75rem auto;
+    }
+}
+
 @media (min-width: 576px) {
     .blazor-dialog-content-wrapper-small {
         max-width: 300px;
