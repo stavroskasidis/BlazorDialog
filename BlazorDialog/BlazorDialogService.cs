@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Components;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -22,6 +23,25 @@ namespace BlazorDialog
         public async Task HideDialog(string dialogId, object result)
         {
             await _blazorDialogStore.GetById(dialogId).Hide(result);
+        }
+
+        public Task ShowComponentAsDialog(ComponentAsDialogOptions options)
+        {
+            return ShowComponentAsDialog<object>(options);
+        }
+
+        public async Task<TResult> ShowComponentAsDialog<TResult>(ComponentAsDialogOptions options)
+        {
+            var id = Guid.NewGuid().ToString();
+            var tcs = new TaskCompletionSource();
+
+            await _blazorDialogStore.RegisterComponentDialog(id, new ComponentDialog
+            {
+                Options = options,
+                RenderTaskCompletionSource = tcs
+            });
+            await tcs.Task; //wait for dialog to render
+            return await ShowDialog<TResult>(id);
         }
 
         public async Task ShowDialog(string dialogId)

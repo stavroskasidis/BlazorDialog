@@ -94,6 +94,11 @@
     /// </summary>
     [Parameter] public string CssClass { get; set; }
 
+    /// <summary>
+    /// An event that is triggered after the dialog renders.
+    /// </summary>
+    [Parameter] public EventCallback<bool> OnAfterRender { get; set; }
+
     protected TaskCompletionSource<object> taskCompletionSource;
     internal Action<object> OnDialogHide;
     protected void NotifyDialogHidden(object result) => OnDialogHide?.Invoke(result);
@@ -283,5 +288,15 @@
     public bool GetVisibility()
     {
         return this.isShowing;
+    }
+
+
+    protected override Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (OnAfterRender.HasDelegate)
+        {
+            OnAfterRender.InvokeAsync(firstRender);
+        }
+        return base.OnAfterRenderAsync(firstRender);
     }
 }

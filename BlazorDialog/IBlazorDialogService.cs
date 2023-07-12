@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Components;
+using System;
+using System.Threading.Tasks;
 
 namespace BlazorDialog
 {
@@ -10,5 +12,8 @@ namespace BlazorDialog
         Task ShowDialog(string dialogId, object input);
         Task<TResult> ShowDialog<TResult>(string dialogId);
         Task<TResult> ShowDialog<TResult>(string dialogId, object input);
+
+        Task ShowComponentAsDialog(ComponentAsDialogOptions options);
+        Task<TResult> ShowComponentAsDialog<TResult>(ComponentAsDialogOptions options);
     }
 }
