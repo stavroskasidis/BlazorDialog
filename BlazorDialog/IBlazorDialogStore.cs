@@ -8,10 +8,15 @@ namespace BlazorDialog
 {
     public class ComponentAsDialogOptions
     {
+        public ComponentAsDialogOptions(Type componentType)
+        {
+            ComponentType = componentType;
+        }
+
         /// <summary>
         /// The type of the rendered component
         /// </summary>
-        public Type ComponentType { get; set; }
+        public Type ComponentType { get; protected set; }
 
         /// <summary>
         /// The parameters of the rendered component.
@@ -41,7 +46,7 @@ namespace BlazorDialog
         /// <summary>
         /// Adds a custom css class to the wrapper of the dialog.
         /// </summary>
-        public string CssClass { get; set; }
+        public string? CssClass { get; set; }
 
         /// <summary>
         /// Allows you to set the dialog size. Ignored when the dialog is <see cref="Dialog.IsCustom" />.
