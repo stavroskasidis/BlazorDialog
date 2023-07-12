@@ -1,7 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
     <IsPackable>true</IsPackable>
 
 
@@ -34,7 +33,7 @@
   </ItemGroup>
   
   <ItemGroup>
-	  <PackageReference Include="Microsoft.AspNetCore.Components" Version="7.0.0" />
-	  <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="7.0.0" />
+	  <PackageReference Include="Microsoft.AspNetCore.Components" Version="$(MSPackagesVersion)" />
+	  <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="$(MSPackagesVersion)" />
   </ItemGroup>
 </Project>
