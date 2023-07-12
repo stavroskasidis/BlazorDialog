@@ -79,7 +79,7 @@ Make sure that there is a call to `app.UseStaticFiles();` in your server project
 <details open="open"><summary>2.0</summary>
     
 >- New feature: ShowComponentAsDialog. Check demo app for examples.
->- Changed target framework to 7.0
+>- Upgraded target framework to 6.0
 </details>
 
 <details><summary>1.6</summary>
