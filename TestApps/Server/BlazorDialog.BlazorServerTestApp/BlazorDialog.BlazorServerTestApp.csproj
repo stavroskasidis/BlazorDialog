@@ -1,9 +1,5 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
-  <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
-  </PropertyGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\..\..\BlazorDialog\BlazorDialog.csproj" />
     <ProjectReference Include="..\..\BlazorDialog.TestAppsCommon\BlazorDialog.TestAppsCommon.csproj" />

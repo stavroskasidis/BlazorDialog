@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29123.89
+# Visual Studio Version 17
+VisualStudioVersion = 17.6.33829.357
 MinimumVisualStudioVersion = 15.0.26124.0
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorDialog", "BlazorDialog\BlazorDialog.csproj", "{D6A05A5B-2A9D-43A8-B949-272147D62E52}"
 EndProject
@@ -11,6 +11,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.gitattributes = .gitattributes
 		.gitignore = .gitignore
 		build.ps1 = build.ps1
+		Directory.Build.props = Directory.Build.props
+		global.json = global.json
 		README.md = README.md
 	EndProjectSection
 EndProject
@@ -28,7 +30,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorDialog.BlazorTestApp.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorDialog.BlazorTestApp.Client", "TestApps\Wasm\BlazorDialog.BlazorTestApp.Client\BlazorDialog.BlazorTestApp.Client.csproj", "{90954557-FBC5-4942-AB51-828A4D00A3F1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorDialog.BlazorServerTestApp", "TestApps\Server\BlazorDialog.BlazorServerTestApp\BlazorDialog.BlazorServerTestApp.csproj", "{A8D3328C-CBCC-4EDE-88BB-F77FD113ACCC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorDialog.BlazorServerTestApp", "TestApps\Server\BlazorDialog.BlazorServerTestApp\BlazorDialog.BlazorServerTestApp.csproj", "{A8D3328C-CBCC-4EDE-88BB-F77FD113ACCC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

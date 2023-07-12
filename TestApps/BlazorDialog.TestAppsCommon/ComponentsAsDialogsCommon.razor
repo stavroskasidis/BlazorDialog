@@ -1,0 +1,67 @@
+﻿@inject IBlazorDialogService dialogService
+<p>Click the buttons to show the corresponding dialog</p>
+
+<label>Is centered:</label>
+<input type="checkbox" @bind="isCentered" />
+
+<label>Size:</label>
+<select @bind="size">
+    <option value="@DialogSize.Normal">@DialogSize.Normal</option>
+    <option value="@DialogSize.Large">@DialogSize.Large</option>
+    <option value="@DialogSize.ExtraLarge">@DialogSize.ExtraLarge</option>
+    <option value="@DialogSize.ExtraExtraLarge">@DialogSize.ExtraExtraLarge</option>
+    <option value="@DialogSize.Small">@DialogSize.Small</option>
+    <option value="@DialogSize.FullScreen">@DialogSize.FullScreen</option>
+</select>
+
+<label>Animation:</label>
+<select @bind="animation">
+    <option value="@DialogAnimation.None">@DialogAnimation.None</option>
+    <option value="@DialogAnimation.SlideDown">@DialogAnimation.SlideDown</option>
+    <option value="@DialogAnimation.Zoom">@DialogAnimation.Zoom</option>
+    <option value="@DialogAnimation.FadeIn">@DialogAnimation.FadeIn</option>
+</select>
+
+
+<button @onclick="SimpleDialogOnClick">Simple Dialog</button>
+<button @onclick="SimpleDialogWithResultOnClick">Simple Dialog With Result</button>
+
+@if (dialogResult != null)
+{
+    <div>DialogResult: @dialogResult</div>
+}
+
+@code {
+    string dialogResult = null;
+    bool isCentered;
+    DialogSize size;
+    DialogAnimation animation;
+
+    async Task SimpleDialogOnClick()
+    {
+        await dialogService.ShowComponentAsDialog(new ComponentAsDialogOptions(typeof(ComponentDialog))
+            {
+                Animation = animation,
+                Size = size,
+                Centered = isCentered,
+                Parameters = new()
+                {
+                    { nameof(ComponentDialog.Input), "(Simple Dialog) Are you sure?" }
+                }
+            });
+    }
+
+    async Task SimpleDialogWithResultOnClick()
+    {
+        dialogResult = await dialogService.ShowComponentAsDialog<string>(new ComponentAsDialogOptions(typeof(ComponentDialogInput))
+        {
+            Animation = animation,
+            Size = size,
+            Centered = isCentered,
+            Parameters = new()
+            {
+                { nameof(ComponentDialogInput.Input), "(Simple Dialog Large) Are you sure?"}
+            }
+        });
+    }
+}

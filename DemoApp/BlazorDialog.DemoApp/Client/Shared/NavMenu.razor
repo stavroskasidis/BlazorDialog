@@ -1,40 +1,46 @@
-﻿<div class="top-row pl-4 navbar navbar-dark">
-    <a class="navbar-brand" href="">BlazorDialog.DemoApp</a>
-    <button class="navbar-toggler" @onclick="ToggleNavMenu">
-        <span class="navbar-toggler-icon"></span>
-    </button>
+﻿<div class="top-row ps-3 navbar navbar-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="">BlazorDialog</a>
+        <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
 </div>
 
-<div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
-    <ul class="nav flex-column">
-        <li class="nav-item px-3">
+<div class="@NavMenuCssClass nav-scrollable" @onclick="ToggleNavMenu">
+    <nav class="flex-column">
+        <div class="nav-item px-3">
             <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                <span class="oi oi-browser" aria-hidden="true"></span> Basic Usage (no service)
+                <span class="oi oi-browser" aria-hidden="true"></span> Inline Usage
             </NavLink>
-        </li>
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="Service" >
-                <span class="oi oi-browser" aria-hidden="true"></span> Basic Usage (service)
+        </div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="Service">
+                <span class="oi oi-browser" aria-hidden="true"></span> Dialog as a service
             </NavLink>
-        </li>
-
-        <li class="nav-item px-3">
+        </div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="ComponentAsDialog">
+                <span class="oi oi-browser" aria-hidden="true"></span> Component as dialog
+            </NavLink>
+        </div>
+        <div class="nav-item px-3">
             <NavLink class="nav-link" href="Customization">
                 <span class="oi oi-puzzle-piece" aria-hidden="true"></span> Customization
             </NavLink>
-        </li>
-        <li class="nav-item px-3">
+        </div>
+        <div class="nav-item px-3">
             <NavLink class="nav-link" href="Events">
                 <span class="oi oi-flash" aria-hidden="true"></span> Events
             </NavLink>
-        </li>
-    </ul>
+        </div>
+    </nav>
 </div>
 
 @code {
     private bool collapseNavMenu = true;
 
-    private string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+    private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
 
     private void ToggleNavMenu()
     {

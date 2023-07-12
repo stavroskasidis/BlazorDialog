@@ -8,10 +8,10 @@ Dialog component as a service for [Blazor](https://blazor.net)!
 
 ## Features
 * Call a dialog procedurally as a service and `await` for the result !
+* Open any component as a dialog.
 * Can use dialogs as normal components (if you don't want to use as a service).
 * Build-in modal dialog with optional helper components (`Header`, `Body`, `Footer`).
 * Option to use completely custom markup/css (without using the build-in opinionated css and html).
-
 
 ## Samples / Demo
 You can find code samples and demos [here](https://blazor-dialog-demo.azurewebsites.net/).
@@ -58,7 +58,13 @@ public class Program
 ```csharp
 @using BlazorDialog
 ```
-**4. Reference the css file**
+
+**4. Add the following line in your `MainLayout.razor` or `App.razor` (must be rendered once in a central spot) **
+```csharp
+<DialogOutput/>
+```
+
+**5. Reference the css file**
 
 Add the following static file reference in your `_Host.cshtml` (server-side blazor) or in your `index.html` (client-side blazor). 
 Make sure that there is a call to `app.UseStaticFiles();` in your server project's `Startup.cs`.
@@ -76,7 +82,13 @@ Make sure that there is a call to `app.UseStaticFiles();` in your server project
 
 ## Release Notes
 
-<details open="open"><summary>1.6</summary>
+<details open="open"><summary>2.0</summary>
+    
+>- New feature: ShowComponentAsDialog. Check demo app for examples.
+>- Upgraded target framework to 6.0
+</details>
+
+<details><summary>1.6</summary>
     
 >- Added a new size option: ExtraExtraLarge.
 </details>
