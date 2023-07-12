@@ -8,10 +8,10 @@ Dialog component as a service for [Blazor](https://blazor.net)!
 
 ## Features
 * Call a dialog procedurally as a service and `await` for the result !
+* Open any component as a dialog.
 * Can use dialogs as normal components (if you don't want to use as a service).
 * Build-in modal dialog with optional helper components (`Header`, `Body`, `Footer`).
 * Option to use completely custom markup/css (without using the build-in opinionated css and html).
-
 
 ## Samples / Demo
 You can find code samples and demos [here](https://blazor-dialog-demo.azurewebsites.net/).
@@ -76,7 +76,13 @@ Make sure that there is a call to `app.UseStaticFiles();` in your server project
 
 ## Release Notes
 
-<details open="open"><summary>1.6</summary>
+<details open="open"><summary>2.0</summary>
+    
+>- New feature: ShowComponentAsDialog. Check demo app for examples.
+>- Changed target framework to 7.0
+</details>
+
+<details><summary>1.6</summary>
     
 >- Added a new size option: ExtraExtraLarge.
 </details>
