@@ -1,0 +1,20 @@
+﻿<DialogHeader ShowClose="true">
+    <h4>@Input</h4>
+</DialogHeader>
+<DialogBody>
+    <p>Lorem Ipsum</p>
+    <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum quis est vitae purus eleifend bibendum id et neque. Sed eu nisi commodo,
+        sagittis neque suscipit, euismod quam. In metus turpis, pulvinar ut odio vel, vehicula congue dui. Praesent sed feugiat est. Ut ut rhoncus mi,
+        et facilisis eros. Vivamus malesuada nulla eu tincidunt vulputate. Donec non augue aliquam, sodales est vel, varius quam. Nam vel fringilla felis.
+    </p>
+</DialogBody>
+<DialogFooter>
+    <button type="button" class="btn btn-primary" @onclick="@(()=> Dialog.Hide("yes"))">Yes</button>
+    <button type="button" class="btn btn-secondary" @onclick="@(()=> Dialog.Hide("no"))">No</button>
+</DialogFooter>
+
+@code {
+    [CascadingParameter(Name = "ParentDialog")] Dialog Dialog { get; set; }
+    [Parameter] public string Input { get; set; }
+}

@@ -1,0 +1,22 @@
+﻿@page "/ComponentAsDialog"
+
+@{
+    var tabItems = new List<TabItem>()
+{
+        new TabItem
+        {
+            HeaderText = "Demo",
+            Contents = @<BlazorDialog.DemoApp.Client.Sources.ComponentDialogExample />
+        },
+        new TabItem
+        {
+            HeaderText = "<> Source",
+            Contents = @<div>
+                            <SourceFileLoader SourceFilePath="Sources/ComponentDialogExample.razor" />
+                            <SourceFileLoader SourceFilePath="Sources/SimpleComponentDialog.razor" />
+                        </div>
+        }
+    };
+}
+
+<TabStrip Title="Using any component as a dialog" TabItems="tabItems" />

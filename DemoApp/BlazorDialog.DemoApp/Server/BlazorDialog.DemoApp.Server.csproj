@@ -1,11 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
-
-  <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
-  </PropertyGroup>
-
+	
   <ItemGroup>
-     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="3.2.1" />
+     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="$(MSPackagesVersion)" />
   </ItemGroup>
   
   <ItemGroup>
@@ -24,7 +20,7 @@
   </ItemGroup>
 
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
-    <Exec Command="del /s /f /q &quot;$(ProjectDir)ClientSources\&quot;&#xD;&#xA;xcopy &quot;$(ProjectDir)..\Client\*.razor&quot; &quot;$(ProjectDir)ClientSources\&quot; /y /s&#xD;&#xA;xcopy &quot;$(ProjectDir)..\Client\*.cs&quot; &quot;$(ProjectDir)ClientSources\&quot; /y /s&#xD;&#xA;xcopy &quot;$(ProjectDir)..\Client\*.js&quot; &quot;$(ProjectDir)ClientSources\&quot; /y /s&#xD;&#xA;xcopy &quot;$(ProjectDir)..\Client\*.css&quot; &quot;$(ProjectDir)ClientSources\&quot; /y /s" />
+    <Exec Command="del /s /f /q &quot;$(ProjectDir)ClientSources\&quot;&#xD;&#xA;xcopy &quot;$(ProjectDir)..\Client\*.razor&quot; &quot;$(ProjectDir)ClientSources\&quot; /y /s&#xD;&#xA;xcopy &quot;$(ProjectDir)..\Client\*.cs&quot; &quot;$(ProjectDir)ClientSources\&quot; /y /s&#xD;&#xA;xcopy &quot;$(ProjectDir)..\Client\*.js&quot; &quot;$(ProjectDir)ClientSources\&quot; /y /s&#xD;&#xA;xcopy &quot;$(ProjectDir)..\Client\wwwroot\*.css&quot; &quot;$(ProjectDir)ClientSources\wwwroot\&quot; /y /s" />
   </Target>
 
 </Project>
