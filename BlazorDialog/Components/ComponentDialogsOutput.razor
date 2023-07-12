@@ -1,0 +1,44 @@
+﻿@inject IBlazorDialogStore store
+@implements IDisposable
+@foreach (var dialog in store.GetComponentsAsDialogs())
+{
+    if (!dialog.Value.Options.IsCustom)
+    {
+        <Dialog Id="@dialog.Key" @key="dialog.Key" Animation="dialog.Value.Options.Animation" BaseZIndex="dialog.Value.Options.BaseZIndex"
+                Centered="dialog.Value.Options.Centered" CssClass="@dialog.Value.Options.CssClass" Size="dialog.Value.Options.Size"
+                OnAfterRender="EventUtil.AsNonRenderingEventCallback((bool firstLoad) => OnAfterDialogRender(firstLoad, dialog))">
+            <DynamicComponent Type="dialog.Value.Options.ComponentType" Parameters="dialog.Value.Options.Parameters"></DynamicComponent>
+        </Dialog>    
+    }
+    else
+    {
+        <Dialog Id="@dialog.Key" @key="dialog.Key" IsCustom="dialog.Value.Options.IsCustom" OnAfterRender="EventUtil.AsNonRenderingEventCallback((bool firstLoad) => OnAfterDialogRender(firstLoad, dialog))">
+            <DynamicComponent Type="dialog.Value.Options.ComponentType" Parameters="dialog.Value.Options.Parameters"></DynamicComponent>
+        </Dialog>
+    }
+}
+
+@code {
+    protected override void OnInitialized()
+    {
+        store.OnComponentAsDialogsChanged += Refresh;
+    }
+
+    public void Dispose()
+    {
+        store.OnComponentAsDialogsChanged -= Refresh;
+    }
+
+    protected async Task Refresh()
+    {
+        await InvokeAsync(StateHasChanged);
+    }
+
+    protected async Task OnAfterDialogRender(bool firstLoad, KeyValuePair<string,ComponentDialog> dialog)
+    {
+        if (firstLoad)
+        {
+            dialog.Value.RenderTaskCompletionSource.SetResult();
+        }
+    }
+}

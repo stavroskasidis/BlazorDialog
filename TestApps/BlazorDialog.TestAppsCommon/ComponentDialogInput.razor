@@ -1,0 +1,26 @@
+﻿@inject IBlazorDialogService dialogService
+<DialogBody>
+    <h4>@Input</h4>
+
+    <button @onclick="ShowInputDialog">Open next Dialog</button>
+</DialogBody>
+<DialogFooter>
+    <button type="button" class="btn btn-primary" @onclick="@(() => Dialog.Hide("yes"))">Yes</button>
+    <button type="button" class="btn btn-secondary" @onclick="@(()=> Dialog.Hide("no"))">No</button>
+</DialogFooter>
+@code {
+    [Parameter] public string Input { get; set; }
+    [CascadingParameter(Name = "ParentDialog")] Dialog Dialog { get; set; }
+
+    protected async Task ShowInputDialog()
+    {
+        await dialogService.ShowComponentAsDialog(new ComponentAsDialogOptions
+            {
+                ComponentType = typeof(ComponentDialog),
+                Parameters = new()
+            {
+                { nameof(ComponentDialog.Input), "(Simple Dialog) Are you sure?" }
+            }
+            });
+    }
+}
