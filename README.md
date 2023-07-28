@@ -82,7 +82,12 @@ Make sure that there is a call to `app.UseStaticFiles();` in your server project
 
 ## Release Notes
 
-<details open="open"><summary>2.0</summary>
+<details open="open"><summary>2.1</summary>
+    
+>- Minor fix for when returning null dialog results to non nullable result types.
+</details>
+
+<details><summary>2.0</summary>
     
 >- New feature: ShowComponentAsDialog. Check demo app for examples.
 >- Upgraded target framework to 6.0
