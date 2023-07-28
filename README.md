@@ -59,7 +59,7 @@ public class Program
 @using BlazorDialog
 ```
 
-**4. Add the following line in your `MainLayout.razor` or `App.razor` (must be rendered once in a central spot) **
+**4. Add the following line in your `MainLayout.razor` or `App.razor` (must be rendered once in a central spot)**
 ```csharp
 <DialogOutput/>
 ```
