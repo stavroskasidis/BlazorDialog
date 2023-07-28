@@ -42,13 +42,12 @@
     private string dialogResult;
     protected async Task ShowInputDialog()
     {
-        dialogResult = await dialogService.ShowComponentAsDialog<string>(new ComponentAsDialogOptions
+        dialogResult = await dialogService.ShowComponentAsDialog<string>(new ComponentAsDialogOptions(typeof(ComponentDialogInput))
+        {
+            Parameters = new()
             {
-                ComponentType = typeof(ComponentDialogInput),
-                Parameters = new()
-                {
-                    { nameof(ComponentDialogInput.Input), "(Simple Dialog Large) Are you sure?"}
-                }
-            });
+                { nameof(ComponentDialogInput.Input), "(Simple Dialog Large) Are you sure?"}
+            }
+        });
     }
 }

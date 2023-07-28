@@ -39,27 +39,25 @@
 
     async Task SimpleDialogOnClick()
     {
-        await dialogService.ShowComponentAsDialog(new ComponentAsDialogOptions
+        await dialogService.ShowComponentAsDialog(new ComponentAsDialogOptions(typeof(ComponentDialog))
             {
                 Animation = animation,
                 Size = size,
                 Centered = isCentered,
-                ComponentType = typeof(ComponentDialog),
                 Parameters = new()
-            {
-                { nameof(ComponentDialog.Input), "(Simple Dialog) Are you sure?" }
-            }
+                {
+                    { nameof(ComponentDialog.Input), "(Simple Dialog) Are you sure?" }
+                }
             });
     }
 
     async Task SimpleDialogWithResultOnClick()
     {
-        dialogResult = await dialogService.ShowComponentAsDialog<string>(new ComponentAsDialogOptions
+        dialogResult = await dialogService.ShowComponentAsDialog<string>(new ComponentAsDialogOptions(typeof(ComponentDialogInput))
         {
             Animation = animation,
             Size = size,
             Centered = isCentered,
-            ComponentType = typeof(ComponentDialogInput),
             Parameters = new()
             {
                 { nameof(ComponentDialogInput.Input), "(Simple Dialog Large) Are you sure?"}

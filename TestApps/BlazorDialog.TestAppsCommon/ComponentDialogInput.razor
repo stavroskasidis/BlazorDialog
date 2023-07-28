@@ -14,13 +14,12 @@
 
     protected async Task ShowInputDialog()
     {
-        await dialogService.ShowComponentAsDialog(new ComponentAsDialogOptions
+        await dialogService.ShowComponentAsDialog(new ComponentAsDialogOptions(typeof(ComponentDialog))
             {
-                ComponentType = typeof(ComponentDialog),
                 Parameters = new()
-            {
-                { nameof(ComponentDialog.Input), "(Simple Dialog) Are you sure?" }
-            }
+                {
+                    { nameof(ComponentDialog.Input), "(Simple Dialog) Are you sure?" }
+                }
             });
     }
 }

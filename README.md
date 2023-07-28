@@ -58,7 +58,13 @@ public class Program
 ```csharp
 @using BlazorDialog
 ```
-**4. Reference the css file**
+
+**4. Add the following line in your `MainLayout.razor` or `App.razor` (must be rendered once in a central spot)**
+```csharp
+<DialogOutput/>
+```
+
+**5. Reference the css file**
 
 Add the following static file reference in your `_Host.cshtml` (server-side blazor) or in your `index.html` (client-side blazor). 
 Make sure that there is a call to `app.UseStaticFiles();` in your server project's `Startup.cs`.
@@ -79,7 +85,7 @@ Make sure that there is a call to `app.UseStaticFiles();` in your server project
 <details open="open"><summary>2.0</summary>
     
 >- New feature: ShowComponentAsDialog. Check demo app for examples.
->- Changed target framework to 7.0
+>- Upgraded target framework to 6.0
 </details>
 
 <details><summary>1.6</summary>

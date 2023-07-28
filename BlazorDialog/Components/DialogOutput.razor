@@ -1,4 +1,5 @@
 ﻿@inject IBlazorDialogStore store
+@namespace BlazorDialog
 @implements IDisposable
 @foreach (var dialog in store.GetComponentsAsDialogs())
 {
