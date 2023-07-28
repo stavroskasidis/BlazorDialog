@@ -47,7 +47,7 @@
     /// <summary>
     /// The input provided to the dialog when opening.
     /// </summary>
-    [Parameter] public object Input { get; set; }
+    [Parameter] public object? Input { get; set; }
 
     /// <summary>
     /// An event that is triggered before the dialog appears.
@@ -220,10 +220,11 @@
         await Show<object>();
     }
 
-    public async Task<TResult> Show<TResult>()
+    public async Task<TResult?> Show<TResult>()
     {
         this.Input = null;
-        return (TResult)await ShowInternal();
+        var result = await ShowInternal();
+        return result == null ? default : (TResult)result;
     }
 
     public async Task Show(object input)
@@ -231,13 +232,14 @@
         await this.Show<object>(input);
     }
 
-    public async Task<TResult> Show<TResult>(object input)
+    public async Task<TResult?> Show<TResult>(object input)
     {
         this.Input = input;
-        return (TResult)await ShowInternal();
+        var result = await ShowInternal();
+        return result == null ? default : (TResult)result;
     }
 
-    private async Task<object> ShowInternal()
+    private async Task<object?> ShowInternal()
     {
         if (OnBeforeShow.HasDelegate)
         {
