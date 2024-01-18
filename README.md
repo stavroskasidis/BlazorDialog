@@ -81,8 +81,14 @@ Make sure that there is a call to `app.UseStaticFiles();` in your server project
 </details>
 
 ## Release Notes
+<details open="open"><summary>2.2</summary>
+    
+>- Fix for showing the same dialog with the dialog service more than once in the same async function.
+>- Upgrade MS packages dependecy to 6.0.26
+</details>
 
-<details open="open"><summary>2.1</summary>
+
+<details><summary>2.1</summary>
     
 >- Minor fix for when returning null dialog results to non nullable result types.
 </details>

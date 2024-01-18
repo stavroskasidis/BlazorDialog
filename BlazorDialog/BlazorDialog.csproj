@@ -2,8 +2,6 @@
 
   <PropertyGroup>
     <IsPackable>true</IsPackable>
-
-
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <PackageId>BlazorDialog</PackageId>
     <Authors>Stavros Kasidis (AkiraGTX)</Authors>
@@ -14,7 +12,7 @@
     <Copyright />
     <PackageTags>blazor blazor-component blazor-dialog dialog modal blazor-modal blazordialog blazormodaldialog blazormodal razor razor-components razorcomponents</PackageTags>
     <VersionSuffix>$(VersionSuffix)</VersionSuffix>
-    <Version>2.1.0</Version>
+    <Version>2.2.0</Version>
     <Version Condition=" '$(VersionSuffix)' != '' ">$(Version)-$(VersionSuffix)</Version>
     <Product>BlazorDialog</Product>
   </PropertyGroup>
