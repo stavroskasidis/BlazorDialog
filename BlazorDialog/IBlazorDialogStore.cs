@@ -52,6 +52,85 @@ namespace BlazorDialog
         /// Allows you to set the dialog size. Ignored when the dialog is <see cref="Dialog.IsCustom" />.
         /// </summary>
         public DialogSize Size { get; set; } = DialogSize.Normal;
+
+        /// <summary>
+        /// An event that is triggered before the dialog appears.
+        /// </summary>
+        public Func<DialogBeforeShowEventArgs, Task>? OnBeforeShow { get; set; }
+
+        /// <summary>
+        /// An event that is triggered after the dialog appears.
+        /// </summary>
+        public Func<DialogAfterShowEventArgs, Task>? OnAfterShow { get; set; }
+
+        /// <summary>
+        /// An event that is triggered before the dialog hides.
+        /// </summary>
+        public Func<DialogBeforeHideEventArgs, Task>? OnBeforeHide { get; protected set; }
+
+        /// <summary>
+        /// An event that is triggered after the dialog hides.
+        /// </summary>
+        public Func<DialogAfterHideEventArgs, Task>? OnAfterHide { get; protected set; }
+
+        public Func<bool, Task>? OnAfterRender { get; protected set; }
+
+        internal event Func<Task> OnOptionsChanged;
+
+        ///// <summary>
+        ///// An event that is triggered before the dialog appears.
+        ///// </summary>
+        //public async Task SetOnBeforeShow(Func<DialogBeforeShowEventArgs, Task> func)
+        //{
+        //    OnBeforeShow = func;
+        //    await RefreshDialog();
+        //}
+
+        ///// <summary>
+        ///// An event that is triggered after the dialog appears.
+        ///// </summary>
+        //public async Task SetOnAfterShow(Func<DialogAfterShowEventArgs, Task> func)
+        //{
+        //    OnAfterShow = func;
+        //    await RefreshDialog();
+        //}
+
+        /// <summary>
+        /// An event that is triggered before the dialog hides.
+        /// </summary>
+        public async Task SetOnBeforeHide(Func<DialogBeforeHideEventArgs, Task> func)
+        {
+            OnBeforeHide = func;
+            await RefreshDialog();
+        }
+
+        /// <summary>
+        /// An event that is triggered after the dialog hides.
+        /// </summary>
+        public async Task SetOnAfterHide(Func<DialogAfterHideEventArgs, Task> func)
+        {
+            OnAfterHide = func;
+            await RefreshDialog();
+        }
+
+        /// <summary>
+        /// An event that is triggered after the dialog hides.
+        /// </summary>
+        public async Task SetOnAfterRender(Func<bool, Task> func)
+        {
+            OnAfterRender = func;
+            await RefreshDialog();
+        }
+
+        /// <summary>
+        /// Use to redraw the dialog if any options are changed.
+        /// </summary>
+        /// <returns></returns>
+        public async Task RefreshDialog()
+        {
+            var result = OnOptionsChanged?.Invoke();
+            if (result != null) await result;
+        }
     }
 
     public class ComponentDialog

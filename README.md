@@ -81,7 +81,13 @@ Make sure that there is a call to `app.UseStaticFiles();` in your server project
 </details>
 
 ## Release Notes
-<details open="open"><summary>2.2</summary>
+<details open="open"><summary>2.3</summary>
+    
+>- Expose dialog options as cascading parameter when using ComponentAsDialog.
+</details>
+
+
+<details><summary>2.2</summary>
     
 >- Fix for showing the same dialog with the dialog service more than once in the same async function.
 >- Upgrade MS packages dependecy to 6.0.26

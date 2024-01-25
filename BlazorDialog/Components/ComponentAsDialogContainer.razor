@@ -1,0 +1,55 @@
+﻿@namespace BlazorDialog
+@implements IDisposable
+<CascadingValue Value="ComponentDialog.Options" IsFixed="true" Name="DialogOptions">
+    @if (!ComponentDialog.Options.IsCustom)
+    {
+        <Dialog Id="@Key" Animation="ComponentDialog.Options.Animation" BaseZIndex="ComponentDialog.Options.BaseZIndex"
+                Centered="ComponentDialog.Options.Centered" CssClass="@ComponentDialog.Options.CssClass" Size="ComponentDialog.Options.Size"
+                OnAfterRender="EventUtil.AsNonRenderingEventCallback((bool firstLoad) => OnAfterDialogRender(firstLoad))"
+                OnAfterHide="ComponentDialog.Options.OnAfterHide" OnAfterShow="ComponentDialog.Options.OnAfterShow"
+                OnBeforeHide="ComponentDialog.Options.OnBeforeHide" OnBeforeShow="ComponentDialog.Options.OnBeforeShow">
+            <DynamicComponent Type="ComponentDialog.Options.ComponentType" Parameters="ComponentDialog.Options.Parameters"></DynamicComponent>
+        </Dialog>
+    }
+    else
+    {
+        <Dialog Id="@Key" IsCustom="ComponentDialog.Options.IsCustom"
+                OnAfterRender="EventUtil.AsNonRenderingEventCallback((bool firstLoad) => OnAfterDialogRender(firstLoad))"
+                OnAfterHide="ComponentDialog.Options.OnAfterHide" OnAfterShow="ComponentDialog.Options.OnAfterShow"
+                OnBeforeHide="ComponentDialog.Options.OnBeforeHide" OnBeforeShow="ComponentDialog.Options.OnBeforeShow">
+            <DynamicComponent Type="ComponentDialog.Options.ComponentType" Parameters="ComponentDialog.Options.Parameters"></DynamicComponent>
+        </Dialog>
+    }
+</CascadingValue>
+
+@code {
+    [Parameter, EditorRequired] public ComponentDialog ComponentDialog { get; set; }
+    [Parameter, EditorRequired] public string Key { get; set; }
+
+    protected override void OnInitialized()
+    {
+        ComponentDialog.Options.OnOptionsChanged += Refresh;
+    }
+
+    protected async Task Refresh()
+    {
+        await InvokeAsync(StateHasChanged);
+    }
+
+    protected async Task OnAfterDialogRender(bool firstLoad)
+    {
+        if (firstLoad)
+        {
+            ComponentDialog.RenderTaskCompletionSource.SetResult();
+        }
+        if (ComponentDialog.Options.OnAfterRender != null)
+        {
+            await ComponentDialog.Options.OnAfterRender(firstLoad);
+        }
+    }
+
+    public void Dispose()
+    {
+        ComponentDialog.Options.OnOptionsChanged -= Refresh;
+    }
+}
