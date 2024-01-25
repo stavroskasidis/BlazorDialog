@@ -38,6 +38,7 @@
 @code{
     [Parameter] public string Input { get; set; }
     [CascadingParameter(Name = "ParentDialog")] Dialog Dialog { get; set; }
+    [CascadingParameter(Name = "DialogOptions")] ComponentAsDialogOptions DialogOptions { get; set; }
 
     private string dialogResult;
     protected async Task ShowInputDialog()
@@ -48,6 +49,22 @@
             {
                 { nameof(ComponentDialogInput.Input), "(Simple Dialog Large) Are you sure?"}
             }
+        });
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await DialogOptions.SetOnAfterRender(async (e) =>
+        {
+            Console.WriteLine("OnAfterRender");
+        });
+        await DialogOptions.SetOnAfterHide(async (e) =>
+        {
+            Console.WriteLine("OnAfterHide");
+        });
+        await DialogOptions.SetOnBeforeHide(async (e) =>
+        {
+            Console.WriteLine("OnBeforeHide");
         });
     }
 }

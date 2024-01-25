@@ -47,6 +47,15 @@
                 Parameters = new()
                 {
                     { nameof(ComponentDialog.Input), "(Simple Dialog) Are you sure?" }
+                },
+
+                OnBeforeShow = async (e) =>
+                {
+                    Console.WriteLine("OnBeforeShow");
+                },
+                OnAfterShow = async (e) =>
+                {
+                    Console.WriteLine("OnAfterShow");
                 }
             });
     }
