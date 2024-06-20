@@ -81,7 +81,13 @@ Make sure that there is a call to `app.UseStaticFiles();` in your server project
 </details>
 
 ## Release Notes
-<details open="open"><summary>2.3</summary>
+<details open="open"><summary>3.0</summary>
+    
+>- Migrate to .NET 8.0
+>- Add PreventNavigation option to prevent navigation when dialog is open.
+</details>
+
+<details><summary>2.3</summary>
     
 >- Expose dialog options as cascading parameter when using ComponentAsDialog.
 </details>

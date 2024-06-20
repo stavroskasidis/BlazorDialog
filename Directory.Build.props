@@ -1,8 +1,8 @@
 <Project>
   <!-- See https://aka.ms/dotnet/msbuild/customize for more details on customizing your build -->
   <PropertyGroup>
-	  <TargetFramework>net6.0</TargetFramework>
-	  <MSPackagesVersion>6.0.26</MSPackagesVersion>
+	  <TargetFramework>net8.0</TargetFramework>
+	  <MSPackagesVersion>8.0.*</MSPackagesVersion>
 	  <Nullable>enable</Nullable>
 	  <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>

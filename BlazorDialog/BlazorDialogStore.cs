@@ -11,6 +11,7 @@ namespace BlazorDialog
     {
         private Dictionary<string, Dialog> registeredDialogs = new Dictionary<string, Dialog>();
         private Dictionary<string, ComponentDialog> registeredComponentDialogs = new Dictionary<string, ComponentDialog>();
+
         public event Func<Task> OnComponentAsDialogsChanged;
 
         public Dialog GetById(string id)
@@ -47,7 +48,7 @@ namespace BlazorDialog
             }
         }
 
-        public void Unregister(Dialog blazorDialog)
+        public void Remove(Dialog blazorDialog)
         {
             if (blazorDialog.Id != null && registeredDialogs.ContainsKey(blazorDialog.Id))
             {
