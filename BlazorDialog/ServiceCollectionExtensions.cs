@@ -12,6 +12,7 @@ namespace Microsoft.Extensions.DependencyInjection
         {
             services.AddScoped<IBlazorDialogStore, BlazorDialogStore>();
             services.AddScoped<IBlazorDialogService, BlazorDialogService>();
+            services.AddScoped<ILocationChangingHandler, LocationChangingHandler>();
             return services;
         }
     }

@@ -54,6 +54,11 @@ namespace BlazorDialog
         public DialogSize Size { get; set; } = DialogSize.Normal;
 
         /// <summary>
+        /// Allows you to prevent browser navigation when the dialog is shown. Defaults to true.
+        /// </summary>
+        public bool PreventNavigation { get; set; } = true;
+
+        /// <summary>
         /// An event that is triggered before the dialog appears.
         /// </summary>
         public Func<DialogBeforeShowEventArgs, Task>? OnBeforeShow { get; set; }
@@ -143,7 +148,7 @@ namespace BlazorDialog
     {
 
         void Register(Dialog blazorDialog);
-        void Unregister(Dialog blazorDialog);
+        void Remove(Dialog blazorDialog);
         Dialog GetById(string id);
         int GetVisibleDialogsCount();
 

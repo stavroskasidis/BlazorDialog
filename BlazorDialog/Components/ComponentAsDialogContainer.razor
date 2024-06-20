@@ -7,7 +7,8 @@
                 Centered="ComponentDialog.Options.Centered" CssClass="@ComponentDialog.Options.CssClass" Size="ComponentDialog.Options.Size"
                 OnAfterRender="EventUtil.AsNonRenderingEventCallback((bool firstLoad) => OnAfterDialogRender(firstLoad))"
                 OnAfterHide="ComponentDialog.Options.OnAfterHide" OnAfterShow="ComponentDialog.Options.OnAfterShow"
-                OnBeforeHide="ComponentDialog.Options.OnBeforeHide" OnBeforeShow="ComponentDialog.Options.OnBeforeShow">
+                OnBeforeHide="ComponentDialog.Options.OnBeforeHide" OnBeforeShow="ComponentDialog.Options.OnBeforeShow"
+                PreventNavigation="ComponentDialog.Options.PreventNavigation">
             <DynamicComponent Type="ComponentDialog.Options.ComponentType" Parameters="ComponentDialog.Options.Parameters"></DynamicComponent>
         </Dialog>
     }
@@ -16,7 +17,8 @@
         <Dialog Id="@Key" IsCustom="ComponentDialog.Options.IsCustom"
                 OnAfterRender="EventUtil.AsNonRenderingEventCallback((bool firstLoad) => OnAfterDialogRender(firstLoad))"
                 OnAfterHide="ComponentDialog.Options.OnAfterHide" OnAfterShow="ComponentDialog.Options.OnAfterShow"
-                OnBeforeHide="ComponentDialog.Options.OnBeforeHide" OnBeforeShow="ComponentDialog.Options.OnBeforeShow">
+                OnBeforeHide="ComponentDialog.Options.OnBeforeHide" OnBeforeShow="ComponentDialog.Options.OnBeforeShow"
+                PreventNavigation="ComponentDialog.Options.PreventNavigation">
             <DynamicComponent Type="ComponentDialog.Options.ComponentType" Parameters="ComponentDialog.Options.Parameters"></DynamicComponent>
         </Dialog>
     }
