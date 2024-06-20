@@ -2,6 +2,7 @@
 @inject IBlazorDialogStore dialogStore
 @namespace BlazorDialog
 @implements IDisposable
+@inject ILocationChangingHandler locationChangingHandler
 @if (isShowing)
 {
     <CascadingValue Value="this" Name="ParentDialog" IsFixed="true">
@@ -99,6 +100,11 @@
     /// </summary>
     [Parameter] public EventCallback<bool> OnAfterRender { get; set; }
 
+    /// <summary>
+    /// Allows you to prevent browser navigation when the dialog is shown. Defaults to true.
+    /// </summary>
+    [Parameter] public bool PreventNavigation { get; set; } = true;
+
     protected TaskCompletionSource<object> taskCompletionSource;
     internal Action<object> OnDialogHide;
     protected void NotifyDialogHidden(object result) => OnDialogHide?.Invoke(result);
@@ -188,9 +194,12 @@
                 var args = new DialogAfterShowEventArgs(this);
                 await OnAfterShow.InvokeAsync(args);
             }
+
+            locationChangingHandler.RegisterLocationChangingHandler(this);
         }
         else if (isShowingChanged && IsShowing == false && isShowing)
         {
+            locationChangingHandler.RemoveLocationChangingHandler(this);
             if (OnBeforeHide.HasDelegate)
             {
                 var args = new DialogBeforeHideEventArgs(this);
@@ -207,7 +216,8 @@
 
     public void Dispose()
     {
-        dialogStore.Unregister(this);
+        dialogStore.Remove(this);
+        locationChangingHandler.RemoveLocationChangingHandler(this);
         if (taskCompletionSource != null)
         {
             taskCompletionSource.TrySetCanceled();
@@ -260,6 +270,8 @@
             taskCompletionSource = null;
         }
 
+        locationChangingHandler.RegisterLocationChangingHandler(this);
+
         taskCompletionSource = new TaskCompletionSource<object>();
         return await taskCompletionSource.Task;
     }
@@ -267,6 +279,7 @@
 
     public async Task Hide<TResult>(TResult result)
     {
+        locationChangingHandler.RemoveLocationChangingHandler(this);
         if (OnBeforeHide.HasDelegate)
         {
             var args = new DialogBeforeHideEventArgs(this);
