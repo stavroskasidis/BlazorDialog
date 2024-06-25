@@ -105,6 +105,7 @@
     /// </summary>
     [Parameter] public bool PreventNavigation { get; set; } = true;
 
+    private bool? _forcedPreventNavigation;
     protected TaskCompletionSource<object> taskCompletionSource;
     internal Action<object> OnDialogHide;
     protected void NotifyDialogHidden(object result) => OnDialogHide?.Invoke(result);
@@ -305,6 +306,27 @@
         return this.isShowing;
     }
 
+    internal bool GetPreventNavigation()
+    {
+        if (_forcedPreventNavigation.HasValue) return _forcedPreventNavigation.Value;
+        return this.PreventNavigation;
+    }
+
+    /// <summary>
+    /// Forces the dialog to allow navigation when shown, regardless of the <see cref="PreventNavigation" /> property.
+    /// </summary>
+    public void ForceAllowNavigation()
+    {
+        _forcedPreventNavigation = false;
+    }
+
+    /// <summary>
+    /// Forces the dialog to prevent navigation when shown, regardless of the <see cref="PreventNavigation" /> property.
+    /// </summary>
+    public void ForcePreventNavigation()
+    {
+        _forcedPreventNavigation = true;
+    }
 
     protected override Task OnAfterRenderAsync(bool firstRender)
     {

@@ -81,7 +81,14 @@ Make sure that there is a call to `app.UseStaticFiles();` in your server project
 </details>
 
 ## Release Notes
-<details open="open"><summary>3.0</summary>
+
+<details open="open"><summary>3.1</summary>
+    
+>- Added `ForceAllowNavigation` and `ForcePreventNavigation` methods to the `Dialog` component to allow/prevent navigation regardless of the `PreventNavigation` parameter.
+</details>
+
+
+<details><summary>3.0</summary>
     
 >- Migrate to .NET 8.0
 >- Add PreventNavigation option to prevent navigation when dialog is open.
