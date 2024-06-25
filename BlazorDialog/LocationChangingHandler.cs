@@ -34,7 +34,7 @@ namespace BlazorDialog
 
         private ValueTask OnLocationChanging(LocationChangingContext context)
         {
-            if (!context.IsNavigationIntercepted && _dialogsStack.Any(x => x.PreventNavigation))
+            if (!context.IsNavigationIntercepted && _dialogsStack.Any(x => x.GetPreventNavigation()))
             {
                 context.PreventNavigation();
             }
