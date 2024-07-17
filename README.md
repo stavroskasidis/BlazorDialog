@@ -82,7 +82,13 @@ Make sure that there is a call to `app.UseStaticFiles();` in your server project
 
 ## Release Notes
 
-<details open="open"><summary>3.1</summary>
+<details open="open"><summary>3.2</summary>
+    
+>- Fix for a bug when the same dialog is presented consecutively, never returning result. Contributed by [thanoskapsalis](https://github.com/thanoskapsalis).
+</details>
+
+
+<details><summary>3.1</summary>
     
 >- Added `ForceAllowNavigation` and `ForcePreventNavigation` methods to the `Dialog` component to allow/prevent navigation regardless of the `PreventNavigation` parameter.
 </details>
