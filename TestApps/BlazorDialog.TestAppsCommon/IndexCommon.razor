@@ -129,14 +129,15 @@
 <button @onclick="SimpleDialogOnClick">Simple Dialog</button>
 <button @onclick="SimpleDialogBigOnClick">Simple Dialog Big</button>
 <button @onclick="SimpleLargeDialogDisablePreventNavigation">Simple Dialog Big allow navigation</button>
-
+<button @onclick="SimpleDialogBackToBack">Simple Dialog BackToBack</button>
 @if (dialogResult != null)
 {
-    <div>DialogResult: @dialogResult</div>
+    <div>DialogResult: @dialogResult  @((secondDialogResult != null) ? "and " + secondDialogResult : "") </div>
 }
 
-@code{
+@code {
     string dialogResult = null;
+    string secondDialogResult = null;
     bool isCentered;
     DialogSize size;
     DialogAnimation animation;
@@ -145,6 +146,16 @@
     async Task SimpleDialogOnClick()
     {
         dialogResult = await dialogService.ShowDialog<string>("simple-dialog", "(Simple Dialog) Are you sure?");
+    }
+
+    async Task SimpleDialogBackToBack()
+    {
+        dialogResult = await dialogService.ShowDialog<string>("simple-dialog", "(Simple Dialog) Are you sure?");
+        if (dialogResult == "no")
+        {
+            return;
+        }
+        secondDialogResult = await dialogService.ShowDialog<string>("simple-dialog", "(Simple Dialog) Are you really sure?");
     }
 
     async Task SimpleDialogBigOnClick()
