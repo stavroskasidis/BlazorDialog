@@ -8,7 +8,8 @@
                 OnAfterRender="EventUtil.AsNonRenderingEventCallback((bool firstLoad) => OnAfterDialogRender(firstLoad))"
                 OnAfterHide="ComponentDialog.Options.OnAfterHide" OnAfterShow="ComponentDialog.Options.OnAfterShow"
                 OnBeforeHide="ComponentDialog.Options.OnBeforeHide" OnBeforeShow="ComponentDialog.Options.OnBeforeShow"
-                PreventNavigation="ComponentDialog.Options.PreventNavigation">
+                PreventNavigation="ComponentDialog.Options.PreventNavigation" KeyboardCloseEnabled="ComponentDialog.Options.KeyboardCloseEnabled"
+                KeyboardCloseKey="@ComponentDialog.Options.KeyboardCloseKey">
             <DynamicComponent Type="ComponentDialog.Options.ComponentType" Parameters="ComponentDialog.Options.Parameters"></DynamicComponent>
         </Dialog>
     }
@@ -18,7 +19,8 @@
                 OnAfterRender="EventUtil.AsNonRenderingEventCallback((bool firstLoad) => OnAfterDialogRender(firstLoad))"
                 OnAfterHide="ComponentDialog.Options.OnAfterHide" OnAfterShow="ComponentDialog.Options.OnAfterShow"
                 OnBeforeHide="ComponentDialog.Options.OnBeforeHide" OnBeforeShow="ComponentDialog.Options.OnBeforeShow"
-                PreventNavigation="ComponentDialog.Options.PreventNavigation">
+                PreventNavigation="ComponentDialog.Options.PreventNavigation" KeyboardCloseEnabled="ComponentDialog.Options.KeyboardCloseEnabled"
+                KeyboardCloseKey="@ComponentDialog.Options.KeyboardCloseKey">
             <DynamicComponent Type="ComponentDialog.Options.ComponentType" Parameters="ComponentDialog.Options.Parameters"></DynamicComponent>
         </Dialog>
     }

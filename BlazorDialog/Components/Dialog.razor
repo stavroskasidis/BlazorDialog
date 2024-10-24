@@ -3,6 +3,7 @@
 @namespace BlazorDialog
 @implements IDisposable
 @inject ILocationChangingHandler locationChangingHandler
+@inject IJSRuntime jsRuntime
 @if (isShowing)
 {
     <CascadingValue Value="this" Name="ParentDialog" IsFixed="true">
@@ -105,9 +106,22 @@
     /// </summary>
     [Parameter] public bool PreventNavigation { get; set; } = true;
 
+    /// <summary>
+    /// If enabled the dialog can be close by a keyboard key (default "Escape"). Defaults to true.
+    /// </summary>
+    [Parameter] public bool KeyboardCloseEnabled { get; set; } = true;
+
+    /// <summary>
+    /// The key to be used when <see cref="KeyboardCloseEnabled"/> is set to true. Default to "Escape".
+    /// </summary>
+    [Parameter] public string KeyboardCloseKey { get; set; } = "Escape";
+
+
     private bool? _forcedPreventNavigation;
     protected TaskCompletionSource<object> taskCompletionSource;
     internal Action<object> OnDialogHide;
+    private DotNetObjectReference<Dialog>? dotNetObjectReference;
+
     protected void NotifyDialogHidden(object result) => OnDialogHide?.Invoke(result);
 
     protected string ContentWrapperCssClass
@@ -168,6 +182,7 @@
                 taskCompletionSource.SetResult(result);
             }
         };
+        dotNetObjectReference = DotNetObjectReference.Create(this);
     }
 
     public override async Task SetParametersAsync(ParameterView parameters)
@@ -196,6 +211,8 @@
             }
 
             locationChangingHandler.RegisterLocationChangingHandler(this);
+
+            await jsRuntime.InvokeVoidAsync("blazorDialog.registerShownDialog", dotNetObjectReference, this.KeyboardCloseEnabled, this.KeyboardCloseKey);
         }
         else if (isShowingChanged && IsShowing == false && isShowing)
         {
@@ -211,6 +228,8 @@
                 var args = new DialogAfterHideEventArgs(this);
                 await OnAfterHide.InvokeAsync(args);
             }
+
+            await jsRuntime.InvokeVoidAsync("blazorDialog.unregisterShownDialog", dotNetObjectReference);
         }
     }
 
@@ -222,6 +241,11 @@
         {
             taskCompletionSource.TrySetCanceled();
             taskCompletionSource = null;
+        }
+        if (dotNetObjectReference != null)
+        {
+            dotNetObjectReference.Dispose();
+            dotNetObjectReference = null;
         }
     }
 
@@ -272,6 +296,8 @@
 
         locationChangingHandler.RegisterLocationChangingHandler(this);
 
+        await jsRuntime.InvokeVoidAsync("blazorDialog.registerShownDialog", dotNetObjectReference, this.KeyboardCloseEnabled, this.KeyboardCloseKey);
+
         taskCompletionSource = new TaskCompletionSource<object>();
         return await taskCompletionSource.Task;
     }
@@ -293,6 +319,8 @@
             var args = new DialogAfterHideEventArgs(this);
             await OnAfterHide.InvokeAsync(args);
         }
+
+        await jsRuntime.InvokeVoidAsync("blazorDialog.unregisterShownDialog", dotNetObjectReference);
     }
 
     public async Task Hide()
@@ -334,5 +362,11 @@
             OnAfterRender.InvokeAsync(firstRender);
         }
         return base.OnAfterRenderAsync(firstRender);
+    }
+
+    [JSInvokable]
+    public async Task HideFromKeyPress()
+    {
+        await this.Hide();
     }
 }

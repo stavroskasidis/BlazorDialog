@@ -264,3 +264,4 @@ __pycache__/
 /Artifacts/
 /DemoApp/BlazorDialog.DemoApp/Server/ClientSources/
 /BlazorDialog/wwwroot/styles.min.css
+/BlazorDialog/wwwroot/blazordialog.min.js
