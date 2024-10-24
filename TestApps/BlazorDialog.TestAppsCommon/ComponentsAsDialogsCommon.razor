@@ -25,6 +25,7 @@
 
 <button @onclick="SimpleDialogOnClick">Simple Dialog</button>
 <button @onclick="SimpleDialogWithResultOnClick">Simple Dialog With Result</button>
+<button @onclick="SimpleDialogOnClickNoKeyboardClosing">Simple Dialog (No keyboard closing)</button>
 
 @if (dialogResult != null)
 {
@@ -72,5 +73,30 @@
                 { nameof(ComponentDialogInput.Input), "(Simple Dialog Large) Are you sure?"}
             }
         });
+    }
+
+    async Task SimpleDialogOnClickNoKeyboardClosing()
+    {
+        await dialogService.ShowComponentAsDialog(new ComponentAsDialogOptions(typeof(ComponentDialog))
+            {
+                Animation = animation,
+                Size = size,
+                Centered = isCentered,
+                KeyboardCloseEnabled = false,
+                Parameters = new()
+                {
+                    { nameof(ComponentDialog.Input), "(Simple Dialog) Are you sure?" }
+                },
+
+                OnBeforeShow = async (e) =>
+                {
+                    Console.WriteLine("OnBeforeShow");
+                },
+                OnAfterShow = async (e) =>
+                {
+                    Console.WriteLine("OnAfterShow");
+                }
+            });
+
     }
 }

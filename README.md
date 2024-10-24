@@ -66,23 +66,37 @@ public class Program
 
 **5. Reference the css file**
 
-Add the following static file reference in your `_Host.cshtml` (server-side blazor) or in your `index.html` (client-side blazor). 
+Add the following static file references in your `_Host.cshtml` (server-side blazor) or in your `index.html` (client-side blazor). 
 Make sure that there is a call to `app.UseStaticFiles();` in your server project's `Startup.cs`.
 
 ```html
 <link href="_content/BlazorDialog/styles.min.css" rel="stylesheet" />
 ```
+```html
+<script src="_content/BlazorDialog/blazorDialog.min.js"></script>
+```
 
 ## ⚠️ Breaking changes ⚠️
 
-<details open="open"><summary>Upgrading from 0.3 to 1.0</summary>
+<details open="open"><summary>Upgrading from 3.2 to 4.0</summary>
+
+>- It is required to add a static file reference to the new javascript file.
+</details>
+
+<details><summary>Upgrading from 0.3 to 1.0</summary>
 
 >- Removed `PreventShow` and `PreventHide` from `OnBeforeShow` and `OnBeforeHide` respectively. Too many cases where infinite loops could happen.
 </details>
 
 ## Release Notes
 
-<details open="open"><summary>3.2</summary>
+<details open="open"><summary>4.0</summary>
+    
+>- A new javascript file is required to be loaded (see breaking changes).
+>- New feature: Allow closing the dialog with a key press (escape by default).
+</details>
+
+<details><summary>3.2</summary>
     
 >- Fix for a bug when the same dialog is presented consecutively, never returning result. Contributed by [thanoskapsalis](https://github.com/thanoskapsalis).
 </details>

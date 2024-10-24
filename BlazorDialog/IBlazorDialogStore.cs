@@ -78,6 +78,16 @@ namespace BlazorDialog
         /// </summary>
         public Func<DialogAfterHideEventArgs, Task>? OnAfterHide { get; protected set; }
 
+        /// <summary>
+        /// If enabled the dialog can be close by a keyboard key (default "Escape"). Defaults to true.
+        /// </summary>
+        public bool KeyboardCloseEnabled { get; set; } = true;
+
+        /// <summary>
+        /// The key to be used when <see cref="KeyboardCloseEnabled"/> is set to true. Default to "Escape".
+        /// </summary>
+        public string KeyboardCloseKey { get; set; } = "Escape";
+
         public Func<bool, Task>? OnAfterRender { get; protected set; }
 
         internal event Func<Task> OnOptionsChanged;
