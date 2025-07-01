@@ -1,4 +1,5 @@
 ﻿using BlazorDialog;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,9 +11,9 @@ namespace Microsoft.Extensions.DependencyInjection
     {
         public static IServiceCollection AddBlazorDialog(this IServiceCollection services)
         {
-            services.AddScoped<IBlazorDialogStore, BlazorDialogStore>();
-            services.AddScoped<IBlazorDialogService, BlazorDialogService>();
-            services.AddScoped<ILocationChangingHandler, LocationChangingHandler>();
+            services.TryAddScoped<IBlazorDialogStore, BlazorDialogStore>();
+            services.TryAddScoped<IBlazorDialogService, BlazorDialogService>();
+            services.TryAddScoped<ILocationChangingHandler, LocationChangingHandler>();
             return services;
         }
     }
