@@ -28,12 +28,12 @@
 
 @code{
 
-    [Parameter] public RenderFragment ChildContent { get; set; }
+    [Parameter] public RenderFragment ChildContent { get; set; } = null!;
 
     /// <summary>
     /// The unique idetifier of the dialog. This field is required when using the dialog as a service.
     /// </summary>
-    [Parameter] public string Id { get; set; }
+    [Parameter] public string? Id { get; set; }
 
     /// <summary>
     /// The base z-index of the dialog when shown. Default: 1050
@@ -44,6 +44,11 @@
     /// Use this to show/hide the dialog as a simple component.
     /// </summary>
     [Parameter] public bool? IsShowing { get; set; }
+
+    /// <summary>
+    /// Used for two-way binding of the <see cref="IsShowing" /> parameter.
+    /// </summary>
+    [Parameter] public EventCallback<bool?> IsShowingChanged { get; set; }
     private bool isShowing;
 
     /// <summary>
@@ -94,7 +99,7 @@
     /// <summary>
     /// Adds a custom css class to the wrapper of the dialog.
     /// </summary>
-    [Parameter] public string CssClass { get; set; }
+    [Parameter] public string? CssClass { get; set; }
 
     /// <summary>
     /// An event that is triggered after the dialog renders.
@@ -118,11 +123,18 @@
 
 
     private bool? _forcedPreventNavigation;
-    protected TaskCompletionSource<object> taskCompletionSource;
-    internal Action<object> OnDialogHide;
+    protected TaskCompletionSource<object?>? taskCompletionSource;
+    internal Action<object?> OnDialogHide = null!;
     private DotNetObjectReference<Dialog>? dotNetObjectReference;
 
-    protected void NotifyDialogHidden(object result) => OnDialogHide?.Invoke(result);
+    protected async Task NotifyDialogHidden(object? result) 
+    {
+        OnDialogHide?.Invoke(result);
+        if(IsShowingChanged.HasDelegate)
+        {
+            await IsShowingChanged.InvokeAsync(false);
+        }
+    }
 
     protected string ContentWrapperCssClass
     {
@@ -175,7 +187,7 @@
         {
             dialogStore.Register(this);
         }
-        OnDialogHide = (object result) =>
+        OnDialogHide = (object? result) =>
         {
             if (taskCompletionSource != null)
             {
@@ -219,13 +231,13 @@
             locationChangingHandler.RemoveLocationChangingHandler(this);
             if (OnBeforeHide.HasDelegate)
             {
-                var args = new DialogBeforeHideEventArgs(this);
+                var args = new DialogBeforeHideEventArgs(this, default, triggeredFromKeyboard: false, triggeredFromCloseButton: false);
                 await OnBeforeHide.InvokeAsync(args);
             }
             this.isShowing = false;
             if (OnAfterHide.HasDelegate)
             {
-                var args = new DialogAfterHideEventArgs(this);
+                var args = new DialogAfterHideEventArgs(this, triggeredFromKeyboard: false, triggeredFromCloseButton: false);
                 await OnAfterHide.InvokeAsync(args);
             }
 
@@ -266,7 +278,7 @@
         await this.Show<object>(input);
     }
 
-    public async Task<TResult?> Show<TResult>(object input)
+    public async Task<TResult?> Show<TResult>(object? input)
     {
         this.Input = input;
         var result = await ShowInternal();
@@ -298,29 +310,45 @@
 
         await jsRuntime.InvokeVoidAsync("blazorDialog.registerShownDialog", dotNetObjectReference, this.KeyboardCloseEnabled, this.KeyboardCloseKey);
 
-        taskCompletionSource = new TaskCompletionSource<object>();
+        taskCompletionSource = new TaskCompletionSource<object?>();
         return await taskCompletionSource.Task;
     }
 
 
-    public async Task Hide<TResult>(TResult result)
+    public async Task Hide<TResult>(TResult? result)
     {
-        locationChangingHandler.RemoveLocationChangingHandler(this);
+        await Hide(result, triggeredFromKeyboard: false, triggeredFromCloseButton: false);
+    }
+
+    protected async Task Hide<TResult>(TResult? result, bool triggeredFromKeyboard = false, bool triggeredFromCloseButton = false)
+    {
         if (OnBeforeHide.HasDelegate)
         {
-            var args = new DialogBeforeHideEventArgs(this);
+            var args = new DialogBeforeHideEventArgs(this, result, triggeredFromKeyboard, triggeredFromCloseButton);
             await OnBeforeHide.InvokeAsync(args);
+            if (args.PreventHide) return;
         }
+        locationChangingHandler.RemoveLocationChangingHandler(this);
         this.isShowing = false;
-        NotifyDialogHidden(result);
+        await NotifyDialogHidden(result);
         await InvokeAsync(() => StateHasChanged());
         if (OnAfterHide.HasDelegate)
         {
-            var args = new DialogAfterHideEventArgs(this);
+            var args = new DialogAfterHideEventArgs(this, triggeredFromKeyboard, triggeredFromCloseButton);
             await OnAfterHide.InvokeAsync(args);
         }
 
         await jsRuntime.InvokeVoidAsync("blazorDialog.unregisterShownDialog", dotNetObjectReference);
+    }
+
+    internal async Task HideFromKeyboard()
+    {
+        await this.Hide<object>(null, triggeredFromKeyboard: true);
+    }
+
+    internal async Task HideFromCloseButton()
+    {
+        await this.Hide<object>(null, triggeredFromCloseButton: true);
     }
 
     public async Task Hide()
@@ -367,6 +395,6 @@
     [JSInvokable]
     public async Task HideFromKeyPress()
     {
-        await this.Hide();
+        await this.HideFromKeyboard();
     }
 }

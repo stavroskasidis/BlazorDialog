@@ -9,9 +9,9 @@ Dialog component as a service for [Blazor](https://blazor.net)!
 ## Features
 * Call a dialog procedurally as a service and `await` for the result !
 * Open any component as a dialog.
-* Can use dialogs as normal components (if you don't want to use as a service).
+* Can use dialogs as normal components, declaratively (if you don't want to use as a service).
 * Build-in modal dialog with optional helper components (`Header`, `Body`, `Footer`).
-* Option to use completely custom markup/css (without using the build-in opinionated css and html).
+* Option to use completely custom markup/css, ignoring the build-in opinionated css and html.
 
 ## Samples / Demo
 You can find code samples and demos [here](https://blazor-dialog-demo.azurewebsites.net/).
@@ -90,7 +90,13 @@ Make sure that there is a call to `app.UseStaticFiles();` in your server project
 
 ## Release Notes
 
-<details open="open"><summary>4.0</summary>
+<details open="open"><summary>4.1</summary>
+    
+>- Restore PreventHide functionality via OnBeforeHide event.
+>- Add two-way binding support to the "IsShowing" parameter to fix issues when using the Dialog component as a normal component in combination with the keyboard close feature and the close button feature.
+</details>
+
+<details><summary>4.0</summary>
     
 >- A new javascript file is required to be loaded (see breaking changes).
 >- New feature: Allow closing the dialog with a key press (escape by default).

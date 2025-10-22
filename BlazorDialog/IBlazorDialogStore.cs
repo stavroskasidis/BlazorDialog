@@ -68,15 +68,27 @@ namespace BlazorDialog
         /// </summary>
         public Func<DialogAfterShowEventArgs, Task>? OnAfterShow { get; set; }
 
+
+        private Func<DialogBeforeHideEventArgs, Task>? _onBeforeHide;
         /// <summary>
         /// An event that is triggered before the dialog hides.
         /// </summary>
-        public Func<DialogBeforeHideEventArgs, Task>? OnBeforeHide { get; protected set; }
+        public Func<DialogBeforeHideEventArgs, Task>? OnBeforeHide
+        {
+            get => _onBeforeHide;
+            init { _onBeforeHide = value; }
+        }
 
+
+        private Func<DialogAfterHideEventArgs, Task>? _onAfterHide;
         /// <summary>
         /// An event that is triggered after the dialog hides.
         /// </summary>
-        public Func<DialogAfterHideEventArgs, Task>? OnAfterHide { get; protected set; }
+        public Func<DialogAfterHideEventArgs, Task>? OnAfterHide
+        {
+            get => _onAfterHide;
+            init { _onAfterHide = value; }
+        }
 
         /// <summary>
         /// If enabled the dialog can be close by a keyboard key (default "Escape"). Defaults to true.
@@ -88,9 +100,14 @@ namespace BlazorDialog
         /// </summary>
         public string KeyboardCloseKey { get; set; } = "Escape";
 
-        public Func<bool, Task>? OnAfterRender { get; protected set; }
+        private Func<bool, Task>? _onAfterRender;
+        public Func<bool, Task>? OnAfterRender
+        {
+            get => _onAfterRender;
+            init { _onAfterRender = value; }
+        }
 
-        internal event Func<Task> OnOptionsChanged;
+        internal event Func<Task>? OnOptionsChanged;
 
         ///// <summary>
         ///// An event that is triggered before the dialog appears.
@@ -115,7 +132,7 @@ namespace BlazorDialog
         /// </summary>
         public async Task SetOnBeforeHide(Func<DialogBeforeHideEventArgs, Task> func)
         {
-            OnBeforeHide = func;
+            _onBeforeHide = func;
             await RefreshDialog();
         }
 
@@ -124,7 +141,7 @@ namespace BlazorDialog
         /// </summary>
         public async Task SetOnAfterHide(Func<DialogAfterHideEventArgs, Task> func)
         {
-            OnAfterHide = func;
+            _onAfterHide = func;
             await RefreshDialog();
         }
 
@@ -133,7 +150,7 @@ namespace BlazorDialog
         /// </summary>
         public async Task SetOnAfterRender(Func<bool, Task> func)
         {
-            OnAfterRender = func;
+            _onAfterRender = func;
             await RefreshDialog();
         }
 
@@ -150,8 +167,8 @@ namespace BlazorDialog
 
     public class ComponentDialog
     {
-        public ComponentAsDialogOptions Options { get; set; }
-        public TaskCompletionSource RenderTaskCompletionSource { get; set; }
+        public required ComponentAsDialogOptions Options { get; set; }
+        public required TaskCompletionSource RenderTaskCompletionSource { get; set; }
     }
 
     public interface IBlazorDialogStore
