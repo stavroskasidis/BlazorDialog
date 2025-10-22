@@ -15,6 +15,6 @@
 </DialogFooter>
 
 @code {
-    [CascadingParameter(Name = "ParentDialog")] Dialog Dialog { get; set; }
-    [Parameter] public string Input { get; set; }
+    [CascadingParameter(Name = "ParentDialog")] Dialog Dialog { get; set; } = null!;
+    [Parameter] public string? Input { get; set; }
 }
