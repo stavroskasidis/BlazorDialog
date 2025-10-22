@@ -32,17 +32,48 @@ namespace BlazorDialog
 
     public class DialogBeforeHideEventArgs : DialogEventArgs
     {
-        public DialogBeforeHideEventArgs(Dialog dialog) : base(dialog)
+        public DialogBeforeHideEventArgs(Dialog dialog, object? result, bool triggeredFromKeyboard, bool triggeredFromCloseButton) : base(dialog)
         {
+            Result = result;
+            TriggeredFromKeyboard = triggeredFromKeyboard;
+            TriggeredFromCloseButton = triggeredFromCloseButton;
         }
 
-        //public bool PreventHide { get; set; }
+        /// <summary>
+        /// If set to true, the dialog hide action will be prevented.
+        /// </summary>
+        public bool PreventHide { get; set; }
+
+        /// <summary>
+        /// The dialog result if any.
+        /// </summary>
+        public object? Result { get; }
+
+        /// <summary>
+        /// Gets a value indicating whether the action was triggered by a keyboard input.
+        /// </summary>
+        public bool TriggeredFromKeyboard { get; }
+
+        /// <summary>
+        /// Gets a value indicating whether the action was triggered by the close button.
+        /// </summary>
+        public bool TriggeredFromCloseButton { get; }
     }
 
     public class DialogAfterHideEventArgs : DialogEventArgs
     {
-        public DialogAfterHideEventArgs(Dialog dialog) : base(dialog)
+        public DialogAfterHideEventArgs(Dialog dialog, bool triggeredFromKeyboard, bool triggeredFromCloseButton) : base(dialog)
         {
+            TriggeredFromKeyboard = triggeredFromKeyboard;
+            TriggeredFromCloseButton = triggeredFromCloseButton;
         }
+        /// <summary>
+        /// Gets a value indicating whether the action was triggered by a keyboard input.
+        /// </summary>
+        public bool TriggeredFromKeyboard { get; }
+        /// <summary>
+        /// Gets a value indicating whether the action was triggered by the close button.
+        /// </summary>
+        public bool TriggeredFromCloseButton { get; }
     }
 }

@@ -26,6 +26,7 @@
 <button @onclick="SimpleDialogOnClick">Simple Dialog</button>
 <button @onclick="SimpleDialogWithResultOnClick">Simple Dialog With Result</button>
 <button @onclick="SimpleDialogOnClickNoKeyboardClosing">Simple Dialog (No keyboard closing)</button>
+<button @onclick="SimpleDialogPreventHide">Simple Dialog (Prevent Hide on "no" or escape button)</button>
 
 @if (dialogResult != null)
 {
@@ -33,7 +34,7 @@
 }
 
 @code {
-    string dialogResult = null;
+    string? dialogResult = null;
     bool isCentered;
     DialogSize size;
     DialogAnimation animation;
@@ -99,4 +100,35 @@
             });
 
     }
+
+    async Task SimpleDialogPreventHide()
+    {
+        await dialogService.ShowComponentAsDialog(new ComponentAsDialogOptions(typeof(ComponentDialog))
+        {
+            Animation = animation,
+            Size = size,
+            Centered = isCentered,
+            Parameters = new()
+            {
+                { nameof(ComponentDialog.Input), "(Simple Dialog) Are you sure?" }
+            },
+
+            OnBeforeShow = async (e) =>
+            {
+                Console.WriteLine("OnBeforeShow");
+            },
+            OnAfterShow = async (e) =>
+            {
+                Console.WriteLine("OnAfterShow");
+            },
+            OnBeforeHide = async (e) =>
+            {
+                if (e.Result?.ToString() == "no" || e.TriggeredFromKeyboard)
+                {
+                    e.PreventHide = true;
+                }
+            }
+        });
+    }
+
 }

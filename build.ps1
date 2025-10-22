@@ -37,16 +37,6 @@ Write-Host "=========="
 Write-Host "Version suffix: $VersionSuffix"
 Write-Host "Run tests: $RunTests"
 
-# Check prerequisites
-$proc = Start-Process "node" -ArgumentList "-v" -PassThru
-Confirm-Process $proc "Could not find node.js, please install and run again ..."
-
-$proc = Start-Process "npm" -ArgumentList "-v" -PassThru
-Confirm-Process $proc "Could not find npm, please install and run again ..."
-
-$proc = Start-Process "dotnet" -ArgumentList "--version" -PassThru
-Confirm-Process $proc "Could not find dotnet sdk, please install and run again ..."
-
 Push-Location BlazorDialog
 
 Write-Message "Installing npm dependencies ..."

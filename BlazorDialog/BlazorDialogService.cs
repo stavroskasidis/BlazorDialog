@@ -30,7 +30,7 @@ namespace BlazorDialog
             return ShowComponentAsDialog<object>(options);
         }
 
-        public async Task<TResult> ShowComponentAsDialog<TResult>(ComponentAsDialogOptions options)
+        public async Task<TResult?> ShowComponentAsDialog<TResult>(ComponentAsDialogOptions options)
         {
             var id = Guid.NewGuid().ToString();
             var tcs = new TaskCompletionSource();
@@ -49,17 +49,17 @@ namespace BlazorDialog
             await ShowDialog<object>(dialogId, null);
         }
 
-        public async Task<TResult> ShowDialog<TResult>(string dialogId)
+        public async Task<TResult?> ShowDialog<TResult>(string dialogId)
         {
             return await ShowDialog<TResult>(dialogId, null);
         }
 
-        public async Task ShowDialog(string dialogId, object input)
+        public async Task ShowDialog(string dialogId, object? input)
         {
             await ShowDialog<object>(dialogId, input);
         }
 
-        public async Task<TResult> ShowDialog<TResult>(string dialogId, object input)
+        public async Task<TResult?> ShowDialog<TResult>(string dialogId, object? input)
         {
             return await _blazorDialogStore.GetById(dialogId).Show<TResult>(input);
         }

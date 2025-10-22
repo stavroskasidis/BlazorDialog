@@ -11,14 +11,16 @@
 
 <div class="mt-4">
     <button class="btn btn-primary" @onclick="ButtonOnClick">Show Dialog</button>
+    <input id="prevent-hide-checkbox" type="checkbox" @bind="preventHide" />
+    <label for="prevent-hide-checkbox">Prevent hide (Esc / Close button)</label>
 </div>
 
 <div class="mt-3">DialogResult: <code>@dialogResult</code></div>
 
 <div class="event-log-wrapper">
     <div class="event-log-header">
-        <span class="event-log-title">EVENT LOG</span>
-        <span class="event-log-clear" @onclick="()=> events.Clear()">Clear</span>
+        <span class="event-log-title">EVENT LOG  </span>
+        <button class="btn btn-sm btn-outline-danger event-log-clear" @onclick="() => events.Clear()">X</button>
     </div>
     <div class="event-log" @ref="eventLogElement">
         @foreach (var eventEntry in events)
@@ -28,7 +30,10 @@
     </div>
 </div>
 
-<Dialog IsShowing="isShowing" OnBeforeShow="OnBeforeShow" OnAfterShow="OnAfterShow" OnBeforeHide="OnBeforeHide" OnAfterHide="OnAfterHide">
+<Dialog @bind-IsShowing="isShowing" OnBeforeShow="OnBeforeShow" OnAfterShow="OnAfterShow" OnBeforeHide="OnBeforeHide" OnAfterHide="OnAfterHide">
+    <DialogHeader ShowClose="true">
+        <h4>Dialog Events Example</h4>
+    </DialogHeader>
     <DialogBody>
         <p>Lorem Ipsum</p>
         <p>
@@ -46,8 +51,9 @@
 
 
 @code{
-    string dialogResult = null;
+    string? dialogResult = null;
     bool? isShowing = false;
+    bool preventHide = false;
     List<string> events = new List<string>();
     ElementReference eventLogElement;
 
@@ -69,7 +75,15 @@
 
     public async Task OnBeforeHide(DialogBeforeHideEventArgs e)
     {
-        await AddEventLogItem("Event: OnBeforeHide");
+        if (preventHide && (e.TriggeredFromKeyboard || e.TriggeredFromCloseButton))
+        {
+            e.PreventHide = true;
+            await AddEventLogItem("Event: OnBeforeHide -> Hide prevented");
+        }
+        else
+        {
+            await AddEventLogItem("Event: OnBeforeHide");
+        }
     }
 
     public async Task OnAfterHide(DialogAfterHideEventArgs e)

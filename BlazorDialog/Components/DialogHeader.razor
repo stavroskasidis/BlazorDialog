@@ -10,13 +10,13 @@
 </div>
 
 @code{
-    [Parameter] public RenderFragment ChildContent { get; set; }
+    [Parameter] public RenderFragment ChildContent { get; set; } = null!;
     [Parameter] public bool ShowClose { get; set; } = false;
-    [Parameter] public string CssClass { get; set; }
-    [CascadingParameter(Name = "ParentDialog")] Dialog Dialog { get; set; }
+    [Parameter] public string? CssClass { get; set; }
+    [CascadingParameter(Name = "ParentDialog")] Dialog Dialog { get; set; } = null!;
 
     private async Task OnCloseClick()
     {
-        await Dialog.Hide();
+        await Dialog.HideFromCloseButton();
     }
 }

@@ -9,8 +9,8 @@
     <button type="button" class="btn btn-secondary" @onclick="@(()=> Dialog.Hide("no"))">No</button>
 </DialogFooter>
 @code {
-    [Parameter] public string Input { get; set; }
-    [CascadingParameter(Name = "ParentDialog")] Dialog Dialog { get; set; }
+    [Parameter] public string Input { get; set; } = null!;
+    [CascadingParameter(Name = "ParentDialog")] Dialog Dialog { get; set; } = null!;
 
     protected async Task ShowInputDialog()
     {
