@@ -33,7 +33,7 @@
     </div>
 </div>
 
-<Dialog Size="size" Centered="isCentered" IsShowing="isShowing" Animation="animation">
+<Dialog Size="size" Centered="isCentered" @bind-IsShowing="isShowing" Animation="animation">
     <DialogHeader>
         <h4>@question</h4>
     </DialogHeader>
@@ -58,8 +58,8 @@
 <div class="mt-3">DialogResult: <code>@dialogResult</code></div>
 
 @code{
-    string dialogResult = null;
-    bool isShowing = false;
+    string? dialogResult = null;
+    bool? isShowing = false;
     bool isCentered;
     string question = "Do you agree ?";
     DialogSize size;
