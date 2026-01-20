@@ -27,32 +27,13 @@ PM> Install-Package BlazorDialog
 ```
 *Nuget package page can be found [here](https://www.nuget.org/packages/BlazorDialog).*
 
-**2. Add the following line in your Blazor project in either `Startup.cs` (blazor server-side) or `Program.cs` (blazor wasm)**
+**2. Add the following line in your Blazor project**
 
-**- Blazor server-side: `Startup.cs`**
+**- `Program.cs`**
 ```csharp
-public class Startup
-{
-    public void ConfigureServices(IServiceCollection services)
-    {
-        // other code
-        services.AddBlazorDialog();
-        // other code
-    }
-}
-```
-
-**- Blazor wasm: `Program.cs`**
-```csharp
-public class Program
-{
-    public static async Task Main(string[] args)
-    {
-       // other code
-        builder.Services.AddBlazorDialog();
-        // other code
-    }
-}
+// other code
+builder.Services.AddBlazorDialog();
+// other code
 ```
 **3. Add the following line in your `_Imports.razor`**
 ```csharp
@@ -66,8 +47,7 @@ public class Program
 
 **5. Reference the css file**
 
-Add the following static file references in your `_Host.cshtml` (server-side blazor) or in your `index.html` (client-side blazor). 
-Make sure that there is a call to `app.UseStaticFiles();` in your server project's `Startup.cs`.
+Add the following static file references in your `App.razor` file. 
 
 ```html
 <link href="_content/BlazorDialog/styles.min.css" rel="stylesheet" />
