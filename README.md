@@ -35,7 +35,7 @@ PM> Install-Package BlazorDialog
 builder.Services.AddBlazorDialog();
 // other code
 ```
-**3. Add the following line in your `_Imports.razor`**
+**3. Add the following line in all your `_Imports.razor`**
 ```csharp
 @using BlazorDialog
 ```
