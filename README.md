@@ -45,7 +45,7 @@ builder.Services.AddBlazorDialog();
 <DialogOutput/>
 ```
 
-**5. Reference the css file**
+**5. Reference the css & script files**
 
 Add the following static file references in your `App.razor` file. 
 
