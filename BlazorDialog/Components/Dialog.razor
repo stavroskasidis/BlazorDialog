@@ -10,7 +10,7 @@
         <CascadingValue Value="this.Input" Name="DialogInput">
             @if (!IsCustom)
             {
-                <div class="blazor-dialog-container @CssClass @(Centered ? "blazor-dialog-centered" : "")" style="z-index:@(BaseZIndex + dialogDepth)">
+                <div class="blazor-dialog-container @CssClass @(Centered ? "blazor-dialog-centered" : "") @(BodyScrollable ? "scrollable" : "")" style="z-index:@(BaseZIndex + dialogDepth)">
                     <div class="blazor-dialog-content-wrapper @ContentWrapperCssClass @AnimationCssClass">
                         <div class="blazor-dialog-content">
                             @ChildContent
@@ -85,6 +85,12 @@
     /// Allows you to change the appearing animation. Ignored when the dialog is <see cref="Dialog.IsCustom" />.
     /// </summary>
     [Parameter] public DialogAnimation Animation { get; set; } = DialogAnimation.None;
+
+    /// <summary>
+    /// Applies dialog body to be scrollable on overflow instead of the complete dialog. Ignored when the dialog is <see cref="Dialog.IsCustom" />.
+    /// </summary>
+    /// <remarks>Has effect only if opinionated DialogBody is used</remarks>
+    [Parameter] public bool BodyScrollable { get; set; }
 
     /// <summary>
     /// Allows you to set the positioning of the dialog from the top. Ignored when the dialog is <see cref="Dialog.IsCustom" />.

@@ -44,6 +44,12 @@ namespace BlazorDialog
         public bool Centered { get; set; }
 
         /// <summary>
+        /// Applies dialog body to be scrollable on overflow instead of the complete dialog. Ignored when the dialog is <see cref="Dialog.IsCustom" />.
+        /// </summary>
+        /// <remarks>Has effect only if opinionated DialogBody is used</remarks>
+        public bool BodyScrollable { get; set; }
+
+        /// <summary>
         /// Adds a custom css class to the wrapper of the dialog.
         /// </summary>
         public string? CssClass { get; set; }
