@@ -1,8 +1,4 @@
-﻿using Microsoft.AspNetCore.Components;
-using System;
-using System.Threading.Tasks;
-
-namespace BlazorDialog
+﻿namespace BlazorDialog
 {
     public interface IBlazorDialogService
     {

@@ -1,10 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Routing;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BlazorDialog
 {
@@ -12,7 +7,7 @@ namespace BlazorDialog
     {
         private readonly NavigationManager _navigationManager;
         private IDisposable? _currentRegistration;
-        private List<Dialog> _dialogsStack = new List<Dialog>();
+        private List<Dialog> _dialogsStack = [];
 
         public LocationChangingHandler(NavigationManager navigationManager)
         {
