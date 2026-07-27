@@ -11,7 +11,7 @@
             @if (!IsCustom)
             {
                 <div class="blazor-dialog-container @CssClass @(Centered ? "blazor-dialog-centered" : "")" style="z-index:@(BaseZIndex + dialogDepth)">
-                    <div class="blazor-dialog-content-wrapper @ContentWrapperCssClass @AnimationCssClass @(AllowDragging ? "blazor-dialog-draggable" : "")" @ref="contentWrapperElement">
+                    <div class="blazor-dialog-content-wrapper @ContentWrapperCssClass @AnimationCssClass @(AllowDragging ? "blazor-dialog-draggable" : "")" @ref="ContentWrapperElement">
                         <div class="blazor-dialog-content">
                             @ChildContent
                         </div>
@@ -134,7 +134,23 @@
     internal Action<object?> OnDialogHide = null!;
     private DotNetObjectReference<Dialog>? dotNetObjectReference;
     private ElementReference contentWrapperElement;
+    private bool isContentWrapperRendered;
     private bool isDraggingEnabled;
+
+    /// <summary>
+    /// Captures the content wrapper element. The setter is what tells us that the element actually made
+    /// it into the dom: the isShowing flag cannot, because it is set before the render happens and an
+    /// OnAfterRender of an earlier render can still be in flight by then.
+    /// </summary>
+    private ElementReference ContentWrapperElement
+    {
+        get => contentWrapperElement;
+        set
+        {
+            contentWrapperElement = value;
+            isContentWrapperRendered = true;
+        }
+    }
 
     protected async Task NotifyDialogHidden(object? result) 
     {
@@ -244,6 +260,7 @@
                 await OnBeforeHide.InvokeAsync(args);
             }
             this.isShowing = false;
+            this.isContentWrapperRendered = false;
             if (OnAfterHide.HasDelegate)
             {
                 var args = new DialogAfterHideEventArgs(this, triggeredFromKeyboard: false, triggeredFromCloseButton: false);
@@ -339,6 +356,7 @@
         }
         locationChangingHandler.RemoveLocationChangingHandler(this);
         this.isShowing = false;
+        this.isContentWrapperRendered = false;
         await NotifyDialogHidden(result);
         await InvokeAsync(() => StateHasChanged());
         if (OnAfterHide.HasDelegate)
@@ -409,15 +427,17 @@
     {
         if (IsCustom) return;
 
-        if (isShowing && AllowDragging && !isDraggingEnabled)
+        var isInDom = isShowing && isContentWrapperRendered;
+
+        if (isInDom && AllowDragging && !isDraggingEnabled)
         {
             isDraggingEnabled = true;
             await jsRuntime.InvokeVoidAsync("blazorDialog.enableDragging", contentWrapperElement);
         }
-        else if (isDraggingEnabled && (!isShowing || !AllowDragging))
+        else if (isDraggingEnabled && (!isInDom || !AllowDragging))
         {
             isDraggingEnabled = false;
-            if (isShowing) // when hidden the element is already removed from the dom, along with its handlers
+            if (isInDom) // when hidden the element is already removed from the dom, along with its handlers
             {
                 await jsRuntime.InvokeVoidAsync("blazorDialog.disableDragging", contentWrapperElement);
             }

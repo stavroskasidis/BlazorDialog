@@ -67,7 +67,9 @@ var blazorDialog = function (blazorDialog) {
     }
 
     blazorDialog.enableDragging = function (wrapperElement) {
-        if (!wrapperElement || wrapperElement.blazorDialogDrag) {
+        // guard against anything that is not a live element, so that a bad call can never take down
+        // the whole blazor renderer
+        if (!wrapperElement || typeof wrapperElement.querySelectorAll !== "function" || wrapperElement.blazorDialogDrag) {
             return;
         }
         var handle = findDragHandle(wrapperElement);
