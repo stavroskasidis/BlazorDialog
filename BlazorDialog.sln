@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.6.33829.357
+# Visual Studio Version 18
+VisualStudioVersion = 18.8.11912.234 insiders
 MinimumVisualStudioVersion = 15.0.26124.0
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorDialog", "BlazorDialog\BlazorDialog.csproj", "{D6A05A5B-2A9D-43A8-B949-272147D62E52}"
 EndProject
@@ -12,7 +12,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.gitignore = .gitignore
 		build.ps1 = build.ps1
 		Directory.Build.props = Directory.Build.props
-		global.json = global.json
 		README.md = README.md
 	EndProjectSection
 EndProject

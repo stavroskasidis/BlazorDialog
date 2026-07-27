@@ -153,6 +153,26 @@
     }
 }
 
+/* ============== Scrollable body ==============*/
+
+.blazor-dialog-container.scrollable .blazor-dialog-body {
+    overflow: auto;
+}
+
+.blazor-dialog-container.scrollable .blazor-dialog-content-wrapper-small .blazor-dialog-body,
+.blazor-dialog-container.scrollable .blazor-dialog-content-wrapper-normal .blazor-dialog-body {
+    max-height: 50vh;
+}
+
+.blazor-dialog-container.scrollable .blazor-dialog-content-wrapper-large .blazor-dialog-body {
+    max-height: 70vh;
+}
+
+.blazor-dialog-container.scrollable .blazor-dialog-content-wrapper-xlarge .blazor-dialog-body,
+.blazor-dialog-container.scrollable .blazor-dialog-content-wrapper-xxlarge .blazor-dialog-body {
+    max-height: 80vh;
+}
+
 /* ============== Animations ==============*/
 
 .blazor-dialog__animations--slidedown {

@@ -3,6 +3,9 @@
 
 <label>Is centered:</label>
 <input type="checkbox" @bind="isCentered" />
+<label>Is body scrollable:</label>
+<input type="checkbox" @bind="isBodyScroll" />
+<br />
 
 <label>Size:</label>
 <select @bind="size">
@@ -36,6 +39,7 @@
 @code {
     string? dialogResult = null;
     bool isCentered;
+    bool isBodyScroll;
     DialogSize size;
     DialogAnimation animation;
 
@@ -46,6 +50,7 @@
                 Animation = animation,
                 Size = size,
                 Centered = isCentered,
+                BodyScrollable = isBodyScroll,
                 Parameters = new()
                 {
                     { nameof(ComponentDialog.Input), "(Simple Dialog) Are you sure?" }
@@ -68,6 +73,7 @@
         {
             Animation = animation,
             Size = size,
+            BodyScrollable = isBodyScroll,
             Centered = isCentered,
             Parameters = new()
             {
@@ -83,6 +89,7 @@
                 Animation = animation,
                 Size = size,
                 Centered = isCentered,
+                BodyScrollable = isBodyScroll,
                 KeyboardCloseEnabled = false,
                 Parameters = new()
                 {
@@ -108,6 +115,7 @@
             Animation = animation,
             Size = size,
             Centered = isCentered,
+            BodyScrollable = isBodyScroll,
             Parameters = new()
             {
                 { nameof(ComponentDialog.Input), "(Simple Dialog) Are you sure?" }

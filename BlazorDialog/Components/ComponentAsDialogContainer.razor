@@ -4,6 +4,7 @@
     @if (!ComponentDialog.Options.IsCustom)
     {
         <Dialog Id="@Key" Animation="ComponentDialog.Options.Animation" BaseZIndex="ComponentDialog.Options.BaseZIndex"
+                BodyScrollable="ComponentDialog.Options.BodyScrollable"
                 Centered="ComponentDialog.Options.Centered" CssClass="@ComponentDialog.Options.CssClass" Size="ComponentDialog.Options.Size"
                 OnAfterRender="EventUtil.AsNonRenderingEventCallback((bool firstLoad) => OnAfterDialogRender(firstLoad))"
                 OnAfterHide="ComponentDialog.Options.OnAfterHide!" OnAfterShow="ComponentDialog.Options.OnAfterShow!"
@@ -16,6 +17,7 @@
     else
     {
         <Dialog Id="@Key" IsCustom="ComponentDialog.Options.IsCustom"
+                BodyScrollable="ComponentDialog.Options.BodyScrollable"
                 OnAfterRender="EventUtil.AsNonRenderingEventCallback((bool firstLoad) => OnAfterDialogRender(firstLoad))"
                 OnAfterHide="ComponentDialog.Options.OnAfterHide!" OnAfterShow="ComponentDialog.Options.OnAfterShow!"
                 OnBeforeHide="ComponentDialog.Options.OnBeforeHide!" OnBeforeShow="ComponentDialog.Options.OnBeforeShow!"

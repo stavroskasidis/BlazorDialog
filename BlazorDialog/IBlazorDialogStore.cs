@@ -1,10 +1,4 @@
-﻿using Microsoft.AspNetCore.Components;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace BlazorDialog
+﻿namespace BlazorDialog
 {
     public class ComponentAsDialogOptions
     {
@@ -42,6 +36,12 @@ namespace BlazorDialog
         /// Allows you to set the positioning of the dialog from the top. Ignored when the dialog is <see cref="Dialog.IsCustom" />.
         /// </summary>
         public bool Centered { get; set; }
+
+        /// <summary>
+        /// Applies dialog body to be scrollable on overflow instead of the complete dialog. Ignored when the dialog is <see cref="Dialog.IsCustom" />.
+        /// </summary>
+        /// <remarks>Has effect only if opinionated DialogBody is used</remarks>
+        public bool BodyScrollable { get; set; }
 
         /// <summary>
         /// Adds a custom css class to the wrapper of the dialog.
