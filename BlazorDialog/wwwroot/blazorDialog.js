@@ -117,7 +117,11 @@ var blazorDialog = function (blazorDialog) {
             }
             state.offsetX = clamp(state.originX + e.clientX - state.startX, state.minX, state.maxX);
             state.offsetY = clamp(state.originY + e.clientY - state.startY, state.minY, state.maxY);
-            wrapperElement.style.transform = "translate(" + state.offsetX + "px, " + state.offsetY + "px)";
+            // the wrapper is position:relative, so left/top offset it without affecting anything else.
+            // a transform would make it the containing block of any nested dialog's position:fixed
+            // overlay, collapsing that overlay onto this dialog, and would also fight the animations.
+            wrapperElement.style.left = state.offsetX + "px";
+            wrapperElement.style.top = state.offsetY + "px";
         }
 
         state.onPointerUp = function (e) {
@@ -150,7 +154,8 @@ var blazorDialog = function (blazorDialog) {
         state.handle.style.cursor = "";
         state.handle.style.touchAction = "";
         state.handle.style.userSelect = "";
-        wrapperElement.style.transform = "";
+        wrapperElement.style.left = "";
+        wrapperElement.style.top = "";
         wrapperElement.blazorDialogDrag = null;
     }
 
