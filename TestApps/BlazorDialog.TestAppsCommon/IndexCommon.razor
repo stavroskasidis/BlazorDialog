@@ -156,8 +156,34 @@
     </DialogInputProvider>
 </Dialog>
 
+@* the inner dialog is declared inside the outer one, so it is nested in the dom too *@
+<Dialog @bind-IsShowing="isNestedOuterShowing" Size="size" Centered="isCentered" Animation="animation" PreventNavigation="false" AllowDragging="allowDragging">
+    <DialogHeader ShowClose="true">
+        <h4>Outer dialog</h4>
+    </DialogHeader>
+    <DialogBody>
+        <button @onclick="@(() => isNestedInnerShowing = true)">Open the inner dialog</button>
+
+        <Dialog @bind-IsShowing="isNestedInnerShowing" Size="DialogSize.Small" Animation="animation" PreventNavigation="false" AllowDragging="allowDragging">
+            <DialogHeader ShowClose="true">
+                <h4>Inner dialog</h4>
+            </DialogHeader>
+            <DialogBody>
+                <p>Drag me by my own header.</p>
+            </DialogBody>
+            <DialogFooter>
+                <button @onclick="@(() => isNestedInnerShowing = false)">Close</button>
+            </DialogFooter>
+        </Dialog>
+    </DialogBody>
+    <DialogFooter>
+        <button @onclick="@(() => isNestedOuterShowing = false)">Close</button>
+    </DialogFooter>
+</Dialog>
+
 <button @onclick="SimpleDialogOnClick">Simple Dialog</button>
 <button @onclick="SimpleDialogBigOnClick">Simple Dialog Big</button>
+<button @onclick="@(() => isNestedOuterShowing = true)">Nested Dialog (dialog inside a dialog)</button>
 <button @onclick="SimpleLargeDialogDisablePreventNavigation">Simple Dialog Big allow navigation</button>
 <button @onclick="SimpleDialogBackToBack">Simple Dialog BackToBack</button>
 <button @onclick="SimpleDialogOnClickNoKeyboardClose">Simple Dialog (No keyboard close)</button>
@@ -173,6 +199,8 @@
     string? secondDialogResult = null;
     bool isCentered;
     bool allowDragging;
+    bool? isNestedOuterShowing = false;
+    bool? isNestedInnerShowing = false;
     DialogSize size;
     DialogAnimation animation;
     Dialog? simpleLargeDialog;

@@ -53,10 +53,40 @@
     </DialogFooter>
 </Dialog>
 
+<Dialog @bind-IsShowing="isOuterShowing" AllowDragging="true" Size="DialogSize.Large" Animation="DialogAnimation.FadeIn">
+    <DialogHeader ShowClose="true">
+        <h4>Outer dialog</h4>
+    </DialogHeader>
+    <DialogBody>
+        <p>
+            The inner dialog below is declared inside this one, so it is nested in the dom as well. Each dialog is
+            dragged by its own header and moving one does not move the other.
+        </p>
+        <button class="btn btn-primary" @onclick="@(()=> isInnerShowing = true)">Open the inner dialog</button>
+
+        <Dialog @bind-IsShowing="isInnerShowing" AllowDragging="true" Size="DialogSize.Small" Animation="DialogAnimation.Zoom">
+            <DialogHeader ShowClose="true">
+                <h4>Inner dialog</h4>
+            </DialogHeader>
+            <DialogBody>
+                <p>Drag me by my own header.</p>
+            </DialogBody>
+            <DialogFooter>
+                <button type="button" class="btn btn-secondary" @onclick="@(()=> isInnerShowing = false)">Close</button>
+            </DialogFooter>
+        </Dialog>
+    </DialogBody>
+    <DialogFooter>
+        <button type="button" class="btn btn-primary" @onclick="@(()=> { dialogResult = "yes"; isOuterShowing = false; })">Yes</button>
+        <button type="button" class="btn btn-secondary" @onclick="@(()=> { dialogResult = "no"; isOuterShowing = false; })">No</button>
+    </DialogFooter>
+</Dialog>
+
 <div class="mt-4">
     <button class="btn btn-primary mr-sm-3" @onclick="ShowDraggableDialog">Drag by the header</button>
     <button class="btn btn-primary mr-sm-3" @onclick="ShowCustomDragHandleDialog">Drag by a custom handle</button>
-    <button class="btn btn-primary" @onclick="ShowComponentAsDraggableDialog">Drag a component shown as a dialog</button>
+    <button class="btn btn-primary mr-sm-3" @onclick="ShowComponentAsDraggableDialog">Drag a component shown as a dialog</button>
+    <button class="btn btn-primary" @onclick="ShowNestedDialog">Drag a dialog in a dialog</button>
 </div>
 
 <div class="mt-3">DialogResult: <code>@dialogResult</code></div>
@@ -65,6 +95,8 @@
     string? dialogResult = null;
     bool? isShowing = false;
     bool? isCustomHandleShowing = false;
+    bool? isOuterShowing = false;
+    bool? isInnerShowing = false;
     string question = "Do you agree ?";
 
     void ShowDraggableDialog()
@@ -77,6 +109,12 @@
     {
         dialogResult = null;
         isCustomHandleShowing = true;
+    }
+
+    void ShowNestedDialog()
+    {
+        dialogResult = null;
+        isOuterShowing = true;
     }
 
     async Task ShowComponentAsDraggableDialog()
