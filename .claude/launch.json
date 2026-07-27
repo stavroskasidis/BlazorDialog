@@ -1,0 +1,41 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "server-testapp",
+      "runtimeExecutable": "dotnet",
+      "runtimeArgs": [
+        "run",
+        "--project",
+        "TestApps/Server/BlazorDialog.BlazorServerTestApp",
+        "--urls",
+        "http://localhost:5199"
+      ],
+      "port": 5199
+    },
+    {
+      "name": "wasm-testapp",
+      "runtimeExecutable": "dotnet",
+      "runtimeArgs": [
+        "run",
+        "--project",
+        "TestApps/Wasm/BlazorDialog.BlazorTestApp.Server",
+        "--urls",
+        "http://localhost:5200"
+      ],
+      "port": 5200
+    },
+    {
+      "name": "demoapp",
+      "runtimeExecutable": "dotnet",
+      "runtimeArgs": [
+        "run",
+        "--project",
+        "DemoApp/BlazorDialog.DemoApp/Server",
+        "--urls",
+        "http://localhost:5201"
+      ],
+      "port": 5201
+    }
+  ]
+}

@@ -19,8 +19,20 @@
     <Folder Include="ClientSources\" />
   </ItemGroup>
 
+  <!-- Mirrors the client sources so the demo site can display them. Uses msbuild tasks instead of
+       del/xcopy so that it also works when building on macOS/linux. -->
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
-    <Exec Command="del /s /f /q &quot;$(ProjectDir)ClientSources\&quot;&#xD;&#xA;xcopy &quot;$(ProjectDir)..\Client\*.razor&quot; &quot;$(ProjectDir)ClientSources\&quot; /y /s&#xD;&#xA;xcopy &quot;$(ProjectDir)..\Client\*.cs&quot; &quot;$(ProjectDir)ClientSources\&quot; /y /s&#xD;&#xA;xcopy &quot;$(ProjectDir)..\Client\*.js&quot; &quot;$(ProjectDir)ClientSources\&quot; /y /s&#xD;&#xA;xcopy &quot;$(ProjectDir)..\Client\wwwroot\*.css&quot; &quot;$(ProjectDir)ClientSources\wwwroot\&quot; /y /s" />
+    <ItemGroup>
+      <StaleClientSource Include="$(ProjectDir)ClientSources/**/*" />
+      <ClientSource Include="$(ProjectDir)../Client/**/*.razor;$(ProjectDir)../Client/**/*.cs;$(ProjectDir)../Client/**/*.js"
+                    Exclude="$(ProjectDir)../Client/bin/**;$(ProjectDir)../Client/obj/**" />
+      <ClientStyleSource Include="$(ProjectDir)../Client/wwwroot/**/*.css" />
+    </ItemGroup>
+    <Delete Files="@(StaleClientSource)" />
+    <Copy SourceFiles="@(ClientSource)"
+          DestinationFiles="@(ClientSource->'$(ProjectDir)ClientSources/%(RecursiveDir)%(Filename)%(Extension)')" />
+    <Copy SourceFiles="@(ClientStyleSource)"
+          DestinationFiles="@(ClientStyleSource->'$(ProjectDir)ClientSources/wwwroot/%(RecursiveDir)%(Filename)%(Extension)')" />
   </Target>
 
 </Project>

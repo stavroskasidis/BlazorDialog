@@ -13,9 +13,9 @@
 </div>
 
 @functions{
-    [Parameter] public string Title { get; set; }
-    [Parameter] public string Language { get; set; }
-    [Parameter] public RenderFragment ChildContent { get; set; }
+    [Parameter] public string Title { get; set; } = null!;
+    [Parameter] public string Language { get; set; } = null!;
+    [Parameter] public RenderFragment ChildContent { get; set; } = null!;
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
