@@ -10,16 +10,19 @@ else
 }
 
 @functions{
-    [Parameter] public string SourceFilePath { get; set; }
+    [Parameter] public string? SourceFilePath { get; set; }
 
-    private string sourceFileContents { get; set; }
-    private string sourceFileName { get; set; }
-    private string sourceFileLanguage { get; set; }
+    private string? sourceFileContents { get; set; }
+    private string? sourceFileName { get; set; }
+    private string? sourceFileLanguage { get; set; }
     protected override async Task OnParametersSetAsync()
     {
-        sourceFileName = SourceFilePath.Split('/').Last();
-        sourceFileLanguage = GetLanguageByFileExtension(System.IO.Path.GetExtension(SourceFilePath));
-        sourceFileContents = await httpClient.GetStringAsync($"api/Source/{SourceFilePath.Replace(".", "_dot_")}");
+        if (SourceFilePath != null)
+        {
+            sourceFileName = SourceFilePath.Split('/').Last();
+            sourceFileLanguage = GetLanguageByFileExtension(System.IO.Path.GetExtension(SourceFilePath));
+            sourceFileContents = await httpClient.GetStringAsync($"api/Source/{SourceFilePath.Replace(".", "_dot_")}");
+        }
     }
 
     private string GetLanguageByFileExtension(string fileExtension)

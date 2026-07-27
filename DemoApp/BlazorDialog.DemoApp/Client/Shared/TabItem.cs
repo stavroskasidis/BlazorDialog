@@ -9,7 +9,7 @@ namespace BlazorDialog.DemoApp.Client.Shared
     public class TabItem
     {
         public string Id { get; set; } = Guid.NewGuid().ToString();
-        public string HeaderText { get; set; }
-        public RenderFragment Contents { get; set; }
+        public string? HeaderText { get; set; }
+        public RenderFragment Contents { get; set; } = null!;
     }
 }
