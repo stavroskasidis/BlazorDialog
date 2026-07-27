@@ -1,0 +1,19 @@
+@page "/Dragging"
+
+@{
+    var tabItems = new List<TabItem>()
+{
+        new TabItem
+        {
+            HeaderText = "Demo",
+            Contents = @<BlazorDialog.DemoApp.Client.Sources.Dragging />
+        },
+        new TabItem
+        {
+            HeaderText = "<> Source",
+            Contents = @<SourceFileLoader SourceFilePath="Sources/Dragging.razor" />
+        }
+    };
+}
+
+<TabStrip Title="Dragging a dialog around" TabItems="tabItems" />

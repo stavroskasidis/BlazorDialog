@@ -1,0 +1,98 @@
+@inject IBlazorDialogService dialogService
+
+<ul>
+    <li>Set <code>AllowDragging</code> to <code>true</code> and the user can move the dialog around by dragging its header.</li>
+    <li>It works the same way declaratively and when showing a component as a dialog through the <code>IBlazorDialogService</code>.</li>
+    <li>If you want to drag from somewhere else, add the <code>blazor-dialog-drag-handle</code> css class to any element inside the dialog. It takes precedence over the header.</li>
+    <li>Buttons, links and inputs inside the drag handle do not start a drag, so the close button keeps working.</li>
+    <li>The dialog cannot be dragged out of the viewport and it goes back to its original position the next time it is shown.</li>
+    <li><code>AllowDragging</code> is ignored in custom dialogs (<code>IsCustom</code>) and does nothing if the dialog has neither a header nor a drag handle.</li>
+</ul>
+<div>
+    <div class="form-inline">
+        <label for="question" class="mr-sm-3">Question:</label>
+        <input @bind="@question" class="mr-sm-3 form-control" />
+    </div>
+</div>
+
+<Dialog @bind-IsShowing="isShowing" AllowDragging="true" Size="DialogSize.Large" Animation="DialogAnimation.FadeIn">
+    <DialogHeader ShowClose="true">
+        <h4>@question</h4>
+    </DialogHeader>
+    <DialogBody>
+        <p>Grab the header and move this dialog around.</p>
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum quis est vitae purus eleifend bibendum id et neque. Sed eu nisi commodo,
+            sagittis neque suscipit, euismod quam. In metus turpis, pulvinar ut odio vel, vehicula congue dui. Praesent sed feugiat est. Ut ut rhoncus mi,
+            et facilisis eros. Vivamus malesuada nulla eu tincidunt vulputate. Donec non augue aliquam, sodales est vel, varius quam. Nam vel fringilla felis.
+        </p>
+    </DialogBody>
+    <DialogFooter>
+        <button type="button" class="btn btn-primary" @onclick="@(()=> { dialogResult = "yes"; isShowing = false; })">Yes</button>
+        <button type="button" class="btn btn-secondary" @onclick="@(()=> { dialogResult = "no"; isShowing = false; })">No</button>
+    </DialogFooter>
+</Dialog>
+
+<Dialog @bind-IsShowing="isCustomHandleShowing" AllowDragging="true" Size="DialogSize.Large" Animation="DialogAnimation.FadeIn">
+    <DialogHeader ShowClose="true">
+        <h4>@question</h4>
+    </DialogHeader>
+    <DialogBody>
+        <div class="blazor-dialog-drag-handle alert alert-secondary text-center">
+            <span class="oi oi-move" aria-hidden="true"></span> Drag the dialog from here, the header does nothing
+        </div>
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum quis est vitae purus eleifend bibendum id et neque. Sed eu nisi commodo,
+            sagittis neque suscipit, euismod quam. In metus turpis, pulvinar ut odio vel, vehicula congue dui. Praesent sed feugiat est. Ut ut rhoncus mi,
+            et facilisis eros. Vivamus malesuada nulla eu tincidunt vulputate. Donec non augue aliquam, sodales est vel, varius quam. Nam vel fringilla felis.
+        </p>
+    </DialogBody>
+    <DialogFooter>
+        <button type="button" class="btn btn-primary" @onclick="@(()=> { dialogResult = "yes"; isCustomHandleShowing = false; })">Yes</button>
+        <button type="button" class="btn btn-secondary" @onclick="@(()=> { dialogResult = "no"; isCustomHandleShowing = false; })">No</button>
+    </DialogFooter>
+</Dialog>
+
+<div class="mt-4">
+    <button class="btn btn-primary mr-sm-3" @onclick="ShowDraggableDialog">Drag by the header</button>
+    <button class="btn btn-primary mr-sm-3" @onclick="ShowCustomDragHandleDialog">Drag by a custom handle</button>
+    <button class="btn btn-primary" @onclick="ShowComponentAsDraggableDialog">Drag a component shown as a dialog</button>
+</div>
+
+<div class="mt-3">DialogResult: <code>@dialogResult</code></div>
+
+@code{
+    string? dialogResult = null;
+    bool? isShowing = false;
+    bool? isCustomHandleShowing = false;
+    string question = "Do you agree ?";
+
+    void ShowDraggableDialog()
+    {
+        dialogResult = null;
+        isShowing = true;
+    }
+
+    void ShowCustomDragHandleDialog()
+    {
+        dialogResult = null;
+        isCustomHandleShowing = true;
+    }
+
+    async Task ShowComponentAsDraggableDialog()
+    {
+        dialogResult = null;
+
+        dialogResult = await dialogService.ShowComponentAsDialog<string>(new ComponentAsDialogOptions(typeof(SimpleComponentDialog))
+        {
+            AllowDragging = true,
+            Size = DialogSize.Large,
+            Animation = DialogAnimation.FadeIn,
+            Parameters = new()
+            {
+                { nameof(SimpleComponentDialog.Input), question }
+            }
+        });
+    }
+
+}
