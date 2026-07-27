@@ -6,6 +6,9 @@
 <label>Is centered:</label>
 <input type="checkbox" @bind="isCentered" />
 
+<label>Allow dragging:</label>
+<input type="checkbox" @bind="allowDragging" />
+
 <label>Size:</label>
 <select @bind="size">
     <option value="@DialogSize.Normal">@DialogSize.Normal</option>
@@ -24,7 +27,7 @@
     <option value="@DialogAnimation.FadeIn">@DialogAnimation.FadeIn</option>
 </select>
 
-<Dialog Id="simple-large-dialog" Size="size" Centered="isCentered" Animation="animation" CssClass="custom-class" @ref="simpleLargeDialog">
+<Dialog Id="simple-large-dialog" Size="size" Centered="isCentered" Animation="animation" CssClass="custom-class" AllowDragging="allowDragging" @ref="simpleLargeDialog">
     <DialogInputProvider TInput="string">
         <DialogHeader ShowClose="true">
             <h4>@context.Input</h4>
@@ -111,7 +114,7 @@
     </DialogInputProvider>
 </Dialog>
 
-<Dialog Id="simple-dialog" Size="size" Centered="isCentered" Animation="animation" PreventNavigation="false">
+<Dialog Id="simple-dialog" Size="size" Centered="isCentered" Animation="animation" PreventNavigation="false" AllowDragging="allowDragging">
     <DialogInputProvider TInput="string">
         <DialogBody>
             <h4>@context.Input</h4>
@@ -125,7 +128,7 @@
     </DialogInputProvider>
 </Dialog>
 
-<Dialog Id="simple-dialog-no-escape" Size="size" Centered="isCentered" Animation="animation" PreventNavigation="false" KeyboardCloseEnabled="false">
+<Dialog Id="simple-dialog-no-escape" Size="size" Centered="isCentered" Animation="animation" PreventNavigation="false" KeyboardCloseEnabled="false" AllowDragging="allowDragging">
     <DialogInputProvider TInput="string">
         <DialogBody>
             <h4>@context.Input</h4>
@@ -139,7 +142,7 @@
     </DialogInputProvider>
 </Dialog>
 
-<Dialog Id="simple-dialog-prevent-hide" Size="size" Centered="isCentered" Animation="animation" PreventNavigation="false" OnBeforeHide="OnBeforeHide">
+<Dialog Id="simple-dialog-prevent-hide" Size="size" Centered="isCentered" Animation="animation" PreventNavigation="false" OnBeforeHide="OnBeforeHide" AllowDragging="allowDragging">
     <DialogInputProvider TInput="string">
         <DialogBody>
             <h4>@context.Input</h4>
@@ -169,6 +172,7 @@
     string? dialogResult = null;
     string? secondDialogResult = null;
     bool isCentered;
+    bool allowDragging;
     DialogSize size;
     DialogAnimation animation;
     Dialog? simpleLargeDialog;

@@ -11,7 +11,7 @@
             @if (!IsCustom)
             {
                 <div class="blazor-dialog-container @CssClass @(Centered ? "blazor-dialog-centered" : "")" style="z-index:@(BaseZIndex + dialogDepth)">
-                    <div class="blazor-dialog-content-wrapper @ContentWrapperCssClass @AnimationCssClass">
+                    <div class="blazor-dialog-content-wrapper @ContentWrapperCssClass @AnimationCssClass @(AllowDragging ? "blazor-dialog-draggable" : "")" @ref="contentWrapperElement">
                         <div class="blazor-dialog-content">
                             @ChildContent
                         </div>
@@ -121,11 +121,20 @@
     /// </summary>
     [Parameter] public string KeyboardCloseKey { get; set; } = "Escape";
 
+    /// <summary>
+    /// If enabled the dialog can be moved around by dragging its header. Add the "blazor-dialog-drag-handle"
+    /// css class to an element to use it as the drag handle instead of the header.
+    /// Ignored when the dialog is <see cref="Dialog.IsCustom" />. Defaults to false.
+    /// </summary>
+    [Parameter] public bool AllowDragging { get; set; }
+
 
     private bool? _forcedPreventNavigation;
     protected TaskCompletionSource<object?>? taskCompletionSource;
     internal Action<object?> OnDialogHide = null!;
     private DotNetObjectReference<Dialog>? dotNetObjectReference;
+    private ElementReference contentWrapperElement;
+    private bool isDraggingEnabled;
 
     protected async Task NotifyDialogHidden(object? result) 
     {
@@ -383,13 +392,36 @@
         _forcedPreventNavigation = true;
     }
 
-    protected override Task OnAfterRenderAsync(bool firstRender)
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (OnAfterRender.HasDelegate)
         {
             OnAfterRender.InvokeAsync(firstRender);
         }
-        return base.OnAfterRenderAsync(firstRender);
+        await SyncDragging();
+        await base.OnAfterRenderAsync(firstRender);
+    }
+
+    /// <summary>
+    /// Attaches/detaches the javascript drag handlers, once the dialog content is actually in the dom.
+    /// </summary>
+    private async Task SyncDragging()
+    {
+        if (IsCustom) return;
+
+        if (isShowing && AllowDragging && !isDraggingEnabled)
+        {
+            isDraggingEnabled = true;
+            await jsRuntime.InvokeVoidAsync("blazorDialog.enableDragging", contentWrapperElement);
+        }
+        else if (isDraggingEnabled && (!isShowing || !AllowDragging))
+        {
+            isDraggingEnabled = false;
+            if (isShowing) // when hidden the element is already removed from the dom, along with its handlers
+            {
+                await jsRuntime.InvokeVoidAsync("blazorDialog.disableDragging", contentWrapperElement);
+            }
+        }
     }
 
     [JSInvokable]

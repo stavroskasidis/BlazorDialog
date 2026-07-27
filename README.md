@@ -11,6 +11,7 @@ Dialog component as a service for [Blazor](https://blazor.net)!
 * Open any component as a dialog.
 * Can use dialogs as normal components, declaratively (if you don't want to use as a service).
 * Build-in modal dialog with optional helper components (`Header`, `Body`, `Footer`).
+* Optionally let the user move a dialog around by dragging its header.
 * Option to use completely custom markup/css, ignoring the build-in opinionated css and html.
 
 ## Samples / Demo
@@ -70,7 +71,12 @@ Add the following static file references in your `App.razor` file.
 
 ## Release Notes
 
-<details open="open"><summary>4.1</summary>
+<details open="open"><summary>4.2</summary>
+    
+>- New feature: `AllowDragging`. When enabled the dialog can be moved around by dragging its header (or any element marked with the `blazor-dialog-drag-handle` css class).
+</details>
+
+<details><summary>4.1</summary>
     
 >- Restore PreventHide functionality via OnBeforeHide event.
 >- Add two-way binding support to the "IsShowing" parameter to fix issues when using the Dialog component as a normal component in combination with the keyboard close feature and the close button feature.
