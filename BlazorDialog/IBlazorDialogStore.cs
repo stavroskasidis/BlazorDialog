@@ -59,6 +59,13 @@ namespace BlazorDialog
         public bool PreventNavigation { get; set; } = true;
 
         /// <summary>
+        /// If enabled the dialog can be moved around by dragging its header. Add the "blazor-dialog-drag-handle"
+        /// css class to an element to use it as the drag handle instead of the header.
+        /// Ignored when the dialog is <see cref="ComponentAsDialogOptions.IsCustom" />. Defaults to false.
+        /// </summary>
+        public bool AllowDragging { get; set; }
+
+        /// <summary>
         /// An event that is triggered before the dialog appears.
         /// </summary>
         public Func<DialogBeforeShowEventArgs, Task>? OnBeforeShow { get; set; }

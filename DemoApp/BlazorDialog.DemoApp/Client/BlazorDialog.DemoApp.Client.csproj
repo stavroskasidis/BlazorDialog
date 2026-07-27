@@ -9,7 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
-	  <PackageReference Include="BlazorDialog" Version="4.1.0-beta-1021" />
+	  <PackageReference Include="BlazorDialog" Version="4.2.0-beta-1173" />
 	  <PackageReference Include="Microsoft.AspNetCore.Components.Authorization" Version="$(MSPackagesVersion)" />
 	  <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="$(MSPackagesVersion)" />
 	  <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="$(MSPackagesVersion)" PrivateAssets="all" />

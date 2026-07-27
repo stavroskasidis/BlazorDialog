@@ -11,7 +11,7 @@
             @if (!IsCustom)
             {
                 <div class="blazor-dialog-container @CssClass @(Centered ? "blazor-dialog-centered" : "")" style="z-index:@(BaseZIndex + dialogDepth)">
-                    <div class="blazor-dialog-content-wrapper @ContentWrapperCssClass @AnimationCssClass">
+                    <div class="blazor-dialog-content-wrapper @ContentWrapperCssClass @AnimationCssClass @(AllowDragging ? "blazor-dialog-draggable" : "")" @ref="ContentWrapperElement">
                         <div class="blazor-dialog-content">
                             @ChildContent
                         </div>
@@ -121,11 +121,36 @@
     /// </summary>
     [Parameter] public string KeyboardCloseKey { get; set; } = "Escape";
 
+    /// <summary>
+    /// If enabled the dialog can be moved around by dragging its header. Add the "blazor-dialog-drag-handle"
+    /// css class to an element to use it as the drag handle instead of the header.
+    /// Ignored when the dialog is <see cref="Dialog.IsCustom" />. Defaults to false.
+    /// </summary>
+    [Parameter] public bool AllowDragging { get; set; }
+
 
     private bool? _forcedPreventNavigation;
     protected TaskCompletionSource<object?>? taskCompletionSource;
     internal Action<object?> OnDialogHide = null!;
     private DotNetObjectReference<Dialog>? dotNetObjectReference;
+    private ElementReference contentWrapperElement;
+    private bool isContentWrapperRendered;
+    private bool isDraggingEnabled;
+
+    /// <summary>
+    /// Captures the content wrapper element. The setter is what tells us that the element actually made
+    /// it into the dom: the isShowing flag cannot, because it is set before the render happens and an
+    /// OnAfterRender of an earlier render can still be in flight by then.
+    /// </summary>
+    private ElementReference ContentWrapperElement
+    {
+        get => contentWrapperElement;
+        set
+        {
+            contentWrapperElement = value;
+            isContentWrapperRendered = true;
+        }
+    }
 
     protected async Task NotifyDialogHidden(object? result) 
     {
@@ -235,6 +260,7 @@
                 await OnBeforeHide.InvokeAsync(args);
             }
             this.isShowing = false;
+            this.isContentWrapperRendered = false;
             if (OnAfterHide.HasDelegate)
             {
                 var args = new DialogAfterHideEventArgs(this, triggeredFromKeyboard: false, triggeredFromCloseButton: false);
@@ -330,6 +356,7 @@
         }
         locationChangingHandler.RemoveLocationChangingHandler(this);
         this.isShowing = false;
+        this.isContentWrapperRendered = false;
         await NotifyDialogHidden(result);
         await InvokeAsync(() => StateHasChanged());
         if (OnAfterHide.HasDelegate)
@@ -383,13 +410,38 @@
         _forcedPreventNavigation = true;
     }
 
-    protected override Task OnAfterRenderAsync(bool firstRender)
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (OnAfterRender.HasDelegate)
         {
             OnAfterRender.InvokeAsync(firstRender);
         }
-        return base.OnAfterRenderAsync(firstRender);
+        await SyncDragging();
+        await base.OnAfterRenderAsync(firstRender);
+    }
+
+    /// <summary>
+    /// Attaches/detaches the javascript drag handlers, once the dialog content is actually in the dom.
+    /// </summary>
+    private async Task SyncDragging()
+    {
+        if (IsCustom) return;
+
+        var isInDom = isShowing && isContentWrapperRendered;
+
+        if (isInDom && AllowDragging && !isDraggingEnabled)
+        {
+            isDraggingEnabled = true;
+            await jsRuntime.InvokeVoidAsync("blazorDialog.enableDragging", contentWrapperElement);
+        }
+        else if (isDraggingEnabled && (!isInDom || !AllowDragging))
+        {
+            isDraggingEnabled = false;
+            if (isInDom) // when hidden the element is already removed from the dom, along with its handlers
+            {
+                await jsRuntime.InvokeVoidAsync("blazorDialog.disableDragging", contentWrapperElement);
+            }
+        }
     }
 
     [JSInvokable]

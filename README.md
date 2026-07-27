@@ -11,6 +11,7 @@ Dialog component as a service for [Blazor](https://blazor.net)!
 * Open any component as a dialog.
 * Can use dialogs as normal components, declaratively (if you don't want to use as a service).
 * Build-in modal dialog with optional helper components (`Header`, `Body`, `Footer`).
+* Optionally let the user move a dialog around by dragging its header.
 * Option to use completely custom markup/css, ignoring the build-in opinionated css and html.
 
 ## Samples / Demo
@@ -27,47 +28,27 @@ PM> Install-Package BlazorDialog
 ```
 *Nuget package page can be found [here](https://www.nuget.org/packages/BlazorDialog).*
 
-**2. Add the following line in your Blazor project in either `Startup.cs` (blazor server-side) or `Program.cs` (blazor wasm)**
+**2. Add the following line in your Blazor project**
 
-**- Blazor server-side: `Startup.cs`**
+**- `Program.cs`**
 ```csharp
-public class Startup
-{
-    public void ConfigureServices(IServiceCollection services)
-    {
-        // other code
-        services.AddBlazorDialog();
-        // other code
-    }
-}
+// other code
+builder.Services.AddBlazorDialog();
+// other code
 ```
-
-**- Blazor wasm: `Program.cs`**
-```csharp
-public class Program
-{
-    public static async Task Main(string[] args)
-    {
-       // other code
-        builder.Services.AddBlazorDialog();
-        // other code
-    }
-}
-```
-**3. Add the following line in your `_Imports.razor`**
+**3. Add the following line in all your `_Imports.razor`**
 ```csharp
 @using BlazorDialog
 ```
 
-**4. Add the following line in your `MainLayout.razor` or `App.razor` (must be rendered once in a central spot)**
+**4. Add the following line in your `MainLayout.razor` (or any other central 'interactive' spot)**
 ```csharp
 <DialogOutput/>
 ```
 
-**5. Reference the css file**
+**5. Reference the css & script files**
 
-Add the following static file references in your `_Host.cshtml` (server-side blazor) or in your `index.html` (client-side blazor). 
-Make sure that there is a call to `app.UseStaticFiles();` in your server project's `Startup.cs`.
+Add the following static file references in your `App.razor` file. 
 
 ```html
 <link href="_content/BlazorDialog/styles.min.css" rel="stylesheet" />
@@ -90,7 +71,12 @@ Make sure that there is a call to `app.UseStaticFiles();` in your server project
 
 ## Release Notes
 
-<details open="open"><summary>4.1</summary>
+<details open="open"><summary>4.2</summary>
+    
+>- New feature: `AllowDragging`. When enabled the dialog can be moved around by dragging its header (or any element marked with the `blazor-dialog-drag-handle` css class).
+</details>
+
+<details><summary>4.1</summary>
     
 >- Restore PreventHide functionality via OnBeforeHide event.
 >- Add two-way binding support to the "IsShowing" parameter to fix issues when using the Dialog component as a normal component in combination with the keyboard close feature and the close button feature.

@@ -4,6 +4,9 @@
 <label>Is centered:</label>
 <input type="checkbox" @bind="isCentered" />
 
+<label>Allow dragging:</label>
+<input type="checkbox" @bind="allowDragging" />
+
 <label>Size:</label>
 <select @bind="size">
     <option value="@DialogSize.Normal">@DialogSize.Normal</option>
@@ -36,6 +39,7 @@
 @code {
     string? dialogResult = null;
     bool isCentered;
+    bool allowDragging;
     DialogSize size;
     DialogAnimation animation;
 
@@ -46,6 +50,7 @@
                 Animation = animation,
                 Size = size,
                 Centered = isCentered,
+                AllowDragging = allowDragging,
                 Parameters = new()
                 {
                     { nameof(ComponentDialog.Input), "(Simple Dialog) Are you sure?" }
@@ -69,6 +74,7 @@
             Animation = animation,
             Size = size,
             Centered = isCentered,
+            AllowDragging = allowDragging,
             Parameters = new()
             {
                 { nameof(ComponentDialogInput.Input), "(Simple Dialog Large) Are you sure?"}
@@ -83,6 +89,7 @@
                 Animation = animation,
                 Size = size,
                 Centered = isCentered,
+                AllowDragging = allowDragging,
                 KeyboardCloseEnabled = false,
                 Parameters = new()
                 {
@@ -108,6 +115,7 @@
             Animation = animation,
             Size = size,
             Centered = isCentered,
+            AllowDragging = allowDragging,
             Parameters = new()
             {
                 { nameof(ComponentDialog.Input), "(Simple Dialog) Are you sure?" }
