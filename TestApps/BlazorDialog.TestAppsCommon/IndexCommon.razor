@@ -181,9 +181,28 @@
     </DialogFooter>
 </Dialog>
 
+@* a custom dialog brings its own markup, so it registers the element that dragging moves itself *@
+<Dialog @bind-IsShowing="isCustomShowing" @ref="customDialog" IsCustom="true" AllowDragging="allowDragging">
+    <div style="position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:1050;padding-top:100px;">
+        @* the "blazor-dialog-content-wrapper" class keeps a nested dialog's header from being picked as this one's drag handle *@
+        <div class="blazor-dialog-content-wrapper" style="position:relative;width:60%;margin:auto;background:#fefefe;border:1px solid #888;" @ref="customDialogContentWrapper">
+            <div class="blazor-dialog-header" style="padding:8px;background:#eee;">
+                <h4>Custom dialog</h4>
+            </div>
+            <div style="padding:8px;">
+                <p>Everything here is custom markup. Drag me by my own header.</p>
+            </div>
+            <div style="padding:8px;">
+                <button @onclick="@(() => isCustomShowing = false)">Close</button>
+            </div>
+        </div>
+    </div>
+</Dialog>
+
 <button @onclick="SimpleDialogOnClick">Simple Dialog</button>
 <button @onclick="SimpleDialogBigOnClick">Simple Dialog Big</button>
 <button @onclick="@(() => isNestedOuterShowing = true)">Nested Dialog (dialog inside a dialog)</button>
+<button @onclick="@(() => isCustomShowing = true)">Custom Dialog</button>
 <button @onclick="SimpleLargeDialogDisablePreventNavigation">Simple Dialog Big allow navigation</button>
 <button @onclick="SimpleDialogBackToBack">Simple Dialog BackToBack</button>
 <button @onclick="SimpleDialogOnClickNoKeyboardClose">Simple Dialog (No keyboard close)</button>
@@ -201,6 +220,9 @@
     bool allowDragging;
     bool? isNestedOuterShowing = false;
     bool? isNestedInnerShowing = false;
+    bool? isCustomShowing = false;
+    Dialog customDialog = null!;
+    ElementReference customDialogContentWrapper;
     DialogSize size;
     DialogAnimation animation;
     Dialog? simpleLargeDialog;
@@ -238,6 +260,16 @@
     async Task SimpleDialogPreventHide()
     {
         dialogResult = await dialogService.ShowDialog<string>("simple-dialog-prevent-hide", "(Simple Dialog Large) Are you sure?");
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        // the dialog cannot capture an element it did not render, so the custom content hands it over
+        if (isCustomShowing == true)
+        {
+            await customDialog.SetCustomContentWrapper(customDialogContentWrapper);
+        }
+        await base.OnAfterRenderAsync(firstRender);
     }
 
     void OnBeforeHide(DialogBeforeHideEventArgs args)
