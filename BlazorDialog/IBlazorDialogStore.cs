@@ -61,7 +61,9 @@ namespace BlazorDialog
         /// <summary>
         /// If enabled the dialog can be moved around by dragging its header. Add the "blazor-dialog-drag-handle"
         /// css class to an element to use it as the drag handle instead of the header.
-        /// Ignored when the dialog is <see cref="ComponentAsDialogOptions.IsCustom" />. Defaults to false.
+        /// A custom dialog (<see cref="ComponentAsDialogOptions.IsCustom" />) renders its own markup, so its
+        /// component also has to tell the dialog which element to move by calling
+        /// <see cref="Dialog.SetCustomContentWrapper" />. Defaults to false.
         /// </summary>
         public bool AllowDragging { get; set; }
 

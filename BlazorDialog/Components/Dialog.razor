@@ -124,7 +124,8 @@
     /// <summary>
     /// If enabled the dialog can be moved around by dragging its header. Add the "blazor-dialog-drag-handle"
     /// css class to an element to use it as the drag handle instead of the header.
-    /// Ignored when the dialog is <see cref="Dialog.IsCustom" />. Defaults to false.
+    /// A custom dialog (<see cref="Dialog.IsCustom" />) renders its own markup, so it also has to tell the
+    /// dialog which element to move by calling <see cref="SetCustomContentWrapper" />. Defaults to false.
     /// </summary>
     [Parameter] public bool AllowDragging { get; set; }
 
@@ -150,6 +151,38 @@
             contentWrapperElement = value;
             isContentWrapperRendered = true;
         }
+    }
+
+    /// <summary>
+    /// Registers the element that dragging moves, for a custom dialog (<see cref="IsCustom" />). Custom dialogs
+    /// render their own markup, so the dialog cannot capture that element on its own. Call this from the custom
+    /// content's OnAfterRenderAsync, passing the @ref of the element that plays the role of the content wrapper;
+    /// the drag handle is looked up inside it and it is the element that actually moves, so it must be positioned
+    /// (e.g. position: relative) for the offsets to apply. Give it the "blazor-dialog-content-wrapper" css class
+    /// as well, so that a nested dialog's header is not mistaken for this one's drag handle.
+    /// Calling this repeatedly with the same element is a no-op, so it is safe to call on every render.
+    /// Does nothing when the dialog is not custom or when <see cref="AllowDragging" /> is false.
+    /// </summary>
+    public async Task SetCustomContentWrapper(ElementReference element)
+    {
+        if (!IsCustom) return;
+
+        if (isContentWrapperRendered && contentWrapperElement.Equals(element))
+        {
+            // Already registered - still sync, the element survives re-renders but AllowDragging may have changed.
+            await SyncDragging();
+            return;
+        }
+
+        // A different element replaces the previous one, so let go of the handlers attached to it first.
+        if (isDraggingEnabled)
+        {
+            isDraggingEnabled = false;
+            await jsRuntime.InvokeVoidAsync("blazorDialog.disableDragging", contentWrapperElement);
+        }
+
+        ContentWrapperElement = element;
+        await SyncDragging();
     }
 
     protected async Task NotifyDialogHidden(object? result) 
@@ -425,8 +458,8 @@
     /// </summary>
     private async Task SyncDragging()
     {
-        if (IsCustom) return;
-
+        // A custom dialog renders its own markup, so isContentWrapperRendered is only ever set for it through
+        // SetCustomContentWrapper - until it calls that there is nothing to drag and nothing to do here.
         var isInDom = isShowing && isContentWrapperRendered;
 
         if (isInDom && AllowDragging && !isDraggingEnabled)

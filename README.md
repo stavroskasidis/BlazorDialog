@@ -71,7 +71,12 @@ Add the following static file references in your `App.razor` file.
 
 ## Release Notes
 
-<details open="open"><summary>4.2</summary>
+<details open="open"><summary>4.2.1</summary>
+    
+>- `AllowDragging` now works for custom dialogs (`IsCustom`) as well. Since a custom dialog renders its own markup, it has to hand the element that moves to `Dialog.SetCustomContentWrapper` from its `OnAfterRenderAsync`.
+</details>
+
+<details><summary>4.2</summary>
     
 >- New feature: `AllowDragging`. When enabled the dialog can be moved around by dragging its header (or any element marked with the `blazor-dialog-drag-handle` css class).
 </details>
